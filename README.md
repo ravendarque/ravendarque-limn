@@ -119,6 +119,26 @@ Section label — no background or border, just uppercase text.
   icon: github   # optional — any Lucide icon name (https://lucide.dev/icons)
 ```
 
+#### linksbar
+
+A row of linked icon buttons — for social links or anything else.
+
+```yaml
+- type: linksbar
+  items:
+    - icon: github
+      url: https://github.com/yourname
+      label: GitHub           # optional — shown as tooltip and used for screen readers
+    - icon: instagram
+      url: https://instagram.com/yourname
+      label: Instagram
+    - icon: rss
+      url: https://yourblog.com/feed
+      label: RSS Feed
+```
+
+`icon` can be any [Lucide icon name](https://lucide.dev/icons). `label` is optional but recommended.
+
 #### embed
 
 Paste the full `<iframe>` snippet from a service's "Share → Embed" dialog.

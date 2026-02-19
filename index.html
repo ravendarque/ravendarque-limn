@@ -161,14 +161,8 @@
 
     /* ---- Heading tile ---- */
 
-    .tile-heading {
-      background: transparent;
-      border-color: transparent;
-      padding-bottom: 0;
-    }
-
     .tile-heading h2 {
-      font-size: 0.85rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: var(--color-text-muted);
       text-transform: uppercase;
@@ -322,6 +316,49 @@
       color: var(--color-text-muted);
       font-style: italic;
     }
+
+    /* ---- Surface modifier ---- */
+
+    .tile--surface-transparent {
+      background: color-mix(in srgb, var(--color-surface) 50%, transparent);
+      border-color: color-mix(in srgb, var(--color-border) 50%, transparent);
+    }
+
+    .tile--surface-hide {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    /* ---- Linksbar tile ---- */
+
+    .tile-linksbar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tile-linksbar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .tile-linksbar a:hover,
+    .tile-linksbar a:focus-visible {
+      color: var(--color-accent);
+      background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    }
+
+    .tile-linksbar a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+    .tile-linksbar a svg { width: 22px; height: 22px; }
   </style>
 </head>
 <body>
@@ -352,7 +389,7 @@
 
     // ---- Validation ----
 
-    const KNOWN_TILE_TYPES = ["heading", "text", "image", "link", "embed", "calendar"];
+    const KNOWN_TILE_TYPES = ["heading", "text", "image", "link", "embed", "calendar", "linksbar"];
     const CALENDAR_WINDOWS = ["today", "week", "month", "year"];
 
     function validate(config) {
@@ -376,6 +413,14 @@
           if (!tile.label) throw new Error(`${at} (link) missing required field: label`);
         }
         if (tile.type === "embed" && !tile.html) throw new Error(`${at} (embed) missing required field: html`);
+        if (tile.type === "linksbar") {
+          if (!Array.isArray(tile.items) || tile.items.length === 0)
+            throw new Error(`${at} (linksbar) requires at least one item in "items"`);
+          tile.items.forEach((item, j) => {
+            if (!item.icon) throw new Error(`${at}.items[${j}] (linksbar) missing required field: icon`);
+            if (!item.url)  throw new Error(`${at}.items[${j}] (linksbar) missing required field: url`);
+          });
+        }
         if (tile.type === "calendar") {
           if (!tile.window) throw new Error(`${at} (calendar) missing required field: window`);
           if (!CALENDAR_WINDOWS.includes(tile.window))
@@ -509,6 +554,25 @@
       return tile;
     }
 
+    function renderIconsTile({ items }) {
+      const tile = makeTile("linksbar");
+      items.forEach(({ icon, url, label }) => {
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        if (label) {
+          a.title = label;
+          a.setAttribute("aria-label", label);
+        }
+        const i = document.createElement("i");
+        i.setAttribute("data-lucide", icon);
+        a.appendChild(i);
+        tile.appendChild(a);
+      });
+      return tile;
+    }
+
     function filterAndSort(events, win) {
       const now = new Date();
       return events
@@ -530,7 +594,7 @@
         tile.appendChild(empty);
         return;
       }
-      events.forEach(({ title, description, location, _start, _end }) => {
+      events.forEach(({ title, description, location, _start, _end, _allDay }) => {
         const item = document.createElement("div");
         item.className = "calendar-item";
 
@@ -547,12 +611,14 @@
         monthEl.textContent = _start.toLocaleDateString(undefined, { month: "short" });
         dateCol.appendChild(monthEl);
 
-        const t1 = _start.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
-        const t2 = _end.toLocaleTimeString(undefined,   { hour: "numeric", minute: "2-digit" });
-        const timeEl = document.createElement("div");
-        timeEl.className = "calendar-date-time";
-        timeEl.textContent = `${t1}–${t2}`;
-        dateCol.appendChild(timeEl);
+        if (!_allDay) {
+          const t1 = _start.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+          const t2 = _end.toLocaleTimeString(undefined,   { hour: "numeric", minute: "2-digit" });
+          const timeEl = document.createElement("div");
+          timeEl.className = "calendar-date-time";
+          timeEl.textContent = `${t1}–${t2}`;
+          dateCol.appendChild(timeEl);
+        }
 
         item.appendChild(dateCol);
 
@@ -591,6 +657,7 @@
           title:       ev.summary     || "(No title)",
           description: ev.description || null,
           location:    ev.location    || null,
+          _allDay:     ev.startDate.isDate,
           _start:      ev.startDate.toJSDate(),
           _end:        ev.endDate.toJSDate(),
         };
@@ -622,8 +689,9 @@
       } else {
         const events = (items ?? []).map(item => ({
           ...item,
-          _start: new Date(item.start),
-          _end:   new Date(item.end),
+          _allDay: !String(item.start).includes("T"),
+          _start:  new Date(item.start),
+          _end:    new Date(item.end),
         }));
         populateCalendarTile(tile, filterAndSort(events, win));
       }
@@ -640,12 +708,19 @@
       link:     renderLinkTile,
       embed:    renderEmbedTile,
       calendar: renderCalendarTile,
+      linksbar: renderIconsTile,
     };
 
     function renderTile(tile) {
       const fn = tileRenderers[tile.type];
       if (!fn) throw new Error(`Unknown tile type: "${tile.type}"`);
-      document.getElementById("tiles").appendChild(fn(tile));
+      const el = fn(tile);
+      if (tile.type !== "calendar") {
+        const surface = tile.surface ?? (tile.type === "heading" ? "hide" : "show");
+        if      (surface === "transparent") el.classList.add("tile--surface-transparent");
+        else if (surface === "hide")        el.classList.add("tile--surface-hide");
+      }
+      document.getElementById("tiles").appendChild(el);
     }
 
     // ---- Bootstrap (top-level await) ----

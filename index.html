@@ -329,9 +329,13 @@
     <div id="loading">Loading…</div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <script>
+  <script type="module">
+    import { load }      from "https://esm.sh/js-yaml@4";
+    import ICAL          from "https://esm.sh/ical.js@2";
+    import * as lucide   from "https://esm.sh/lucide";
+
+    const { createIcons, ...icons } = lucide;
+
     // ---- Theme ----
 
     function applyTheme(theme) {
@@ -349,7 +353,7 @@
     // ---- Validation ----
 
     const KNOWN_TILE_TYPES = ["heading", "text", "image", "link", "embed", "calendar"];
-    const CALENDAR_WINDOWS = ["today", "week", "month"];
+    const CALENDAR_WINDOWS = ["today", "week", "month", "year"];
 
     function validate(config) {
       if (!config || typeof config !== "object") throw new Error("Config must be a YAML mapping");
@@ -362,11 +366,11 @@
       if (!Array.isArray(config.tiles)) throw new Error("tiles must be a list");
       config.tiles.forEach((tile, i) => {
         const at = `tiles[${i}]`;
-        if (!tile.type)                        throw new Error(`${at} missing required field: type`);
+        if (!tile.type)                            throw new Error(`${at} missing required field: type`);
         if (!KNOWN_TILE_TYPES.includes(tile.type)) throw new Error(`${at}.type "${tile.type}" is not a known tile type`);
-        if (tile.type === "heading" && !tile.text)  throw new Error(`${at} (heading) missing required field: text`);
+        if (tile.type === "heading" && !tile.text)    throw new Error(`${at} (heading) missing required field: text`);
         if (tile.type === "text"    && !tile.content) throw new Error(`${at} (text) missing required field: content`);
-        if (tile.type === "image"   && !tile.url)   throw new Error(`${at} (image) missing required field: url`);
+        if (tile.type === "image"   && !tile.url)     throw new Error(`${at} (image) missing required field: url`);
         if (tile.type === "link") {
           if (!tile.url)   throw new Error(`${at} (link) missing required field: url`);
           if (!tile.label) throw new Error(`${at} (link) missing required field: label`);
@@ -376,7 +380,9 @@
           if (!tile.window) throw new Error(`${at} (calendar) missing required field: window`);
           if (!CALENDAR_WINDOWS.includes(tile.window))
             throw new Error(`${at} (calendar) window must be one of: ${CALENDAR_WINDOWS.join(", ")}`);
-          if (!Array.isArray(tile.items)) throw new Error(`${at} (calendar) items must be a list`);
+
+          if (!tile.src && !Array.isArray(tile.items))
+            throw new Error(`${at} (calendar) requires either "src" (.ics file path) or "items" (list)`);
         }
       });
     }
@@ -503,32 +509,31 @@
       return tile;
     }
 
-    function renderCalendarTile({ window: win, items }) {
-      const tile = makeTile("calendar");
+    function filterAndSort(events, win) {
       const now = new Date();
-
-      const filtered = (items ?? [])
-        .map(item => ({ ...item, _start: new Date(item.start), _end: new Date(item.end) }))
+      return events
         .filter(({ _start }) => {
           if (win === "today") return _start.toDateString() === now.toDateString();
-          const cutoffMs = now.getTime() + (win === "week" ? 7 : 30) * 86_400_000;
+          const days = win === "week" ? 7 : win === "month" ? 30 : 365;
+          const cutoffMs = now.getTime() + days * 86_400_000;
           return _start >= now && _start.getTime() <= cutoffMs;
         })
         .sort((a, b) => a._start - b._start);
+    }
 
-      if (filtered.length === 0) {
+    function populateCalendarTile(tile, events) {
+      tile.innerHTML = "";
+      if (events.length === 0) {
         const empty = document.createElement("p");
         empty.className = "calendar-empty";
         empty.textContent = "No upcoming events.";
         tile.appendChild(empty);
-        return tile;
+        return;
       }
-
-      filtered.forEach(({ title, description, location, _start, _end }) => {
+      events.forEach(({ title, description, location, _start, _end }) => {
         const item = document.createElement("div");
         item.className = "calendar-item";
 
-        // Left: coloured date column
         const dateCol = document.createElement("div");
         dateCol.className = "calendar-item-date";
 
@@ -551,7 +556,6 @@
 
         item.appendChild(dateCol);
 
-        // Right: details
         const details = document.createElement("div");
         details.className = "calendar-item-details";
 
@@ -577,6 +581,52 @@
         item.appendChild(details);
         tile.appendChild(item);
       });
+    }
+
+    function parseIcs(icsText) {
+      const comp = new ICAL.Component(ICAL.parse(icsText));
+      return comp.getAllSubcomponents("vevent").map(vevent => {
+        const ev = new ICAL.Event(vevent);
+        return {
+          title:       ev.summary     || "(No title)",
+          description: ev.description || null,
+          location:    ev.location    || null,
+          _start:      ev.startDate.toJSDate(),
+          _end:        ev.endDate.toJSDate(),
+        };
+      });
+    }
+
+    function renderCalendarTile({ window: win, items, src }) {
+      const tile = makeTile("calendar");
+
+      if (src) {
+        const loading = document.createElement("p");
+        loading.className = "calendar-empty";
+        loading.textContent = "Loading…";
+        tile.appendChild(loading);
+
+        fetch(src)
+          .then(r => {
+            if (!r.ok) throw new Error(`Could not load ${src} (HTTP ${r.status})`);
+            return r.text();
+          })
+          .then(icsText => populateCalendarTile(tile, filterAndSort(parseIcs(icsText), win)))
+          .catch(err => {
+            tile.innerHTML = "";
+            const errEl = document.createElement("p");
+            errEl.className = "calendar-empty";
+            errEl.textContent = `Calendar error: ${err.message}`;
+            tile.appendChild(errEl);
+          });
+      } else {
+        const events = (items ?? []).map(item => ({
+          ...item,
+          _start: new Date(item.start),
+          _end:   new Date(item.end),
+        }));
+        populateCalendarTile(tile, filterAndSort(events, win));
+      }
 
       return tile;
     }
@@ -598,43 +648,41 @@
       document.getElementById("tiles").appendChild(fn(tile));
     }
 
-    // ---- Bootstrap ----
+    // ---- Bootstrap (top-level await) ----
 
     async function loadTheme(themeValue) {
       if (typeof themeValue === "string") {
         const path = `themes/${themeValue}.yaml`;
         const res = await fetch(path);
         if (!res.ok) throw new Error(`Could not load theme "${themeValue}" (${path} returned HTTP ${res.status})`);
-        return jsyaml.load(await res.text());
+        return load(await res.text());
       }
-      return themeValue; // inline object
+      return themeValue;
     }
 
-    fetch("./config.yaml")
-      .then(r => {
-        if (!r.ok) throw new Error(`Could not load config.yaml (HTTP ${r.status})`);
-        return r.text();
-      })
-      .then(async text => {
-        const config = jsyaml.load(text);
-        config.theme = await loadTheme(config.theme);
-        validate(config);
+    try {
+      const r = await fetch("./config.yaml");
+      if (!r.ok) throw new Error(`Could not load config.yaml (HTTP ${r.status})`);
+      const config = load(await r.text());
+      config.theme = await loadTheme(config.theme);
+      validate(config);
 
-        const app = document.getElementById("app");
-        app.innerHTML = "";
+      const app = document.getElementById("app");
+      app.innerHTML = "";
 
-        applyTheme(config.theme);
-        app.appendChild(renderProfile(config.profile));
+      applyTheme(config.theme);
+      app.appendChild(renderProfile(config.profile));
 
-        const tilesEl = document.createElement("div");
-        tilesEl.id = "tiles";
-        tilesEl.style.display = "contents";
-        app.appendChild(tilesEl);
+      const tilesEl = document.createElement("div");
+      tilesEl.id = "tiles";
+      tilesEl.style.display = "contents";
+      app.appendChild(tilesEl);
 
-        config.tiles.forEach(renderTile);
-        lucide.createIcons();
-      })
-      .catch(showError);
+      config.tiles.forEach(renderTile);
+      createIcons({ icons });
+    } catch (err) {
+      showError(err);
+    }
   </script>
 </body>
 </html>

@@ -13,6 +13,15 @@ No Node, no build step, no CI pipeline required.
 
 ---
 
+## Local preview
+
+Because `index.html` fetches `config.yaml` via `fetch()`, you need a local file server (opening the file directly won't work):
+
+- **VS Code Live Server** — right-click `index.html` → Open with Live Server
+- **npx**: `npx serve .` then open `http://localhost:3000`
+
+---
+
 ## config.yaml reference
 
 ### Profile
@@ -24,20 +33,54 @@ profile:
   image: https://...          # optional — falls back to initials if omitted or broken
 ```
 
+`image` can be a URL or a local filename committed to the repo (e.g. `avatar.png`).
+
+---
+
 ### Theme
 
-All values are CSS colour strings (hex, hsl, rgb, or named colours).
+Set `theme` to the name of any file in the `themes/` directory:
+
+```yaml
+theme: dark
+```
+
+Available themes: `dark`, `scarlet`, `light`, `nord`, `dracula`, `catppuccin`, `gruvbox`, `solarized`, `retro`, `monokai`, `pink-pony-club`, `mocha`
+
+Each theme file sets these fields:
+
+```yaml
+background: "#0f0f0f"   # page background          — required
+surface:    "#1a1a1a"   # tile card background      — required
+text:       "#f0f0f0"   # primary text              — required
+accent:     "#7c6aff"   # link buttons, highlights  — required
+textMuted:  "#a0a0a0"   # secondary text            — optional (default: #888)
+accentText: "#ffffff"   # text on accent surfaces   — optional (default: #fff)
+border:     "#2e2e2e"   # tile borders              — optional (default: transparent)
+corners:    rounded     # corner style — see below
+```
+
+**Corner styles** (set per theme):
+
+| Value | Effect |
+|---|---|
+| `rounded` | Soft rounded corners (default) |
+| `square` | No rounding — hard 90° corners |
+| `clipped` | Diagonal cut on top-right and bottom-left |
+| `pixel` | 3-step staircase corners — 8-bit game aesthetic |
+
+You can also inline a theme directly in `config.yaml` instead of referencing a file:
 
 ```yaml
 theme:
-  background: "#0f0f0f"   # page background          — required
-  surface:    "#1a1a1a"   # tile card background      — required
-  text:       "#f0f0f0"   # primary text              — required
-  accent:     "#7c6aff"   # link buttons, highlights  — required
-  textMuted:  "#a0a0a0"   # secondary text            — optional (default: #888)
-  accentText: "#ffffff"   # text on accent surfaces   — optional (default: #fff)
-  border:     "#2e2e2e"   # tile borders              — optional (default: transparent)
+  background: "#0f0f0f"
+  surface:    "#1a1a1a"
+  text:       "#f0f0f0"
+  accent:     "#7c6aff"
+  corners:    square
 ```
+
+---
 
 ### Tiles
 
@@ -45,9 +88,11 @@ Tiles are rendered in the order they appear in the list.
 
 #### heading
 
+Section label — no background or border, just uppercase text.
+
 ```yaml
 - type: heading
-  text: Welcome!
+  text: Links
 ```
 
 #### text
@@ -81,35 +126,80 @@ Paste the full `<iframe>` snippet from a service's "Share → Embed" dialog.
 ```yaml
 - type: embed
   html: '<iframe src="https://www.youtube.com/embed/..." ...></iframe>'
-  title: Optional label shown above the embed
+  title: Optional label shown above the embed   # optional
 ```
 
-Works with YouTube, Spotify, Vimeo, SoundCloud, and any other service that provides a standard iframe embed.
+Works with YouTube, Spotify, Vimeo, SoundCloud, and any service that provides a standard iframe embed.
 
 #### calendar
 
+Displays upcoming events filtered to a time window.
+
 ```yaml
 - type: calendar
-  window: week   # today | week | month
+  window: week   # today | week | month | year
+```
+
+| Window | Shows events… |
+|---|---|
+| `today` | Starting today |
+| `week` | Starting within the next 7 days |
+| `month` | Starting within the next 30 days |
+| `year` | Starting within the next 365 days |
+
+Events outside the window are hidden. Events are sorted by start time.
+
+**Option 1 — ICS file** (recommended for real calendars):
+
+```yaml
+- type: calendar
+  window: year
+  src: https://gist.githubusercontent.com/yourname/abc123/raw/events.ics
+```
+
+`src` can be:
+- A relative path to an `.ics` file committed alongside `index.html` (e.g. `events.ics`)
+- A public URL — a GitHub Gist raw URL works well (CORS-friendly, editable without touching the repo)
+
+To use a Gist:
+1. Go to [gist.github.com](https://gist.github.com), create a **public** gist named `events.ics`
+2. Paste your ICS content and save
+3. Click **Raw** and copy the URL (`gist.githubusercontent.com/...`)
+4. Paste that URL as `src`
+5. Edit the gist to update events — no git commit needed
+
+**Option 2 — Static list:**
+
+```yaml
+- type: calendar
+  window: week
   items:
     - title: Team Standup
       start: "2026-02-19T09:00:00"
       end:   "2026-02-19T09:30:00"
-      description: Daily sync       # optional
-      location: Zoom                # optional
+      description: Daily sync   # optional
+      location: Zoom            # optional
 ```
-
-Items outside the window are automatically hidden. Items are sorted by start time.
 
 ---
 
-## Local preview
+## Adding a custom theme
 
-Because `index.html` fetches `config.yaml` via `fetch()`, you need a local file server (not `file://`):
+Create a new file in `themes/` — e.g. `themes/mytheme.yaml`:
 
-```bash
-python -m http.server
-# then open http://localhost:8000
+```yaml
+background: "#1a1a2e"
+surface:    "#16213e"
+text:       "#eaeaea"
+textMuted:  "#888"
+accent:     "#e94560"
+accentText: "#ffffff"
+border:     "#0f3460"
+corners:    rounded
 ```
 
-Or use any static server (VS Code Live Server, `npx serve`, etc.).
+Then reference it in `config.yaml`:
+
+```yaml
+theme: mytheme
+```

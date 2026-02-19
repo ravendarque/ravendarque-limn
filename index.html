@@ -243,44 +243,84 @@
 
     /* ---- Calendar tile ---- */
 
+    .tile-calendar { padding: 0; }
+
     .calendar-empty {
       color: var(--color-text-muted);
       font-size: 0.9rem;
+      padding: 16px;
     }
 
-    .calendar-item { padding: 6px 0; }
+    .calendar-item {
+      display: flex;
+      align-items: stretch;
+    }
 
     .calendar-item + .calendar-item {
       border-top: 1px solid var(--color-border);
-      margin-top: 10px;
-      padding-top: 10px;
     }
 
-    .calendar-item-time {
-      font-size: 0.78rem;
-      color: var(--color-text-muted);
+    .calendar-item-date {
+      background: var(--color-accent);
+      color: var(--color-accent-text);
+      width: 72px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 8px;
+      text-align: center;
+      gap: 1px;
+    }
+
+    .calendar-date-day {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .calendar-date-month {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+    }
+
+    .calendar-date-time {
+      font-size: 0.6rem;
+      opacity: 0.75;
+      margin-top: 3px;
       font-variant-numeric: tabular-nums;
-      margin-bottom: 2px;
+      line-height: 1.4;
+    }
+
+    .calendar-item-details {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      justify-content: center;
+      min-width: 0;
     }
 
     .calendar-item-title {
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--color-text);
-      margin-bottom: 2px;
     }
 
     .calendar-item-desc {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--color-text-muted);
       line-height: 1.4;
     }
 
     .calendar-item-location {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--color-text-muted);
       font-style: italic;
-      margin-top: 2px;
     }
   </style>
 </head>
@@ -488,41 +528,57 @@
         const item = document.createElement("div");
         item.className = "calendar-item";
 
+        // Left: coloured date column
+        const dateCol = document.createElement("div");
+        dateCol.className = "calendar-item-date";
+
+        const dayEl = document.createElement("div");
+        dayEl.className = "calendar-date-day";
+        dayEl.textContent = _start.getDate();
+        dateCol.appendChild(dayEl);
+
+        const monthEl = document.createElement("div");
+        monthEl.className = "calendar-date-month";
+        monthEl.textContent = _start.toLocaleDateString(undefined, { month: "short" });
+        dateCol.appendChild(monthEl);
+
+        const t1 = _start.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+        const t2 = _end.toLocaleTimeString(undefined,   { hour: "numeric", minute: "2-digit" });
         const timeEl = document.createElement("div");
-        timeEl.className = "calendar-item-time";
-        timeEl.textContent = formatEventTime(_start, _end);
-        item.appendChild(timeEl);
+        timeEl.className = "calendar-date-time";
+        timeEl.textContent = `${t1}–${t2}`;
+        dateCol.appendChild(timeEl);
+
+        item.appendChild(dateCol);
+
+        // Right: details
+        const details = document.createElement("div");
+        details.className = "calendar-item-details";
 
         const titleEl = document.createElement("div");
         titleEl.className = "calendar-item-title";
         titleEl.textContent = title;
-        item.appendChild(titleEl);
+        details.appendChild(titleEl);
 
         if (description) {
           const descEl = document.createElement("div");
           descEl.className = "calendar-item-desc";
           descEl.textContent = description;
-          item.appendChild(descEl);
+          details.appendChild(descEl);
         }
 
         if (location) {
           const locEl = document.createElement("div");
           locEl.className = "calendar-item-location";
           locEl.textContent = location;
-          item.appendChild(locEl);
+          details.appendChild(locEl);
         }
 
+        item.appendChild(details);
         tile.appendChild(item);
       });
 
       return tile;
-    }
-
-    function formatEventTime(start, end) {
-      const date = start.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
-      const t1   = start.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
-      const t2   = end.toLocaleTimeString(undefined,   { hour: "numeric", minute: "2-digit" });
-      return `${date} · ${t1}–${t2}`;
     }
 
     // ---- Tile registry + dispatcher ----

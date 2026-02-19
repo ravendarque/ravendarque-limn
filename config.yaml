@@ -3,7 +3,7 @@ profile:
   bio: Just a bad bitch with powerful hair
   image: nix-pal-border-2.png   # filename for local, url for remote, comment out to use initials fallback
 
-theme: scarlet  # themes/ directory — available: dark, scarlet, light, nord, dracula, catppuccin, gruvbox, solarized, retro
+theme: mocha  # themes/ directory — available: dark, scarlet, light, nord, dracula, catppuccin, gruvbox, solarized, retro, monokai, pink-pony-club, mocha
 
 tiles:
   - type: heading

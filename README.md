@@ -203,6 +203,19 @@ To use a Gist:
 
 ---
 
+## Adding a custom tile
+
+Tiles are modular: each lives in `tiles/` as a `.js` + `.css` pair. To add a new tile type:
+
+1. Create `tiles/mynewtile.js` with `render(tile)` and `validate(tile, at)` exports
+2. Create `tiles/mynewtile.css` with styles for `.tile-mynewtile`
+3. In `tiles/index.js`: add `import * as mynewtile from "./mynewtile.js"` and register in `tileRenderers`
+4. In `tiles/tiles.css`: add `@import "mynewtile.css";`
+
+`index.html` stays unchanged. See existing tiles in `tiles/` for the pattern.
+
+---
+
 ## Adding a custom theme
 
 Create a new file in `themes/` — e.g. `themes/mytheme.yaml`:

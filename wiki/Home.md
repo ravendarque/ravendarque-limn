@@ -2,6 +2,8 @@
 
 A bio and links page — like Linktree, but you host it yourself. Edit one file, push to GitHub, done.
 
+**New?** Use the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html) — fill in your details, download a zip, deploy anywhere.
+
 ---
 
 ## Quick links
@@ -29,5 +31,3 @@ A bio and links page — like Linktree, but you host it yourself. Edit one file,
 - **Tiles**: links, text, images, a calendar, YouTube/Spotify embeds
 
 Everything is controlled by `config.yaml`. No build step, no database, no monthly fees.
-
-**Who is this for?** Creators, freelancers, musicians — anyone who wants a simple "link in bio" page.

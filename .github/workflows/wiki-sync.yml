@@ -15,12 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Clone wiki repo
-        run: |
-          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki-repo
-
       - name: Sync wiki content
         run: |
+          if ! git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki-repo 2>/dev/null; then
+            echo "::warning::Wiki repo not found. Enable Wiki in Settings → Features, create one page, then re-run."
+            exit 0
+          fi
           cd wiki-repo
           find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
           cp -r ../wiki/* .

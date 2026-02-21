@@ -6,13 +6,22 @@ A self-hosted, no-build bio and links page. Edit one YAML file — that's it.
 
 ## Setup
 
-1. **Use this template** — click "Use this template" above, or fork/clone
+### Configurator (recommended)
+
+1. Open **[configurator.html](https://ravendarque.github.io/ravendarque-limn/configurator.html)** (or `configurator.html` if you have the repo locally)
+2. Fill in your name, bio, theme, and links
+3. Click **Download zip** — you get a ready-to-deploy folder
+4. Deploy the folder to GitHub Pages, Netlify, Cloudflare Pages, or any static host
+5. Replace `avatar.jpg` with your photo (optional)
+
+### Release zip (manual config)
+
+1. Download the [latest release zip](https://github.com/ravendarque/ravendarque-limn/releases)
 2. Edit `config.yaml` with your profile, theme, and tiles
 3. Copy examples from `examples/` — each file shows one tile type (heading, text, image, link, linksbar, embed, calendar)
 4. Replace `avatar.jpg` with your photo or remove `image:` to use initials
 5. Replace `example.ics` if you use the calendar tile — or point `src` to your own ICS URL
-6. Enable GitHub Pages: **Settings → Pages → Source: Deploy from branch → `main` / `/ (root)`**
-7. Push to `main` — your page is live
+6. Deploy to GitHub Pages, Netlify, Cloudflare Pages, or any static host
 
 No Node, no build step, no CI pipeline required.
 
@@ -252,14 +261,12 @@ theme: mytheme
 
 ---
 
-## Making this repo a template
-
-To let others create new repos from this one: **Settings → General → check "Template repository"**. They'll see "Use this template" instead of "Fork".
-
-**Releases:** The `release` workflow creates GitHub Releases on push to `main`. Version is computed from commit messages since the last tag:
+## Releases The `release` workflow creates GitHub Releases on push to `main`. Version is computed from commit messages since the last tag:
 - `+semver:major` or `+semver:breaking` → major bump
 - `+semver:minor` or `+semver:feature` → minor bump
 - Otherwise → patch bump
+
+**GitHub Pages:** The `pages` workflow deploys this repo to GitHub Pages on push to `main`. Enable in **Settings → Pages → Source: GitHub Actions**. The configurator and demo will be live at `https://<user>.github.io/<repo>/`.
 
 **GitHub Wiki:** The `wiki/` folder syncs to the repo's GitHub Wiki via the `wiki-sync` workflow. To enable:
 1. **Settings** → **Features** → check **Wiki**
@@ -272,7 +279,7 @@ Edit `wiki/` in the repo; the workflow syncs to the wiki on push.
 
 ## Updating the engine
 
-If you forked or used the template and want to pull engine updates:
+If you used the configurator or release zip and want to pull engine updates:
 
 ```bash
 git remote add limn https://github.com/ravendarque/ravendarque-limn.git   # or the canonical Limn repo

@@ -2,6 +2,8 @@
 
 A self-hosted, no-build bio and links page. Edit one YAML file — that's it.
 
+**[→ Documentation (Wiki)](https://github.com/ravendarque/ravendarque-limn/wiki)** — individual pages with sidebar. Start with [Getting Started](https://github.com/ravendarque/ravendarque-limn/wiki/Getting-Started).
+
 ## Setup
 
 1. **Use this template** — click "Use this template" above, or fork/clone
@@ -20,7 +22,7 @@ No Node, no build step, no CI pipeline required.
 
 ## Theme preview
 
-Open `themes.html` to preview all themes with a dropdown. Uses your `config.yaml` content. Supports `?theme=scarlet` in the URL.
+Open `themes.html` to preview all themes with a dropdown. Shows sample tiles. Add `?theme=scarlet` to the URL to jump to a theme.
 
 ---
 
@@ -253,6 +255,13 @@ theme: mytheme
 ## Making this repo a template
 
 To let others create new repos from this one: **Settings → General → check "Template repository"**. They'll see "Use this template" instead of "Fork".
+
+**GitHub Wiki:** The `wiki/` folder syncs to the repo's GitHub Wiki via the `wiki-sync` workflow. To enable:
+1. **Settings** → **Features** → check **Wiki**
+2. Create one page (e.g. Home) to initialize the wiki
+3. Push changes to `wiki/` — the workflow syncs automatically
+
+Edit `wiki/` in the repo; the workflow syncs to the wiki on push.
 
 ---
 

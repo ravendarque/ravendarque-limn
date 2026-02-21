@@ -16,8 +16,6 @@ const tileRenderers = {
   calendar,
 };
 
-export const KNOWN_TILE_TYPES = Object.keys(tileRenderers);
-
 export function validateTiles(config) {
   if (!Array.isArray(config.tiles)) throw new Error("tiles must be a list");
   config.tiles.forEach((tile, i) => {

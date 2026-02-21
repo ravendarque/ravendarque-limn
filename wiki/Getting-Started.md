@@ -14,7 +14,7 @@ No YAML. No git. Just a form and a download.
 4. Deploy the folder — GitHub Pages, Netlify, Cloudflare Pages, whatever you like
 5. Swap `avatar.jpg` for your photo (or leave the placeholder)
 
-> **GitHub Pages:** Create a new repo, upload the zip contents, then **Settings → Pages → Deploy from branch → `main` / root**. Your page goes live in a minute.
+> **Deploy:** See [Deploying](Deploying) for step-by-step guides (Netlify, Cloudflare, GitHub Pages, Vercel).
 
 ---
 
@@ -25,7 +25,7 @@ You want to edit YAML yourself. Fair enough.
 1. Grab the [latest release zip](https://github.com/ravendarque/ravendarque-limn/releases)
 2. Edit `config.yaml` — profile, theme, tiles
 3. Steal from `examples/` for each tile type
-4. Deploy wherever
+4. Deploy — see [Deploying](Deploying)
 
 ---
 

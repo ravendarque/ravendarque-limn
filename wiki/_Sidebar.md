@@ -1,5 +1,6 @@
 - [Home](Home)
 - [Getting Started](Getting-Started)
+- [Deploying](Deploying)
 - [Config Basics](Config-Basics)
 - [Profile](Profile)
 - [Themes](Themes)

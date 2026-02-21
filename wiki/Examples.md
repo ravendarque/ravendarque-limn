@@ -9,7 +9,7 @@
 | `image.yaml` | Photo |
 | `link.yaml` | Single link buttons |
 | `linksbar.yaml` | Icon row |
-| `embed.yaml` | YouTube/Spotify embed |
+| `embed.yaml` | Video/audio embed |
 | `calendar.yaml` | Events |
 
 ---

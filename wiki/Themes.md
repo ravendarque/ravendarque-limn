@@ -1,12 +1,12 @@
 # Themes
 
-Themes control colours and tile shape (rounded, pixel-art, etc.).
+Colours and tile shape. One line in config.
 
 ```yaml
 theme: dark
 ```
 
-Use any filename from `themes/` (without `.yaml`).
+Use any filename from `themes/` (drop the `.yaml`).
 
 ---
 
@@ -14,8 +14,8 @@ Use any filename from `themes/` (without `.yaml`).
 
 | Theme | Vibe |
 |-------|------|
-| `dark` | Dark, purple accent |
-| `scarlet` | Dark, red accent |
+| `dark` | Default. Purple accent. |
+| `scarlet` | Dark with red |
 | `light` | Light mode |
 | `nord` | Cool blues |
 | `dracula` | Purple |
@@ -23,15 +23,15 @@ Use any filename from `themes/` (without `.yaml`).
 | `gruvbox` | Warm, retro |
 | `solarized` | Easy on the eyes |
 | `retro` | CMYK arcade, pixel corners |
-| `monokai` | Code-editor style |
+| `monokai` | Code-editor energy |
 | `pink-pony-club` | Pink, playful |
 | `mocha` | Warm browns |
 
-**Preview:** Open `themes.html` in your browser. Add `?theme=scarlet` to the URL to jump to one.
+> **Preview before you commit:** Open `themes.html` in your browser. Add `?theme=scarlet` to the URL to jump straight to one.
 
 ---
 
-## Custom theme
+## Roll your own
 
 Create `themes/mytheme.yaml`:
 
@@ -48,7 +48,7 @@ corners:    rounded
 
 **Corner styles:** `rounded` | `square` | `clipped` | `pixel`
 
-Then in config: `theme: mytheme`
+Then: `theme: mytheme`
 
 ---
 

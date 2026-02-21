@@ -1,12 +1,12 @@
 # Tiles
 
-Tiles are the building blocks of your page. They appear in the order you list them.
+The building blocks. They show up in the order you list them.
 
 ---
 
-## Heading
+## heading
 
-Section label. No background.
+Section label. No card, just text.
 
 ```yaml
 - type: heading
@@ -15,16 +15,17 @@ Section label. No background.
 
 ---
 
-## Text
+## text
 
-Body copy.
+Body copy. One line or many.
 
 ```yaml
 - type: text
   content: Some text here.
 ```
 
-Multi-line:
+Multi-line — use `>` to fold:
+
 ```yaml
 - type: text
   content: >
@@ -34,7 +35,9 @@ Multi-line:
 
 ---
 
-## Image
+## image
+
+A photo. URL or local file.
 
 ```yaml
 - type: image
@@ -42,13 +45,13 @@ Multi-line:
   alt: Description
 ```
 
-`url` can be a web address or local filename. `alt` is optional but recommended.
+`alt` is optional but your future self (and screen readers) will thank you.
 
 ---
 
-## Link
+## link
 
-Single button.
+Single button. Icon optional.
 
 ```yaml
 - type: link
@@ -57,13 +60,13 @@ Single button.
   label: GitHub
 ```
 
-`icon` is optional — any [Lucide icon](https://lucide.dev/icons).
+`icon` = any [Lucide icon](https://lucide.dev/icons). Skip it for a plain link.
 
 ---
 
-## Linksbar
+## linksbar
 
-Row of icon buttons. Good for social links.
+Row of icon buttons. Social links, etc.
 
 ```yaml
 - type: linksbar
@@ -77,17 +80,17 @@ Row of icon buttons. Good for social links.
       label: GitHub
 ```
 
-`surface: hide` removes the card background. `label` = tooltip + screen readers.
+`surface: hide` strips the card background. `label` = tooltip + accessibility.
 
 ---
 
-## Embed
+## embed
 
-YouTube, Spotify, Vimeo, etc.
+YouTube, Spotify, Vimeo — anything with an iframe.
 
 1. On the service: **Share** → **Embed**
-2. Copy the `<iframe>...</iframe>` code
-3. Paste:
+2. Copy the `<iframe>...</iframe>` snippet
+3. Paste it:
 
 ```yaml
 - type: embed
@@ -97,9 +100,9 @@ YouTube, Spotify, Vimeo, etc.
 
 ---
 
-## Calendar
+## calendar
 
-See [Calendar](Calendar) for full setup.
+Upcoming events. Full setup in [Calendar](Calendar).
 
 ```yaml
 - type: calendar

@@ -4,24 +4,24 @@
 
 ## Page shows "Loading…" forever
 
-- Open browser console (F12 → Console) for errors
+- Open browser console (F12 → Console) — the error message usually tells you what's wrong
 - Check `config.yaml` is valid YAML (indentation, no stray characters)
-- If local: use a server, not file://
+- **Local?** You need a server. `file://` won't work.
 
 ---
 
 ## Image doesn't show
 
 - Check filename or URL
-- Local files must be in repo root (same folder as `index.html`)
-- If load fails, Limn shows initials — that's expected
+- Local files must be in the repo root (same folder as `index.html`)
+- If the load fails, Limn falls back to initials — that's by design
 
 ---
 
 ## Calendar is empty
 
 - Check `src` URL is correct and public
-- Gist: use the **Raw** URL, not the gist page
+- **Gist:** use the **Raw** URL, not the gist page
 - ICS must have future events (within your `window`)
 
 ---

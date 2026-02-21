@@ -1,6 +1,6 @@
 # Profile
 
-The profile appears at the top of your page.
+The bit at the top. Name, face, and a line about you.
 
 ```yaml
 profile:
@@ -13,23 +13,23 @@ profile:
 
 ## name (required)
 
-Your display name. Real name, handle, or stage name — your choice.
+What people see. Real name, handle, stage name — your call.
 
 ---
 
 ## bio (optional)
 
-A short line or two about you. Appears under your name in smaller text. Write it as if you're introducing yourself.
+A line or two. Write it like you're introducing yourself to someone at a party.
 
 ---
 
 ## image (optional)
 
-**Local file:** `avatar.jpg` or `photo.png` — the file must be in the repo root. Replace the default `avatar.jpg` or add your own and reference it.
+**Local file:** `avatar.jpg` — drop it in the repo root. Replace the default or add your own and point to it.
 
-**URL:** `image: https://example.com/my-photo.jpg`
+**URL:** `image: https://example.com/my-photo.jpg` — works too.
 
-**No image?** Omit the line. Limn shows your initials in a coloured circle.
+**Skip it?** Limn shows your initials in a coloured circle. Looks clean.
 
 ---
 

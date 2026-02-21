@@ -1,12 +1,12 @@
 # Calendar
 
-Show upcoming events. Two ways to supply data.
+Show what's coming up. Two ways to feed it data.
 
 ---
 
 ## Option 1: ICS file (recommended)
 
-Export from Google Calendar, Apple Calendar, etc. as `.ics`. Host it publicly.
+Export from Google Calendar, Apple Calendar, Outlook — whatever spits out `.ics`. Host it somewhere public.
 
 **Easiest: GitHub Gist**
 
@@ -16,7 +16,7 @@ Export from Google Calendar, Apple Calendar, etc. as `.ics`. Host it publicly.
 4. Paste your ICS content
 5. **Create public gist**
 6. Click **Raw** → copy the URL
-7. Use in config:
+7. Drop it in config:
 
 ```yaml
 - type: calendar
@@ -24,11 +24,13 @@ Export from Google Calendar, Apple Calendar, etc. as `.ics`. Host it publicly.
   src: https://gist.githubusercontent.com/you/abc123/raw/events.ics
 ```
 
-**Why Gist?** Edit the gist anytime to update events — no repo changes needed.
+> **Why Gist?** Edit the gist anytime to update events. No repo commits. No redeploys.
 
 ---
 
 ## Option 2: Static list
+
+Hardcode a few events. Good for one-offs.
 
 ```yaml
 - type: calendar

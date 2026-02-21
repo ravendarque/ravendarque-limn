@@ -1,9 +1,9 @@
 # Examples Folder
 
-The `examples/` folder has one file per tile type. Each is a **complete** config.
+`examples/` has one file per tile type. Each is a **complete** config you can crib from.
 
-| File | Tile type |
-|------|-----------|
+| File | What it shows |
+|------|----------------|
 | `heading.yaml` | Section labels |
 | `text.yaml` | Body copy |
 | `image.yaml` | Photo |
@@ -18,6 +18,8 @@ The `examples/` folder has one file per tile type. Each is a **complete** config
 
 - **Copy a tile block** from an example into your `config.yaml`
 - **Open an example** to see the full structure
+
+No shame in copy-paste. That's what they're for.
 
 ---
 

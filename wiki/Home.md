@@ -1,33 +1,35 @@
-# Limn Documentation
+# Limn
 
-A bio and links page — like Linktree, but you host it yourself. Edit one file, push to GitHub, done.
+**Your link-in-bio page. You host it. No subscriptions, no lock-in.**
 
-**New?** Use the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html) — fill in your details, download a zip, deploy anywhere.
+One YAML file. Edit it. Push it. Done. That's the whole pitch.
 
----
-
-## Quick links
-
-| Topic | Description |
-|-------|-------------|
-| [Getting Started](Getting-Started) | Create your page and go live in minutes |
-| [Config Basics](Config-Basics) | YAML and config structure |
-| [Profile](Profile) | Name, bio, and photo |
-| [Themes](Themes) | Colours and styles |
-| [Tiles](Tiles) | Links, text, images, calendar, embeds |
-| [Calendar](Calendar) | Setting up events (ICS, Gist) |
-| [Examples](Examples) | Using the examples folder |
-| [Preview & Updates](Preview-and-Updates) | Local preview, pulling engine updates |
-| [Troubleshooting](Troubleshooting) | When things go wrong |
-| [FAQ](FAQ) | Common questions |
-| [For Developers](For-Developers) | Stack, tiles, customisation |
+> **First time here?** Jump straight to the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html) — fill in your details, grab a zip, deploy anywhere. No YAML required.
 
 ---
 
-## What is Limn?
+## What you get
 
-- **Your name and photo** (or initials)
+- **Your name and photo** (or initials if you skip the photo)
 - **A short bio**
-- **Tiles**: links, text, images, a calendar, YouTube/Spotify embeds
+- **Tiles** — links, text, images, a calendar, YouTube/Spotify embeds
 
-Everything is controlled by `config.yaml`. No build step, no database, no monthly fees.
+Everything lives in `config.yaml`. No build step. No database. No monthly fees. Just static files.
+
+---
+
+## Jump to
+
+| Page | What's there |
+|------|--------------|
+| [Getting Started](Getting-Started) | Configurator or release zip — pick your path |
+| [Config Basics](Config-Basics) | YAML in 60 seconds |
+| [Profile](Profile) | Name, bio, photo |
+| [Themes](Themes) | Colours and vibes |
+| [Tiles](Tiles) | Links, text, images, embeds, calendar |
+| [Calendar](Calendar) | ICS files, Gist, static events |
+| [Examples](Examples) | Copy-paste reference |
+| [Preview & Updates](Preview-and-Updates) | Local dev, pulling engine updates |
+| [Troubleshooting](Troubleshooting) | When things break |
+| [FAQ](FAQ) | Quick answers |
+| [For Developers](For-Developers) | Extending Limn |

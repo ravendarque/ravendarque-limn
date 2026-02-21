@@ -1,23 +1,23 @@
 # Config Basics
 
-`config.yaml` tells Limn what to show. Three sections:
+`config.yaml` is the whole show. Three bits:
 
 ```yaml
 profile:     # Who you are
-theme:       # How it looks
-tiles:       # What you're sharing
+theme:      # How it looks
+tiles:      # What you're sharing
 ```
 
 ---
 
-## YAML quick reference
+## YAML in 60 seconds
 
-- **Indentation matters.** Use spaces (not tabs).
-- **Colons** separate label from value: `name: Avery Storm`
+- **Indentation matters.** Spaces, not tabs. Two spaces per level.
+- **Colons** link label to value: `name: Avery Storm`
 - **Hyphens** start list items: `- type: heading`
-- **Quotes** around text are optional unless you have special characters.
+- **Quotes** — use them when you've got colons, hashes, or special chars. Otherwise you can skip.
 
-Follow the examples and you'll pick it up.
+You'll pick it up from the examples. Promise.
 
 ---
 

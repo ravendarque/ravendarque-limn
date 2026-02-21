@@ -3,17 +3,17 @@
 ---
 
 **Do I need to code?**  
-No. Edit a YAML file and use GitHub. If you can edit a document and click buttons, you can do this.
+No. Edit a YAML file. If you can edit a document and click buttons, you're good.
 
 ---
 
 **Is it free?**  
-Yes. GitHub Pages is free for public repos. Domain is optional.
+Yes. GitHub Pages is free for public repos. Custom domain is optional.
 
 ---
 
 **Custom domain?**  
-Yes. Add a `CNAME` file, configure DNS. [GitHub docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
+Yes. Add a `CNAME` file, point DNS. [GitHub docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
 
 ---
 
@@ -23,7 +23,7 @@ Add another `- type: ...` block to the `tiles:` list. Order = display order.
 ---
 
 **Reorder tiles?**  
-Change the order in the list.
+Change the order in the list. That's it.
 
 ---
 

@@ -1,43 +1,27 @@
 # Getting Started
 
-Three steps to a live page.
+Two ways to get a live page.
 
 ---
 
-## 1. Create your copy
+## Option A — Configurator (recommended)
 
-**Option A — Use this template** (recommended)
-1. Click **"Use this template"** on the repo
-2. Name your repo (e.g. `my-links`)
-3. Click **Create repository**
+1. Open the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html)
+2. Fill in your name, bio, theme, and links
+3. Click **Download zip**
+4. Deploy the folder to GitHub Pages, Netlify, Cloudflare Pages, or any static host
+5. Replace `avatar.jpg` with your photo (optional)
 
-**Option B — Fork**
-1. Click **Fork**
-2. You now have your own copy
-
----
-
-## 2. Turn on GitHub Pages
-
-1. Open **your** repo → **Settings**
-2. Left sidebar → **Pages**
-3. **Source:** Deploy from a branch
-4. **Branch:** `main` / `/ (root)`
-5. **Save**
-
-Your page will be live at:
-`https://yourusername.github.io/your-repo-name/`
+**GitHub Pages:** Create a new repo, upload the zip contents, then **Settings → Pages → Deploy from branch → `main` / root**.
 
 ---
 
-## 3. Edit your config
+## Option B — Release zip (manual config)
 
-1. Click **config.yaml**
-2. Click the pencil icon (Edit)
-3. Change `name`, `bio`, and anything else
-4. **Commit changes**
-
-Your page updates within a minute.
+1. Download the [latest release zip](https://github.com/ravendarque/ravendarque-limn/releases)
+2. Edit `config.yaml` with your profile, theme, and tiles
+3. Copy examples from `examples/` for each tile type
+4. Deploy to GitHub Pages, Netlify, Cloudflare Pages, or any static host
 
 ---
 

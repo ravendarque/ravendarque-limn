@@ -28,20 +28,17 @@ Then open `http://localhost:3000`
 
 ## Updating the Limn engine
 
-Pull improvements (themes, fixes) from the original repo.
+**If you use git** (e.g. you deployed from a clone or release zip and use git):
 
-**One-time:**
 ```bash
-git remote add limn https://github.com/ravendarque/ravendarque-limn.git
-```
-
-**When you want updates:**
-```bash
+git remote add limn https://github.com/ravendarque/ravendarque-limn.git   # one-time
 git fetch limn
 git merge limn/main
 ```
 
-**Conflicts?** Keep your `config.yaml`. Accept changes to `index.html`, `tiles/`, `themes/`.
+Keep your `config.yaml`; accept changes to `index.html`, `tiles/`, `themes/`.
+
+**If you used the configurator:** Download a fresh zip from the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html), copy your `config.yaml` into it, and redeploy.
 
 ---
 

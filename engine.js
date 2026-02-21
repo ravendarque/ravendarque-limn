@@ -52,10 +52,34 @@ export function makeInitials(name) {
   return div;
 }
 
-export function showError(err, title = "Config error") {
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function hintForError(err) {
+  const msg = (err?.message || "").toLowerCase();
+  if (msg.includes("config.yaml") && (msg.includes("404") || msg.includes("could not load")))
+    return "Make sure config.yaml exists in the same folder as index.html. If you used the configurator, extract the full zip before deploying.";
+  if (msg.includes("theme") && (msg.includes("load") || msg.includes("404")))
+    return "The themes/ folder may be missing or the theme file wasn't included. Re-download from the configurator and deploy the full zip contents.";
+  if (msg.includes("failed to fetch") || msg.includes("import"))
+    return "A script or module failed to load. Check that all engine files (engine.js, tiles/*.js) are present, and that esm.sh is not blocked.";
+  if (msg.includes("tiles[") || msg.includes("missing required"))
+    return "Check your config.yaml syntax. Each tile needs the required fields — see the examples/ folder.";
+  return null;
+}
+
+export function showError(err, title = "Something went wrong", hint = null) {
   const box = document.createElement("div");
   box.className = "error-box";
-  box.innerHTML = `<strong>${title}</strong>${err.message}`;
+  const h = hint ?? hintForError(err);
+  box.innerHTML = `
+    <strong>${escapeHtml(title)}</strong>
+    <p class="error-message">${escapeHtml(err?.message || String(err))}</p>
+    ${h ? `<p class="error-hint"><strong>What to try:</strong> ${escapeHtml(h)}</p>` : ""}
+  `;
   const app = document.getElementById("app");
   app.innerHTML = "";
   app.appendChild(box);

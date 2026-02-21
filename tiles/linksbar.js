@@ -1,4 +1,5 @@
 import { makeTile } from "./utils.js";
+import { createIconEl } from "./icons.js";
 
 export function render(tile) {
   const el = makeTile("linksbar");
@@ -11,9 +12,8 @@ export function render(tile) {
       a.title = label;
       a.setAttribute("aria-label", label);
     }
-    const i = document.createElement("i");
-    i.setAttribute("data-lucide", icon);
-    a.appendChild(i);
+    const i = createIconEl(icon);
+    if (i) a.appendChild(i);
     el.appendChild(a);
   });
   return el;

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Theme preview — Limn</title>
   <link rel="stylesheet" href="engine.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.36.1/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="tiles/tiles.css">
   <style>
     #app { padding-top: 0; }
@@ -74,11 +75,8 @@
 
   <script type="module">
     import { load } from "https://esm.sh/js-yaml@4";
-    import * as lucide from "https://esm.sh/lucide";
     import { applyTheme, renderProfile, showError } from "./engine.js";
     import { renderTile } from "./tiles/index.js";
-
-    const { createIcons, ...icons } = lucide;
 
     const THEMES = [
       "dark", "scarlet", "light", "nord", "dracula", "catppuccin",
@@ -150,7 +148,6 @@
       app.appendChild(tilesEl);
 
       config.tiles.forEach(renderTile);
-      createIcons({ icons });
 
       select.addEventListener("change", async () => {
         currentTheme = select.value;

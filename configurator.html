@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Limn configurator</title>
   <link rel="stylesheet" href="engine.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.36.1/dist/tabler-icons.min.css">
   <style>
     .configurator {
       max-width: 480px;
@@ -41,31 +42,60 @@
       outline: 2px solid var(--color-accent);
       outline-offset: 2px;
     }
+    .configurator .links-section {
+      margin-bottom: 16px;
+    }
+    .configurator .links-section > label {
+      margin-bottom: 4px;
+    }
+    .configurator .links-hint {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin: -4px 0 12px 0;
+    }
     .configurator .link-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 8px;
-      align-items: end;
-      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
     }
-    .configurator .link-row .link-url {
-      grid-column: span 1;
+    .configurator .link-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    @media (max-width: 480px) {
-      .configurator .link-row {
-        grid-template-columns: 1fr auto;
-      }
-      .configurator .link-row .link-icon {
-        grid-column: 1;
-      }
-      .configurator .link-row .link-url {
-        grid-column: 1;
-      }
-      .configurator .link-row .link-label {
-        grid-column: 1;
-      }
+    .configurator .link-row-header .link-num {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .configurator .link-row input {
+    .configurator .link-row-header .remove-link {
+      padding: 6px 10px;
+      min-width: 36px;
+    }
+    .configurator .link-row .link-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .configurator .link-row .link-field label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 0;
+    }
+    .configurator .link-row .link-field .hint {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: -2px;
+    }
+    .configurator .link-row .link-field input {
       margin-bottom: 0;
     }
     .configurator .btn {
@@ -125,6 +155,139 @@
     .configurator #status.error {
       color: #ff6b6b;
     }
+
+    /* Icon picker */
+    .link-row-fields {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .link-row-fields .icon-picker-trigger {
+      flex-shrink: 0;
+    }
+    .link-row-fields .link-field {
+      flex: 1;
+      min-width: 140px;
+    }
+    .icon-picker-trigger {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 20px;
+    }
+    .icon-picker-trigger:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+    .icon-picker-trigger:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+    .icon-picker-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: transparent;
+    }
+    .icon-picker-popover {
+      position: fixed;
+      z-index: 1001;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 0;
+      width: 320px;
+      max-height: 360px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .icon-picker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+    .icon-picker-header span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+    .icon-picker-close {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .icon-picker-close:hover {
+      background: var(--color-border);
+      color: var(--color-text);
+    }
+    .icon-picker-scroll {
+      overflow-y: auto;
+      padding: 12px;
+    }
+    .icon-picker-footer {
+      padding: 8px 12px;
+      border-top: 1px solid var(--color-border);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+    }
+    .icon-picker-footer a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+    .icon-picker-footer a:hover {
+      text-decoration: underline;
+    }
+    .icon-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
+    .icon-picker-btn {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 20px;
+    }
+    .icon-picker-btn:hover {
+      background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+      color: var(--color-accent);
+    }
+    .icon-picker-btn[data-selected="true"] {
+      background: color-mix(in srgb, var(--color-accent) 25%, transparent);
+      color: var(--color-accent);
+    }
   </style>
 </head>
 <body>
@@ -156,9 +319,12 @@
         <option value="mocha">mocha</option>
       </select>
 
-      <label>Links</label>
-      <div id="links"></div>
-      <button type="button" class="btn btn-secondary add-link" id="addLink">+ Add link</button>
+      <div class="links-section">
+        <label>Links bar</label>
+        <p class="links-hint">Add icon buttons for your social links — shown as a row of icons</p>
+        <div id="links"></div>
+      </div>
+      <button type="button" class="btn btn-secondary add-link" id="addLink">+ Add icon</button>
 
       <div class="download-section">
         <button type="submit" class="btn" id="downloadBtn">Download zip</button>
@@ -168,12 +334,169 @@
   </div>
 
   <script type="module">
+    const PICKER_ICONS = [
+      "brand-github", "brand-instagram", "brand-x", "brand-linkedin", "brand-youtube",
+      "brand-facebook", "brand-tiktok", "brand-discord", "brand-mastodon", "brand-bluesky",
+      "brand-telegram", "brand-whatsapp", "brand-slack", "brand-spotify", "brand-twitch",
+      "brand-reddit", "brand-pinterest", "brand-snapchat", "brand-apple", "brand-android",
+      "brand-google", "brand-paypal", "brand-strava", "brand-soundcloud",
+      "brand-vimeo", "brand-kickstarter", "brand-patreon", "brand-dribbble", "brand-behance",
+      "brand-figma", "brand-framer", "brand-codepen", "brand-npm", "brand-css3",
+      "brand-html5", "brand-javascript", "brand-python", "brand-react", "brand-vue",
+      "mail", "mail-opened", "world", "link", "external-link", "rss",
+      "heart", "star", "share",
+      "calendar", "calendar-event", "map-pin", "map-pins", "phone", "phone-call",
+      "message", "message-circle", "message-2", "send", "at", "home",
+      "user", "users", "user-plus", "settings", "search", "bookmark",
+      "tag", "camera", "photo", "file", "file-text", "folder", "download", "upload",
+      "inbox", "bell", "gift", "coffee", "music", "video", "microphone",
+      "pencil", "trash", "plus", "minus", "check", "x", "arrow-right", "arrow-left",
+      "brand-amazon", "brand-medium"
+    ];
+
+    const ICON_ALIASES = {
+      github: "brand-github", instagram: "brand-instagram", twitter: "brand-x", x: "brand-x",
+      linkedin: "brand-linkedin", youtube: "brand-youtube", facebook: "brand-facebook",
+      globe: "world", mail: "mail", link: "link"
+    };
+
+    function getTablerIconName(name) {
+      if (!name) return "link";
+      const n = name.trim().toLowerCase();
+      return ICON_ALIASES[n] ?? n;
+    }
+
+    function updateIconTrigger(trigger) {
+      const input = trigger.closest(".link-row-fields")?.querySelector(".link-icon");
+      const i = trigger.querySelector("i");
+      if (i && input) {
+        const name = getTablerIconName(input.value);
+        i.className = `ti ti-${name}`;
+      }
+    }
+
+    function createIconPicker() {
+      const overlay = document.createElement("div");
+      overlay.className = "icon-picker-overlay";
+      overlay.hidden = true;
+
+      const popover = document.createElement("div");
+      popover.className = "icon-picker-popover";
+
+      const header = document.createElement("div");
+      header.className = "icon-picker-header";
+      header.innerHTML = `<span>Pick an icon</span><button type="button" class="icon-picker-close" title="Close" aria-label="Close"><i class="ti ti-x"></i></button>`;
+      header.querySelector(".icon-picker-close").onclick = closePicker;
+
+      const scroll = document.createElement("div");
+      scroll.className = "icon-picker-scroll";
+
+      const grid = document.createElement("div");
+      grid.className = "icon-picker-grid";
+      for (const icon of PICKER_ICONS) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "icon-picker-btn";
+        btn.title = icon;
+        btn.setAttribute("aria-label", icon);
+        const i = document.createElement("i");
+        i.className = `ti ti-${icon}`;
+        btn.appendChild(i);
+        btn.dataset.icon = icon;
+        grid.appendChild(btn);
+      }
+      scroll.appendChild(grid);
+      const footer = document.createElement("div");
+      footer.className = "icon-picker-footer";
+      footer.innerHTML = '6,000+ icons at <a href="https://tabler.io/icons" target="_blank" rel="noopener noreferrer">Tabler Icons</a> — use any icon name in your downloaded config.';
+      popover.appendChild(header);
+      popover.appendChild(scroll);
+      popover.appendChild(footer);
+      overlay.appendChild(popover);
+
+      overlay.onclick = (e) => {
+        if (e.target === overlay) closePicker();
+      };
+
+      grid.onclick = (e) => {
+        const btn = e.target.closest(".icon-picker-btn");
+        if (!btn) return;
+        const icon = btn.dataset.icon;
+        if (currentIconInput) {
+          currentIconInput.value = icon;
+          updateIconTrigger(currentIconInput.closest(".link-row-fields")?.querySelector(".icon-picker-trigger"));
+        }
+        closePicker();
+      };
+
+      document.body.appendChild(overlay);
+      return { overlay, popover, grid };
+    }
+
+    function updatePickerPosition() {
+      if (!picker || !currentIconInput || picker.overlay.hidden) return;
+      const wrap = currentIconInput.closest(".link-row-fields");
+      const trigger = wrap?.querySelector(".icon-picker-trigger");
+      const rect = (trigger || currentIconInput).getBoundingClientRect();
+      const popover = picker.popover;
+      const popoverH = 360;
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      const showBelow = spaceBelow >= popoverH || spaceBelow >= spaceAbove;
+      popover.style.left = `${Math.min(Math.max(rect.left, 8), window.innerWidth - 328)}px`;
+      popover.style.top = showBelow ? `${rect.bottom + 8}px` : "auto";
+      popover.style.bottom = showBelow ? "auto" : `${window.innerHeight - rect.top + 8}px`;
+    }
+
+    let picker = null;
+    let currentIconInput = null;
+
+    function openPicker(input) {
+      if (!picker) picker = createIconPicker();
+      currentIconInput = input;
+      picker.overlay.hidden = false;
+
+      updatePickerPosition();
+
+      const current = getTablerIconName(input.value);
+      picker.grid.querySelectorAll(".icon-picker-btn").forEach(btn => {
+        btn.dataset.selected = btn.dataset.icon === current ? "true" : "false";
+      });
+
+      const onKey = (e) => {
+        if (e.key === "Escape") closePicker();
+      };
+      document.addEventListener("keydown", onKey);
+      picker.overlay._escapeHandler = onKey;
+
+      const onScrollOrResize = () => updatePickerPosition();
+      window.addEventListener("scroll", onScrollOrResize, true);
+      window.addEventListener("resize", onScrollOrResize);
+      picker.overlay._scrollHandler = onScrollOrResize;
+    }
+
+    function closePicker() {
+      if (picker) {
+        picker.overlay.hidden = true;
+        if (picker.overlay._escapeHandler) {
+          document.removeEventListener("keydown", picker.overlay._escapeHandler);
+          picker.overlay._escapeHandler = null;
+        }
+        if (picker.overlay._scrollHandler) {
+          window.removeEventListener("scroll", picker.overlay._scrollHandler, true);
+          window.removeEventListener("resize", picker.overlay._scrollHandler);
+          picker.overlay._scrollHandler = null;
+        }
+      }
+      currentIconInput = null;
+    }
+
     const FILES = [
       "index.html", "engine.css", "engine.js", "themes.html",
       "README.md", "avatar.jpg", "example.ics",
       "tiles/base.css", "tiles/calendar.css", "tiles/calendar.js",
       "tiles/embed.css", "tiles/embed.js", "tiles/heading.css", "tiles/heading.js",
-      "tiles/image.css", "tiles/image.js", "tiles/index.js", "tiles/link.css",
+      "tiles/image.css", "tiles/image.js", "tiles/index.js", "tiles/icons.js", "tiles/link.css",
       "tiles/link.js", "tiles/linksbar.css", "tiles/linksbar.js",
       "tiles/text.css", "tiles/text.js", "tiles/tiles.css", "tiles/utils.js",
       "themes/catppuccin.yaml", "themes/dark.yaml", "themes/dracula.yaml",
@@ -199,17 +522,16 @@
       const theme = document.getElementById("theme").value;
 
       const linkRows = document.querySelectorAll(".link-row");
-      const linkTiles = [];
+      const items = [];
       for (const row of linkRows) {
         const label = row.querySelector(".link-label").value.trim();
         const url = row.querySelector(".link-url").value.trim();
         const icon = row.querySelector(".link-icon").value.trim();
-        if (!url) continue;
-        linkTiles.push({
-          type: "link",
-          icon: icon || undefined,
+        if (!url || !icon) continue;
+        items.push({
+          icon,
           url,
-          label: label || url
+          label: label || icon
         });
       }
 
@@ -223,33 +545,55 @@
 theme: ${theme}
 
 tiles:
-  - type: heading
-    text: Links
 `;
 
-      for (const t of linkTiles) {
-        yaml += `  - type: link
-    url: ${escapeYaml(t.url)}
-    label: ${escapeYaml(t.label)}
+      if (items.length > 0) {
+        yaml += `  - type: linksbar
+    surface: hide
+    items:
 `;
-        if (t.icon) yaml += `    icon: ${t.icon}
+        for (const item of items) {
+          yaml += `      - icon: ${item.icon}
+        url: ${escapeYaml(item.url)}
+        label: ${escapeYaml(item.label)}
 `;
+        }
       }
 
       return yaml;
     }
 
     function addLinkRow(label = "", url = "", icon = "link") {
+      const links = document.getElementById("links");
+      const n = links.querySelectorAll(".link-row").length + 1;
       const div = document.createElement("div");
       div.className = "link-row";
       div.innerHTML = `
-        <input type="text" class="link-label" placeholder="Label" value="${label.replace(/"/g, "&quot;")}">
-        <input type="url" class="link-url" placeholder="https://..." value="${url.replace(/"/g, "&quot;")}" required>
-        <input type="text" class="link-icon" placeholder="icon" value="${icon.replace(/"/g, "&quot;")}" title="Lucide icon name">
-        <button type="button" class="btn btn-secondary remove-link">×</button>
+        <div class="link-row-header">
+          <span class="link-num">Icon ${n}</span>
+          <button type="button" class="btn btn-secondary remove-link" title="Remove this icon">×</button>
+        </div>
+        <div class="link-row-fields">
+          <button type="button" class="btn btn-secondary icon-picker-trigger" title="Pick icon" aria-label="Pick icon"><i class="ti ti-link"></i></button>
+          <input type="hidden" class="link-icon" value="${(icon || "link").replace(/"/g, "&quot;")}">
+          <div class="link-field">
+            <label>Label</label>
+            <input type="text" class="link-label" placeholder="e.g. GitHub, Email" value="${(label || "").replace(/"/g, "&quot;")}">
+          </div>
+          <div class="link-field">
+            <label>URL</label>
+            <input type="url" class="link-url" placeholder="https://..." value="${(url || "").replace(/"/g, "&quot;")}" required>
+          </div>
+        </div>
       `;
       div.querySelector(".remove-link").onclick = () => div.remove();
-      document.getElementById("links").appendChild(div);
+
+      const iconInput = div.querySelector(".link-icon");
+      const trigger = div.querySelector(".icon-picker-trigger");
+      updateIconTrigger(trigger);
+      trigger.onclick = () => openPicker(iconInput);
+
+      links.appendChild(div);
     }
 
     document.getElementById("addLink").onclick = () => addLinkRow();

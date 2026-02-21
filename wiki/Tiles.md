@@ -55,12 +55,12 @@ Single button. Icon optional.
 
 ```yaml
 - type: link
-  icon: github
+  icon: brand-github
   url: https://github.com/yourname
   label: GitHub
 ```
 
-`icon` = any [Lucide icon](https://lucide.dev/icons). Skip it for a plain link.
+`icon` = any [Tabler icon](https://tabler.io/icons). Skip it for a plain link.
 
 ---
 
@@ -72,10 +72,10 @@ Row of icon buttons. Social links, etc.
 - type: linksbar
   surface: hide
   items:
-    - icon: instagram
+    - icon: brand-instagram
       url: https://instagram.com/you
       label: Instagram
-    - icon: github
+    - icon: brand-github
       url: https://github.com/you
       label: GitHub
 ```

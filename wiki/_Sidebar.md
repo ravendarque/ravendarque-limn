@@ -4,6 +4,7 @@
 - [Profile](Profile)
 - [Themes](Themes)
 - [Tiles](Tiles)
+- [Embeds](Embeds)
 - [Calendar](Calendar)
 - [Examples](Examples)
 - [Preview & Updates](Preview-and-Updates)

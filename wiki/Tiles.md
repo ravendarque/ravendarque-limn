@@ -86,7 +86,7 @@ Row of icon buttons. Social links, etc.
 
 ## embed
 
-YouTube, Spotify, Vimeo — anything with an iframe.
+Vimeo, SoundCloud, or any service that provides an iframe. See [Embeds](Embeds) for step-by-step instructions per platform.
 
 1. On the service: **Share** → **Embed**
 2. Copy the `<iframe>...</iframe>` snippet

@@ -1,0 +1,11 @@
+---
+description: "Always work on feature branches, never directly on main"
+alwaysApply: true
+---
+
+# Git workflow
+
+- **Never commit directly to main.** Always create a feature branch first.
+- **Branch naming:** `feature/thing` or `fix/thing` (e.g. `feature/configurator`, `fix/wiki-sync`)
+- **Flow:** Create branch → make changes → commit → push → open PR → merge after review
+- When starting work, create and checkout the branch before editing. When done, push and create the PR.

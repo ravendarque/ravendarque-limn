@@ -4,12 +4,23 @@ A self-hosted, no-build bio and links page. Edit one YAML file — that's it.
 
 ## Setup
 
-1. Fork or clone this repo
-2. Edit `config.yaml` with your details
-3. Enable GitHub Pages: **Settings → Pages → Source: Deploy from branch → `main` / `/ (root)`**
-4. Push to `main` — your page is live
+1. **Use this template** — click "Use this template" above, or fork/clone
+2. Edit `config.yaml` with your profile, theme, and tiles
+3. Copy examples from `examples/` — each file shows one tile type (heading, text, image, link, linksbar, embed, calendar)
+4. Replace `avatar.jpg` with your photo or remove `image:` to use initials
+5. Replace `example.ics` if you use the calendar tile — or point `src` to your own ICS URL
+6. Enable GitHub Pages: **Settings → Pages → Source: Deploy from branch → `main` / `/ (root)`**
+7. Push to `main` — your page is live
 
 No Node, no build step, no CI pipeline required.
+
+**Included:** `avatar.jpg` (placeholder), `example.ics` (sample calendar — tongue-in-cheek ethical celebrity schedule). Replace or remove as needed.
+
+---
+
+## Theme preview
+
+Open `themes.html` to preview all themes with a dropdown. Uses your `config.yaml` content. Supports `?theme=scarlet` in the URL.
 
 ---
 
@@ -28,12 +39,12 @@ Because `index.html` fetches `config.yaml` via `fetch()`, you need a local file 
 
 ```yaml
 profile:
-  name: Jane Doe              # required
+  name: Avery Storm           # required
   bio: Developer & designer   # optional
   image: https://...          # optional — falls back to initials if omitted or broken
 ```
 
-`image` can be a URL or a local filename committed to the repo (e.g. `avatar.png`).
+`image` can be a URL or a local filename committed to the repo (e.g. `avatar.jpg`).
 
 ---
 
@@ -236,3 +247,23 @@ Then reference it in `config.yaml`:
 ```yaml
 theme: mytheme
 ```
+
+---
+
+## Making this repo a template
+
+To let others create new repos from this one: **Settings → General → check "Template repository"**. They'll see "Use this template" instead of "Fork".
+
+---
+
+## Updating the engine
+
+If you forked or used the template and want to pull engine updates:
+
+```bash
+git remote add limn https://github.com/ravendarque/ravendarque-limn.git   # or the canonical Limn repo
+git fetch limn
+git merge limn/main
+```
+
+Resolve conflicts in `config.yaml` (keep yours) and accept changes to `index.html`, `tiles/`, `themes/`.

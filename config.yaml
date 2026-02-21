@@ -1,41 +1,15 @@
 profile:
-  name: Nix
-  bio: Just a bad bitch with powerful hair
-  image: nix-pal-border-2.png # filename for local, url for remote, comment out to use initials fallback
+  name: Avery Storm
+  bio: Ethical celebrity. Trying to do good with what I've got.
+  image: avatar.jpg
 
-theme: scarlet # themes/ directory — available: dark, scarlet, light, nord, dracula, catppuccin, gruvbox, solarized, retro, monokai, pink-pony-club, mocha
+theme: dark
 
 tiles:
-  - type: linksbar
-    surface: hide
-    items:
-      - icon: instagram
-        url: https://www.instagram.com/ravendarque/
-        label: Instagram
-
-      - icon: message-square-heart
-        url: https://share.upscrolled.com/en/user/845379f2-90be-4e4f-85db-35a62d99ef7e
-        label: UpScrolled
-
-      - icon: github
-        url: https://github.com/ravendarque
-        label: GitHub
-
-      - icon: globe
-        url: https://wearebeyondborders.com/
-        label: wearebeyondborders.com
-
   - type: heading
-    text: Welcome!
+    text: Welcome
 
   - type: text
     content: >
-      This is a Limn page — a self-hosted, no-build bio and links page.
-      Edit config.yaml and push to update this page instantly.
-
-  - type: heading
-    text: The Big Climbing Tour 2026
-
-  - type: calendar
-    window: year
-    src: https://gist.githubusercontent.com/ravendarque/4faba593347556de3a362d980e4811b8/raw/trip-2026.ics
+      This is a Limn page. Edit config.yaml to make it yours.
+      See the examples/ folder for each tile type.

@@ -23,8 +23,6 @@ Your site goes live. Edit `config.yaml` in the repo and push to update.
 2. Drag the unzipped folder (or run `npx wrangler pages deploy .` from the folder)
 3. Done. To update, upload again or switch to Git.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ravendarque/ravendarque-limn)
-
 ---
 
 ## Deploy to Netlify
@@ -37,8 +35,6 @@ Your site goes live. Edit `config.yaml` in the repo and push to update.
 3. Edit `config.yaml` and push — Netlify redeploys automatically
 
 **Or** use the configurator, download the zip, then drag-and-drop the folder into [Netlify Drop](https://app.netlify.com/drop). No Git needed.
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ravendarque/ravendarque-limn)
 
 ---
 

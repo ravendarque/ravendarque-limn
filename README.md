@@ -256,6 +256,11 @@ theme: mytheme
 
 To let others create new repos from this one: **Settings → General → check "Template repository"**. They'll see "Use this template" instead of "Fork".
 
+**Releases:** The `release` workflow creates GitHub Releases on push to `main`. Version is computed from commit messages since the last tag:
+- `+semver:major` or `+semver:breaking` → major bump
+- `+semver:minor` or `+semver:feature` → minor bump
+- Otherwise → patch bump
+
 **GitHub Wiki:** The `wiki/` folder syncs to the repo's GitHub Wiki via the `wiki-sync` workflow. To enable:
 1. **Settings** → **Features** → check **Wiki**
 2. Create one page (e.g. Home) to initialize the wiki

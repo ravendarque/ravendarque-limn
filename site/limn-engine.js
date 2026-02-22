@@ -65,7 +65,7 @@ function hintForError(err) {
   if (msg.includes("theme") && (msg.includes("load") || msg.includes("404")))
     return "The themes/ folder may be missing or the theme file wasn't included. Re-download from the configurator and deploy the full zip contents.";
   if (msg.includes("failed to fetch") || msg.includes("import"))
-    return "A script or module failed to load. Check that all engine files (engine.js, tiles/*.js) are present, and that esm.sh is not blocked.";
+    return "A script or module failed to load. Check that all engine files (limn-engine.js, tiles/*.js) are present, and that esm.sh is not blocked.";
   if (msg.includes("tiles[") || msg.includes("missing required"))
     return "Check your config.yaml syntax. Each tile needs the required fields — see the examples/ folder.";
   return null;

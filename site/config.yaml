@@ -1,0 +1,120 @@
+profile:
+  name: Avery Storm
+  bio: Ethical celebrity. Trying to do good with what I've got.
+  image: avatar.jpg
+
+theme: dark
+
+tiles:
+  - type: heading
+    text: Tile types
+
+  - type: text
+    content: >
+      This page shows every tile type Limn supports. Each section below
+      demonstrates one type with a short explanation.
+
+  # --- Heading ---
+  - type: heading
+    text: Heading
+
+  - type: text
+    content: >
+      Section labels with no background. Use them to divide your page into
+      sections. surface: hide by default.
+
+  # --- Text ---
+  - type: heading
+    text: Text
+
+  - type: text
+    content: >
+      Body copy for bios, announcements, or whatever you need. Supports
+      multi-line content with YAML block scalars (> or |).
+
+  # --- Image ---
+  - type: heading
+    text: Image
+
+  - type: text
+    content: >
+      Display a photo or graphic. url can be a local filename (e.g. avatar.jpg)
+      or a full URL.
+
+  - type: image
+    url: avatar.jpg
+    alt: Profile photo
+
+  # --- Link ---
+  - type: heading
+    text: Link
+
+  - type: text
+    content: >
+      A single button with optional icon. Use Tabler icon names (tabler.io/icons).
+      Great for primary CTAs like GitHub, email, or your main site.
+
+  - type: link
+    icon: brand-github
+    url: https://github.com/yourname
+    label: GitHub
+
+  - type: link
+    icon: mail
+    url: mailto:hello@example.com
+    label: Get in touch
+
+  # --- Links bar ---
+  - type: heading
+    text: Links bar
+
+  - type: text
+    content: >
+      A row of icon buttons — ideal for social links. surface: hide removes
+      the card background so icons float cleanly.
+
+  - type: linksbar
+    surface: hide
+    items:
+      - icon: brand-instagram
+        url: https://instagram.com/yourname
+        label: Instagram
+      - icon: brand-x
+        url: https://twitter.com/yourname
+        label: Twitter
+      - icon: brand-github
+        url: https://github.com/yourname
+        label: GitHub
+      - icon: world
+        url: https://yourwebsite.com
+        label: Website
+
+  # --- Embed ---
+  - type: heading
+    text: Embed
+
+  - type: text
+    content: >
+      Embed YouTube, Spotify, Vimeo, or any iframe. Copy the embed snippet from
+      the service's Share → Embed dialog and paste as the html value.
+
+  - type: embed
+    title: Video
+    html: '<iframe width="560" height="315" src="https://www.youtube.com/embed/kgErfA58ZCg?start=12" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+
+  # --- Calendar ---
+  - type: heading
+    text: Calendar
+
+  - type: text
+    content: >
+      Show events from an ICS file (local path or URL) or a static list.
+      window: today | week | month | year. GitHub Gist raw URLs work well for
+      hosted ICS files.
+
+  - type: heading
+    text: Schedule
+
+  - type: calendar
+    window: month
+    src: example.ics

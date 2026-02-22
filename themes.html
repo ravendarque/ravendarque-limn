@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Theme preview — Limn</title>
-  <link rel="stylesheet" href="engine.css">
+  <link rel="stylesheet" href="site/limn-engine.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.36.1/dist/tabler-icons.min.css">
-  <link rel="stylesheet" href="tiles/tiles.css">
+  <link rel="stylesheet" href="site/tiles/tiles.css">
   <style>
     #app { padding-top: 0; }
     @media (min-width: 640px) { #app { padding-top: 0; } }
@@ -65,7 +65,7 @@
       <select id="theme-select" aria-label="Select theme">
         <option value="">Loading…</option>
       </select>
-      <a href="index.html">← Back</a>
+      <a href="site/index.html">← Back</a>
     </label>
   </div>
 
@@ -75,8 +75,8 @@
 
   <script type="module">
     import { load } from "https://esm.sh/js-yaml@4";
-    import { applyTheme, renderProfile, showError } from "./engine.js";
-    import { renderTile } from "./tiles/index.js";
+    import { applyTheme, renderProfile, showError } from "./site/limn-engine.js";
+    import { renderTile } from "./site/tiles/index.js";
 
     const THEMES = [
       "dark", "scarlet", "light", "nord", "dracula", "catppuccin",
@@ -87,7 +87,7 @@
       profile: {
         name: "Avery Storm",
         bio: "Ethical celebrity. Trying to do good with what I've got.",
-        image: "avatar.jpg"
+        image: "site/avatar.jpg"
       },
       tiles: [
         { type: "linksbar", surface: "hide", items: [
@@ -102,14 +102,14 @@
         { type: "link", icon: "github", url: "#", label: "GitHub" },
         { type: "link", icon: "mail", url: "mailto:hello@example.com", label: "Get in touch" },
         { type: "heading", text: "Photo" },
-        { type: "image", url: "avatar.jpg", alt: "Profile" },
+        { type: "image", url: "site/avatar.jpg", alt: "Profile" },
         { type: "heading", text: "Schedule" },
-        { type: "calendar", window: "month", src: "example.ics" }
+        { type: "calendar", window: "month", src: "site/example.ics" }
       ]
     };
 
     async function loadTheme(name) {
-      const res = await fetch(`themes/${name}.yaml`);
+      const res = await fetch(`site/themes/${name}.yaml`);
       if (!res.ok) throw new Error(`Could not load theme "${name}"`);
       return load(await res.text());
     }
@@ -135,7 +135,7 @@
       let currentTheme = getInitialTheme();
       select.value = currentTheme;
 
-      const themeData = await loadTheme(currentTheme);
+      let themeData = await loadTheme(currentTheme);
       applyTheme(themeData);
 
       const app = document.getElementById("app");

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Limn configurator</title>
-  <link rel="stylesheet" href="engine.css">
+  <link rel="stylesheet" href="site/limn-engine.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.36.1/dist/tabler-icons.min.css">
   <style>
     .configurator {
@@ -53,6 +53,8 @@
     .configurator .add-tile-wrap {
       position: relative;
       margin-top: 12px;
+      display: flex;
+      justify-content: center;
     }
     .configurator .add-tile-btn-main {
       display: inline-flex;
@@ -150,13 +152,21 @@
     .configurator .tile-block-actions {
       margin-left: auto;
       display: flex;
-      gap: 4px;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      overflow: hidden;
     }
     .configurator .tile-block-actions button {
       width: 28px;
       height: 28px;
       padding: 0;
       min-width: 28px;
+      border: none;
+      border-radius: 0;
+      border-right: 1px solid var(--color-border);
+    }
+    .configurator .tile-block-actions button:last-child {
+      border-right: none;
     }
     .configurator .tile-block-actions button:disabled {
       opacity: 0.4;
@@ -168,60 +178,61 @@
     .configurator .links-hint {
       font-size: 0.85rem;
       color: var(--color-text-muted);
-      margin: -4px 0 12px 0;
+      margin: -4px 0 8px 0;
     }
     .configurator .link-row {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 12px;
-      margin-bottom: 10px;
+      gap: 0;
+      padding: 0;
+      margin-bottom: 6px;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: 8px;
+      border-radius: 6px;
+      overflow: hidden;
     }
     .configurator .link-row-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: flex-end;
+      padding: 4px 6px;
+      background: color-mix(in srgb, var(--color-border) 25%, transparent);
+      border-bottom: 1px solid var(--color-border);
     }
-    .configurator .link-row-header .link-num {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .configurator .link-row:last-child {
+      margin-bottom: 0;
     }
-    .configurator .link-row-header .remove-link {
-      padding: 6px 10px;
-      min-width: 36px;
-    }
-    .configurator .link-row .link-field {
+    .configurator .link-row-actions {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
+      flex-shrink: 0;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      overflow: hidden;
     }
-    .configurator .link-row .link-field label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--color-text-muted);
-      margin-bottom: 0;
-    }
-    .configurator .link-row .link-field .hint {
+    .configurator .link-row-actions button {
+      width: 22px;
+      height: 22px;
+      padding: 0;
+      min-width: 22px;
       font-size: 0.75rem;
-      color: var(--color-text-muted);
-      margin-top: -2px;
+      border: none;
+      border-radius: 0;
+      border-right: 1px solid var(--color-border);
     }
-    .configurator .link-row .link-field input {
-      margin-bottom: 0;
+    .configurator .link-row-actions button:last-child {
+      border-right: none;
+    }
+    .configurator .link-row-actions button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .configurator .link-row .link-row-fields {
+      padding: 8px 10px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      flex-wrap: wrap;
     }
     .configurator .tile-block-body .links-section {
-      margin-bottom: 0;
-    }
-    .configurator .tile-block-body .link-row {
-      margin-bottom: 8px;
-    }
-    .configurator .tile-block-body .link-row:last-child {
       margin-bottom: 0;
     }
     .configurator .tile-block-body .heading-input,
@@ -274,12 +285,13 @@
     }
     .configurator .add-link,
     .configurator .add-heading {
-      margin-top: 8px;
-      margin-bottom: 8px;
+      margin-top: 6px;
+      margin-bottom: 0;
     }
     .configurator .download-section {
       margin-top: 32px;
       padding-top: 24px;
+      text-align: center;
       border-top: 1px solid var(--color-border);
     }
     .configurator .download-section p {
@@ -312,7 +324,7 @@
     /* Icon picker */
     .link-row-fields {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: flex-end;
       flex-wrap: wrap;
     }
@@ -322,21 +334,33 @@
       height: 40px;
       font-size: 18px;
     }
+    .configurator .link-row .link-row-fields .icon-picker-trigger {
+      width: 34px;
+      height: 34px;
+      font-size: 16px;
+    }
     .link-row-fields .link-field {
       flex: 1;
-      min-width: 140px;
+      min-width: 100px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
+    }
+    .link-row-fields .link-field:first-of-type {
+      flex: 0 1 auto;
+      max-width: 110px;
+      min-width: 70px;
     }
     .link-row-fields .link-field label {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       color: var(--color-text-muted);
       margin-bottom: 0;
     }
     .link-row-fields .link-field input {
       margin-bottom: 0;
+      padding: 6px 10px;
+      font-size: 0.9rem;
     }
     .icon-picker-trigger {
       flex-shrink: 0;
@@ -465,7 +489,7 @@
     <p class="subtitle">Fill in your details, then download a ready-to-deploy zip.</p>
 
     <form id="form">
-      <label for="name">Name</label>
+      <label for="name">Display Name</label>
       <input type="text" id="name" required placeholder="Your name">
 
       <label for="bio">Bio (optional)</label>
@@ -675,8 +699,8 @@
     }
 
     const FILES = [
-      "index.html", "engine.css", "engine.js", "themes.html",
-      "README.md", "avatar.jpg", "example.ics",
+      "index.html", "limn-engine.css", "limn-engine.js", "themes.html",
+      "avatar.jpg", "example.ics",
       "tiles/base.css", "tiles/calendar.css", "tiles/calendar.js",
       "tiles/embed.css", "tiles/embed.js", "tiles/heading.css", "tiles/heading.js",
       "tiles/image.css", "tiles/image.js", "tiles/index.js", "tiles/icons.js", "tiles/link.css",
@@ -691,7 +715,7 @@
       "examples/text.yaml"
     ];
 
-    const baseUrl = location.href.replace(/configurator\.html.*$/, "");
+    const baseUrl = location.href.replace(/configurator\.html.*$/, "") + "site/";
 
     function escapeYaml(str) {
       if (!str) return "";
@@ -798,14 +822,25 @@ tiles:
 ` + tilesYaml;
     }
 
+    function updateLinkRowMoveButtons(container) {
+      const rows = container.querySelectorAll(".link-row");
+      rows.forEach((row, i) => {
+        const up = row.querySelector(".link-move-up");
+        const down = row.querySelector(".link-move-down");
+        if (up) up.disabled = i === 0;
+        if (down) down.disabled = i === rows.length - 1;
+      });
+    }
     function addLinkRow(container, label = "", url = "", icon = "link") {
-      const n = container.querySelectorAll(".link-row").length + 1;
       const div = document.createElement("div");
       div.className = "link-row";
       div.innerHTML = `
         <div class="link-row-header">
-          <span class="link-num">Icon ${n}</span>
-          <button type="button" class="btn btn-secondary remove-link" title="Remove this icon">×</button>
+          <div class="link-row-actions">
+<button type="button" class="btn btn-secondary link-move-up" title="Move up"><i class="ti ti-chevron-up"></i></button>
+          <button type="button" class="btn btn-secondary link-move-down" title="Move down"><i class="ti ti-chevron-down"></i></button>
+            <button type="button" class="btn btn-secondary link-remove" title="Remove">×</button>
+          </div>
         </div>
         <div class="link-row-fields">
           <button type="button" class="btn btn-secondary icon-picker-trigger" title="Pick icon" aria-label="Pick icon"><i class="ti ti-link"></i></button>
@@ -820,12 +855,30 @@ tiles:
           </div>
         </div>
       `;
-      div.querySelector(".remove-link").onclick = () => div.remove();
+      div.querySelector(".link-move-up").onclick = () => {
+        const prev = div.previousElementSibling;
+        if (prev) {
+          container.insertBefore(div, prev);
+          updateLinkRowMoveButtons(container);
+        }
+      };
+      div.querySelector(".link-move-down").onclick = () => {
+        const next = div.nextElementSibling;
+        if (next) {
+          container.insertBefore(next, div);
+          updateLinkRowMoveButtons(container);
+        }
+      };
+      div.querySelector(".link-remove").onclick = () => {
+        div.remove();
+        updateLinkRowMoveButtons(container);
+      };
       const iconInput = div.querySelector(".link-icon");
       const trigger = div.querySelector(".icon-picker-trigger");
       updateIconTrigger(trigger);
       trigger.onclick = () => openPicker(iconInput);
       container.appendChild(div);
+      updateLinkRowMoveButtons(container);
     }
 
     function createTileBlock(type, insertBefore = null) {
@@ -840,8 +893,8 @@ tiles:
         <div class="tile-block-header">
           <span class="tile-block-type">${typeLabels[type]}</span>
           <div class="tile-block-actions">
-            <button type="button" class="btn btn-secondary tile-move-up" title="Move up">↑</button>
-            <button type="button" class="btn btn-secondary tile-move-down" title="Move down">↓</button>
+            <button type="button" class="btn btn-secondary tile-move-up" title="Move up"><i class="ti ti-chevron-up"></i></button>
+            <button type="button" class="btn btn-secondary tile-move-down" title="Move down"><i class="ti ti-chevron-down"></i></button>
             <button type="button" class="btn btn-secondary tile-remove" title="Remove">×</button>
           </div>
         </div>
@@ -995,7 +1048,6 @@ tiles:
     })();
 
     createTileBlock("linksbar");
-    createTileBlock("heading");
 
     document.getElementById("form").onsubmit = async (e) => {
       e.preventDefault();

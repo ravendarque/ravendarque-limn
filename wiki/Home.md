@@ -4,7 +4,7 @@
 
 One YAML file. Edit it. Push it. Done. That's the whole pitch.
 
-> **First time here?** Jump straight to the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html) — fill in your details, grab a zip, deploy anywhere. No YAML required.
+> **First time here?** Jump straight to the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator/) — fill in your details, grab a zip, deploy anywhere. No YAML required.
 
 ---
 

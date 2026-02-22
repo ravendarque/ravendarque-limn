@@ -8,7 +8,7 @@ Two paths. Pick one.
 
 No YAML. No git. Just a form and a download.
 
-1. Open the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html)
+1. Open the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator/)
 2. Fill in your name, bio, theme, and links
 3. Click **Download zip**
 4. Deploy the folder — GitHub Pages, Netlify, Cloudflare Pages, whatever you like

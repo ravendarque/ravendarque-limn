@@ -56,28 +56,24 @@
       display: flex;
       justify-content: center;
     }
-    .configurator .add-tile-btn-main {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .configurator .page-group .add-tile-wrap {
+      margin-top: 0;
+      padding: 12px;
+      padding-top: 0;
+    }
+    .configurator .page-group .add-tile-dropdown {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .configurator .add-page-btn,
+    .configurator .add-tile-btn-main,
+    .configurator .add-link {
       padding: 10px 16px;
       font-size: 0.9rem;
       font-weight: 600;
-      background: var(--color-accent);
-      color: var(--color-accent-text);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: opacity 0.15s, transform 0.1s;
-    }
-    .configurator .add-tile-btn-main:hover {
-      opacity: 0.92;
-    }
-    .configurator .add-tile-btn-main:active {
-      transform: scale(0.98);
-    }
-    .configurator .add-tile-btn-main .ti {
-      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .configurator .add-tile-btn-main .add-tile-chevron {
       font-size: 0.9rem;
@@ -149,6 +145,21 @@
       color: var(--color-text-muted);
       text-transform: uppercase;
     }
+    .configurator .tile-help-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--color-text-muted);
+      opacity: 0.7;
+      text-decoration: none;
+      transition: color 0.15s, opacity 0.15s;
+    }
+    .configurator .tile-help-link:hover {
+      color: var(--color-accent);
+      opacity: 1;
+    }
+    .configurator .page-title-bar .tile-help-link {
+      margin-left: 2px;
+    }
     .configurator .tile-block-actions {
       margin-left: auto;
       display: flex;
@@ -179,6 +190,160 @@
       font-size: 0.85rem;
       color: var(--color-text-muted);
       margin: -4px 0 8px 0;
+    }
+    .configurator .page-group {
+      margin-bottom: 20px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      overflow: visible;
+      background: color-mix(in srgb, var(--color-border) 8%, transparent);
+    }
+    .configurator .page-group.selected {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 1px var(--color-accent);
+    }
+    .configurator .page-group.page-home .page-header-field-nav {
+      display: none;
+    }
+    .configurator .page-title-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: color-mix(in srgb, var(--color-border) 30%, transparent);
+      border-bottom: 1px solid var(--color-border);
+      border-radius: 8px 8px 0 0;
+    }
+    .configurator .page-title-bar .page-title-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .configurator .page-title-bar .page-title-label .ti {
+      font-size: 1rem;
+    }
+    .configurator .page-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: color-mix(in srgb, var(--color-border) 25%, transparent);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .configurator .page-header-fields {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+    .configurator .page-header-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
+    }
+    .configurator .page-header-field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    .configurator .page-header-field input[type="text"] {
+      width: 100%;
+      min-width: 0;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+      box-sizing: border-box;
+    }
+    .configurator .page-header-field:first-child,
+    .configurator .page-header-field:last-child {
+      flex: 0 0 auto;
+    }
+    .configurator .page-header-field .page-icon-trigger,
+    .configurator .page-header-field .toggle-switch {
+      flex-shrink: 0;
+    }
+    .configurator .page-header-field .toggle-switch,
+    .configurator .tile-field .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 72px;
+      height: 30px;
+    }
+    .configurator .page-header-field .toggle-switch input,
+    .configurator .tile-field .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .configurator .page-header-field .toggle-slider,
+    .configurator .tile-field .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+    .configurator .page-header-field .toggle-slider::before,
+    .configurator .tile-field .toggle-slider::before {
+      content: "HIDE";
+      position: absolute;
+      height: 24px;
+      width: 34px;
+      left: 2px;
+      top: 2px;
+      background: var(--color-border);
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 24px;
+      text-align: center;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s, background 0.2s, content 0.2s;
+    }
+    .configurator .page-header-field .toggle-switch input:checked + .toggle-slider::before,
+    .configurator .tile-field .toggle-switch input:checked + .toggle-slider::before {
+      content: "SHOW";
+      transform: translateX(34px);
+      background: var(--color-accent);
+      color: var(--color-accent-text);
+    }
+    .configurator .page-tiles {
+      padding: 12px;
+      min-height: 40px;
+    }
+    .configurator .page-tiles .tile-block {
+      margin-bottom: 12px;
+    }
+    .configurator .page-tiles .tile-block:last-child {
+      margin-bottom: 0;
+    }
+    .configurator .add-page-wrap {
+      margin: 12px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .configurator .page-title-bar .tile-block-actions {
+      margin-left: auto;
+    }
+    .configurator .page-header-field .page-icon-trigger {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      flex-shrink: 0;
+      font-size: 1rem;
     }
     .configurator .link-row {
       display: flex;
@@ -254,6 +419,12 @@
       color: var(--color-text-muted);
       margin-bottom: 4px;
     }
+    .configurator .tile-field-toggle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
     .configurator .tile-field input,
     .configurator .tile-field select,
     .configurator .tile-field textarea {
@@ -282,6 +453,12 @@
     }
     .configurator .btn-secondary:hover {
       background: var(--color-border);
+    }
+    .configurator .add-link-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+      margin-bottom: 0;
     }
     .configurator .add-link,
     .configurator .add-heading {
@@ -490,10 +667,10 @@
 
     <form id="form">
       <label for="name">Display Name</label>
-      <input type="text" id="name" required placeholder="Your name">
+      <input type="text" id="name" required placeholder="Your name" maxlength="80">
 
       <label for="bio">Bio (optional)</label>
-      <input type="text" id="bio" placeholder="A short line about you">
+      <input type="text" id="bio" placeholder="A short line about you" maxlength="300">
 
       <label for="theme">Theme</label>
       <select id="theme">
@@ -512,24 +689,11 @@
       </select>
 
       <div class="tiles-section">
-        <label>Tiles</label>
-        <p class="links-hint">Add and reorder tiles. Order here = order on your page.</p>
-        <div id="tiles-stack"></div>
-        <div class="add-tile-wrap">
-          <button type="button" class="add-tile-btn-main" id="addTileBtn" aria-haspopup="true" aria-expanded="false">
-            <i class="ti ti-plus"></i>
-            Add tile
-            <i class="ti ti-chevron-down add-tile-chevron"></i>
-          </button>
-          <div class="add-tile-dropdown" id="addTileDropdown" role="menu">
-            <button type="button" class="add-tile-option" role="menuitem" data-type="heading"><i class="ti ti-heading"></i> Heading</button>
-            <button type="button" class="add-tile-option" role="menuitem" data-type="text"><i class="ti ti-article"></i> Text</button>
-            <button type="button" class="add-tile-option" role="menuitem" data-type="image"><i class="ti ti-photo"></i> Image</button>
-            <button type="button" class="add-tile-option" role="menuitem" data-type="link"><i class="ti ti-link"></i> Link</button>
-            <button type="button" class="add-tile-option" role="menuitem" data-type="linksbar"><i class="ti ti-apps"></i> Links bar</button>
-            <button type="button" class="add-tile-option" role="menuitem" data-type="embed"><i class="ti ti-video"></i> Embed</button>
-            <button type="button" class="add-tile-option" role="menuitem" data-type="calendar"><i class="ti ti-calendar"></i> Calendar</button>
-          </div>
+        <label>Pages & tiles</label>
+        <p class="links-hint">Add pages, then add tiles to each. Use a linksbar with showLabels for page nav.</p>
+        <div id="pages-stack"></div>
+        <div class="add-page-wrap">
+          <button type="button" class="btn btn-secondary add-page-btn" id="addPageBtn"><i class="ti ti-circle-plus"></i> Add page</button>
         </div>
       </div>
 
@@ -574,7 +738,8 @@
     }
 
     function updateIconTrigger(trigger) {
-      const input = trigger.closest(".link-row-fields")?.querySelector(".link-icon");
+      const input = trigger.closest(".link-row-fields")?.querySelector(".link-icon")
+        || trigger.closest(".page-header-field")?.querySelector(".page-icon-input");
       const i = trigger.querySelector("i");
       if (i && input) {
         const name = getTablerIconName(input.value);
@@ -631,7 +796,11 @@
         const icon = btn.dataset.icon;
         if (currentIconInput) {
           currentIconInput.value = icon;
-          updateIconTrigger(currentIconInput.closest(".link-row-fields")?.querySelector(".icon-picker-trigger"));
+          const trigger = currentIconInput.closest(".link-row-fields")?.querySelector(".icon-picker-trigger")
+            || currentIconInput.closest(".page-header-field")?.querySelector(".page-icon-trigger");
+          if (trigger) updateIconTrigger(trigger);
+          const pg = currentIconInput.closest(".page-group");
+          if (pg) updatePageTitleBar(pg);
         }
         closePicker();
       };
@@ -642,8 +811,8 @@
 
     function updatePickerPosition() {
       if (!picker || !currentIconInput || picker.overlay.hidden) return;
-      const wrap = currentIconInput.closest(".link-row-fields");
-      const trigger = wrap?.querySelector(".icon-picker-trigger");
+      const wrap = currentIconInput.closest(".link-row-fields") || currentIconInput.closest(".page-header-field");
+      const trigger = wrap?.querySelector(".icon-picker-trigger") || wrap?.querySelector(".page-icon-trigger");
       const rect = (trigger || currentIconInput).getBoundingClientRect();
       const popover = picker.popover;
       const popoverH = 360;
@@ -704,7 +873,7 @@
       "tiles/base.css", "tiles/calendar.css", "tiles/calendar.js",
       "tiles/embed.css", "tiles/embed.js", "tiles/heading.css", "tiles/heading.js",
       "tiles/image.css", "tiles/image.js", "tiles/index.js", "tiles/icons.js", "tiles/link.css",
-      "tiles/link.js", "tiles/linksbar.css", "tiles/linksbar.js",
+      "tiles/link.js", "tiles/linksbar.css", "tiles/linksbar.js", "tiles/pagenav.js",
       "tiles/text.css", "tiles/text.js", "tiles/tiles.css", "tiles/utils.js",
       "themes/catppuccin.yaml", "themes/dark.yaml", "themes/dracula.yaml",
       "themes/gruvbox.yaml", "themes/light.yaml", "themes/mocha.yaml",
@@ -716,6 +885,13 @@
     ];
 
     const baseUrl = location.href.replace(/configurator\.html.*$/, "") + "site/";
+    const WIKI_BASE = "https://github.com/ravendarque/ravendarque-limn/wiki";
+    const TILE_WIKI_URL = (type) => {
+      if (type === "embed") return `${WIKI_BASE}/Embeds`;
+      if (type === "calendar") return `${WIKI_BASE}/Calendar`;
+      if (type === "pagenav") return `${WIKI_BASE}/Pages`;
+      return `${WIKI_BASE}/Tiles#${type}`;
+    };
 
     function escapeYaml(str) {
       if (!str) return "";
@@ -728,9 +904,17 @@
       const bio = document.getElementById("bio").value.trim();
       const theme = document.getElementById("theme").value;
 
-      let tilesYaml = "";
-      const blocks = document.querySelectorAll("#tiles-stack > .tile-block");
-      for (const block of blocks) {
+      let pagesYaml = "";
+      const pageGroups = document.querySelectorAll("#pages-stack > .page-group");
+      for (const pg of pageGroups) {
+        const pageId = pg.querySelector(".page-id-input")?.value.trim() || "home";
+        const pageTitle = pg.querySelector(".page-title-input")?.value.trim() || "Home";
+        const pageIcon = pg.querySelector(".page-icon-input")?.value.trim() || "home";
+        const hideFromNavbar = !(pg.querySelector(".page-show-in-nav")?.checked ?? true);
+
+        let tilesYaml = "";
+        const blocks = pg.querySelectorAll(".page-tiles > .tile-block");
+        for (const block of blocks) {
         const type = block.dataset.type;
         if (type === "heading") {
           const text = block.querySelector(".heading-input")?.value.trim();
@@ -778,10 +962,14 @@
             if (!url || !icon) continue;
             items.push({ icon, url, label: label || icon });
           }
+          const showLabels = block.querySelector(".linksbar-show-labels")?.checked;
           if (items.length > 0) {
             tilesYaml += `  - type: linksbar
     surface: hide
-    items:
+`;
+            if (showLabels) tilesYaml += `    showLabels: true
+`;
+            tilesYaml += `    items:
 `;
             for (const item of items) {
               tilesYaml += `      - icon: ${item.icon}
@@ -790,6 +978,13 @@
 `;
             }
           }
+        } else if (type === "pagenav") {
+          const showLabels = block.querySelector(".pagenav-show-labels")?.checked ?? true;
+          tilesYaml += `  - type: pagenav
+    surface: hide
+`;
+          if (showLabels) tilesYaml += `    showLabels: true
+`;
         } else if (type === "embed") {
           const html = block.querySelector(".embed-html")?.value.trim();
           const title = block.querySelector(".embed-title")?.value.trim();
@@ -810,6 +1005,17 @@
 `;
           }
         }
+        }
+
+        pagesYaml += `  - id: ${escapeYaml(pageId)}
+    title: ${escapeYaml(pageTitle)}
+    icon: ${pageIcon}
+`;
+        if (hideFromNavbar) pagesYaml += `    hide-from-navbar: true
+`;
+        pagesYaml += `    tiles:
+`;
+        pagesYaml += tilesYaml.split("\n").map(line => (line ? "    " + line : "")).join("\n");
       }
 
       return `profile:
@@ -818,8 +1024,153 @@ ${bio ? `  bio: ${escapeYaml(bio)}\n` : ""}  image: avatar.jpg
 
 theme: ${theme}
 
-tiles:
-` + tilesYaml;
+pages:
+` + pagesYaml;
+    }
+
+    const STORAGE_KEY = "limn-configurator-state";
+
+    function getConfigState() {
+      const name = document.getElementById("name").value.trim();
+      const bio = document.getElementById("bio").value.trim();
+      const theme = document.getElementById("theme").value;
+      const pages = [];
+      const pageGroups = document.querySelectorAll("#pages-stack > .page-group");
+      for (const pg of pageGroups) {
+        const pageId = pg.querySelector(".page-id-input")?.value.trim() || "home";
+        const pageTitle = pg.querySelector(".page-title-input")?.value.trim() || "Home";
+        const pageIcon = pg.querySelector(".page-icon-input")?.value.trim() || "home";
+        const hideFromNavbar = !(pg.querySelector(".page-show-in-nav")?.checked ?? true);
+        const tiles = [];
+        const blocks = pg.querySelectorAll(".page-tiles > .tile-block");
+        for (const block of blocks) {
+          const type = block.dataset.type;
+          const tile = { type };
+          if (type === "heading") {
+            const text = block.querySelector(".heading-input")?.value.trim();
+            if (text) tile.text = text;
+          } else if (type === "text") {
+            const content = block.querySelector(".text-content")?.value.trim();
+            if (content) tile.content = content;
+          } else if (type === "image") {
+            const url = block.querySelector(".image-url")?.value.trim();
+            const alt = block.querySelector(".image-alt")?.value.trim();
+            if (url) {
+              tile.url = url;
+              if (alt) tile.alt = alt;
+            }
+          } else if (type === "link") {
+            const url = block.querySelector(".link-tile-url")?.value.trim();
+            const label = block.querySelector(".link-tile-label")?.value.trim();
+            const icon = block.querySelector(".link-tile-icon")?.value.trim();
+            if (url && label) {
+              tile.url = url;
+              tile.label = label;
+              if (icon) tile.icon = icon;
+            }
+          } else if (type === "linksbar") {
+            const linkRows = block.querySelectorAll(".link-row");
+            const items = [];
+            for (const row of linkRows) {
+              const label = row.querySelector(".link-label")?.value.trim();
+              const url = row.querySelector(".link-url")?.value.trim();
+              const icon = row.querySelector(".link-icon")?.value.trim();
+              if (!url || !icon) continue;
+              items.push({ icon, url, label: label || icon });
+            }
+            tile.showLabels = block.querySelector(".linksbar-show-labels")?.checked ?? false;
+            tile.items = items;
+          } else if (type === "pagenav") {
+            tile.showLabels = block.querySelector(".pagenav-show-labels")?.checked ?? true;
+          } else if (type === "embed") {
+            const html = block.querySelector(".embed-html")?.value.trim();
+            const title = block.querySelector(".embed-title")?.value.trim();
+            if (html) {
+              tile.html = html;
+              if (title) tile.title = title;
+            }
+          } else if (type === "calendar") {
+            const window = block.querySelector(".calendar-window")?.value;
+            const src = block.querySelector(".calendar-src")?.value.trim();
+            if (window && src) {
+              tile.window = window;
+              tile.src = src;
+            }
+          }
+          tiles.push(tile);
+        }
+        pages.push({ id: pageId, title: pageTitle, icon: pageIcon, hideFromNavbar, tiles });
+      }
+      return { profile: { name, bio }, theme, pages };
+    }
+
+    function populateTileBlock(block, tile) {
+      const type = block.dataset.type;
+      if (type === "heading") {
+        if (tile.text !== undefined) block.querySelector(".heading-input").value = tile.text;
+      } else if (type === "text") {
+        if (tile.content !== undefined) block.querySelector(".text-content").value = tile.content;
+      } else if (type === "image") {
+        if (tile.url !== undefined) block.querySelector(".image-url").value = tile.url;
+        if (tile.alt !== undefined) block.querySelector(".image-alt").value = tile.alt;
+      } else if (type === "link") {
+        if (tile.url !== undefined) block.querySelector(".link-tile-url").value = tile.url;
+        if (tile.label !== undefined) block.querySelector(".link-tile-label").value = tile.label;
+        if (tile.icon !== undefined) {
+          block.querySelector(".link-tile-icon").value = tile.icon;
+          updateIconTrigger(block.querySelector(".icon-picker-trigger"));
+        }
+      } else if (type === "linksbar") {
+        block.querySelector(".linksbar-show-labels").checked = !!tile.showLabels;
+        const linksDiv = block.querySelector(".links-section");
+        linksDiv.querySelectorAll(".link-row").forEach(r => r.remove());
+        for (const item of (tile.items || [])) {
+          addLinkRow(linksDiv, item.label || "", item.url || "", item.icon || "link");
+        }
+      } else if (type === "pagenav") {
+        block.querySelector(".pagenav-show-labels").checked = !!tile.showLabels;
+      } else if (type === "embed") {
+        if (tile.html !== undefined) block.querySelector(".embed-html").value = tile.html;
+        if (tile.title !== undefined) block.querySelector(".embed-title").value = tile.title;
+      } else if (type === "calendar") {
+        if (tile.window !== undefined) block.querySelector(".calendar-window").value = tile.window;
+        if (tile.src !== undefined) block.querySelector(".calendar-src").value = tile.src;
+      }
+    }
+
+    function loadConfigState(state) {
+      if (!state || !state.pages?.length) return;
+      document.getElementById("name").value = state.profile?.name ?? "";
+      document.getElementById("bio").value = state.profile?.bio ?? "";
+      document.getElementById("theme").value = state.theme ?? "light";
+      const pagesStack = document.getElementById("pages-stack");
+      pagesStack.innerHTML = "";
+      for (let i = 0; i < state.pages.length; i++) {
+        const p = state.pages[i];
+        const isHome = i === 0;
+        const tilesContainer = createPageGroup(p.id || "home", p.title || "Home", p.icon || "home", isHome);
+        const pg = tilesContainer.closest(".page-group");
+        pg.querySelector(".page-show-in-nav").checked = !(p.hideFromNavbar ?? false);
+        for (const tile of p.tiles || []) {
+          if (!tile.type) continue;
+          const block = createTileBlock(tile.type, tilesContainer);
+          populateTileBlock(block, tile);
+        }
+      }
+      document.querySelectorAll(".page-group.selected").forEach(p => p.classList.remove("selected"));
+      pagesStack.querySelector(".page-group")?.classList.add("selected");
+      updatePageMoveButtons();
+    }
+
+    let saveTimeout = null;
+    function saveConfigState() {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(getConfigState()));
+      } catch (_) {}
+    }
+    function debouncedSave() {
+      if (saveTimeout) clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(saveConfigState, 300);
     }
 
     function updateLinkRowMoveButtons(container) {
@@ -847,11 +1198,11 @@ tiles:
           <input type="hidden" class="link-icon" value="${(icon || "link").replace(/"/g, "&quot;")}">
           <div class="link-field">
             <label>Label</label>
-            <input type="text" class="link-label" placeholder="e.g. GitHub, Email" value="${(label || "").replace(/"/g, "&quot;")}">
+            <input type="text" class="link-label" placeholder="e.g. GitHub, Email" value="${(label || "").replace(/"/g, "&quot;")}" maxlength="50">
           </div>
           <div class="link-field">
             <label>URL</label>
-            <input type="url" class="link-url" placeholder="https://..." value="${(url || "").replace(/"/g, "&quot;")}" required>
+            <input type="url" class="link-url" placeholder="https://..." value="${(url || "").replace(/"/g, "&quot;")}" required maxlength="1000">
           </div>
         </div>
       `;
@@ -881,17 +1232,19 @@ tiles:
       updateLinkRowMoveButtons(container);
     }
 
-    function createTileBlock(type, insertBefore = null) {
-      const stack = document.getElementById("tiles-stack");
+    function createTileBlock(type, container, insertBefore = null) {
+      const stack = container;
       const block = document.createElement("div");
       block.className = "tile-block";
       block.dataset.type = type;
 
-      const typeLabels = { heading: "Heading", text: "Text", image: "Image", link: "Link", linksbar: "Links bar", embed: "Embed", calendar: "Calendar" };
+      const typeLabels = { heading: "Heading", text: "Text", image: "Image", link: "Link", linksbar: "Links bar", pagenav: "Navigation bar", embed: "Embed", calendar: "Calendar" };
+      const wikiUrl = TILE_WIKI_URL(type);
 
       block.innerHTML = `
         <div class="tile-block-header">
           <span class="tile-block-type">${typeLabels[type]}</span>
+          <a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="tile-help-link" title="View docs"><i class="ti ti-help-circle"></i></a>
           <div class="tile-block-actions">
             <button type="button" class="btn btn-secondary tile-move-up" title="Move up"><i class="ti ti-chevron-up"></i></button>
             <button type="button" class="btn btn-secondary tile-move-down" title="Move down"><i class="ti ti-chevron-down"></i></button>
@@ -904,20 +1257,20 @@ tiles:
       const body = block.querySelector(".tile-block-body");
 
       if (type === "heading") {
-        body.innerHTML = `<input type="text" class="heading-input" placeholder="e.g. About, Links" style="margin-bottom:0">`;
+        body.innerHTML = `<input type="text" class="heading-input" placeholder="e.g. About, Links" style="margin-bottom:0" maxlength="80">`;
         body.querySelector(".heading-input").value = "Links";
       } else if (type === "text") {
-        body.innerHTML = `<textarea class="text-content" placeholder="Body copy, supports multiple lines..." rows="3" style="margin-bottom:0;resize:vertical;width:100%"></textarea>`;
+        body.innerHTML = `<textarea class="text-content" placeholder="Body copy, supports multiple lines..." rows="3" style="margin-bottom:0;resize:vertical;width:100%" maxlength="3000"></textarea>`;
         body.querySelector(".text-content").value = "Some body copy here.";
       } else if (type === "image") {
         body.innerHTML = `
           <div class="tile-field">
             <label>URL</label>
-            <input type="text" class="image-url" placeholder="avatar.jpg or https://..." value="avatar.jpg">
+            <input type="text" class="image-url" placeholder="avatar.jpg or https://..." value="avatar.jpg" maxlength="500">
           </div>
           <div class="tile-field">
             <label>Alt text (optional)</label>
-            <input type="text" class="image-alt" placeholder="Description for screen readers">
+            <input type="text" class="image-alt" placeholder="Description for screen readers" maxlength="200">
           </div>
         `;
       } else if (type === "link") {
@@ -927,11 +1280,11 @@ tiles:
             <input type="hidden" class="link-icon link-tile-icon" value="brand-github">
             <div class="link-field">
               <label>Label</label>
-              <input type="text" class="link-tile-label" placeholder="e.g. GitHub" value="">
+              <input type="text" class="link-tile-label" placeholder="e.g. GitHub" value="" maxlength="50">
             </div>
             <div class="link-field">
               <label>URL</label>
-              <input type="url" class="link-tile-url" placeholder="https://..." value="">
+              <input type="url" class="link-tile-url" placeholder="https://..." value="" maxlength="1000">
             </div>
           </div>
         `;
@@ -942,26 +1295,49 @@ tiles:
         updateIconTrigger(linkTrigger);
         linkTrigger.onclick = () => openPicker(linkIconInput);
       } else if (type === "linksbar") {
+        body.innerHTML = `
+          <div class="tile-field tile-field-toggle">
+            <label>Label visibility</label>
+            <label class="toggle-switch">
+              <input type="checkbox" class="linksbar-show-labels">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        `;
         const linksDiv = document.createElement("div");
         linksDiv.className = "links-section";
         body.appendChild(linksDiv);
+        const addLinkWrap = document.createElement("div");
+        addLinkWrap.className = "add-link-wrap";
         const addBtn = document.createElement("button");
         addBtn.type = "button";
         addBtn.className = "btn btn-secondary add-link";
-        addBtn.textContent = "+ Add icon";
+        addBtn.innerHTML = '<i class="ti ti-circle-plus"></i> Add link';
         addBtn.onclick = () => addLinkRow(linksDiv);
-        body.appendChild(addBtn);
+        addLinkWrap.appendChild(addBtn);
+        body.appendChild(addLinkWrap);
         addLinkRow(linksDiv, "GitHub", "https://github.com/yourname", "github");
         addLinkRow(linksDiv, "Email", "mailto:you@example.com", "mail");
+      } else if (type === "pagenav") {
+        body.innerHTML = `
+          <p class="links-hint" style="margin-bottom:12px">Links to pages are built from each page's icon, title, and visibility. Use move buttons to reorder.</p>
+          <div class="tile-field tile-field-toggle">
+            <label>Label visibility</label>
+            <label class="toggle-switch">
+              <input type="checkbox" class="pagenav-show-labels" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        `;
       } else if (type === "embed") {
         body.innerHTML = `
           <div class="tile-field">
             <label>Title (optional)</label>
-            <input type="text" class="embed-title" placeholder="e.g. Video">
+            <input type="text" class="embed-title" placeholder="e.g. Video" maxlength="80">
           </div>
           <div class="tile-field">
             <label>Embed HTML</label>
-            <textarea class="embed-html" placeholder="Paste iframe from Share → Embed..." rows="4" style="font-family:monospace;font-size:0.8rem"></textarea>
+            <textarea class="embed-html" placeholder="Paste iframe from Share → Embed..." rows="4" style="font-family:monospace;font-size:0.8rem" maxlength="8000"></textarea>
           </div>
         `;
       } else if (type === "calendar") {
@@ -977,7 +1353,7 @@ tiles:
           </div>
           <div class="tile-field">
             <label>URL (relative or absolute)</label>
-            <input type="text" class="calendar-src" placeholder="example.ics or https://..." value="example.ics">
+            <input type="text" class="calendar-src" placeholder="example.ics or https://..." value="example.ics" maxlength="500">
           </div>
         `;
       }
@@ -1013,41 +1389,217 @@ tiles:
         stack.appendChild(block);
       }
       updateAllMoveButtons();
+      return block;
     }
 
     (function initAddTileDropdown() {
-      const wrap = document.querySelector(".add-tile-wrap");
-      const btn = document.getElementById("addTileBtn");
-      const dropdown = document.getElementById("addTileDropdown");
-      function close() {
-        dropdown.classList.remove("open");
-        wrap.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
-      }
-      function open() {
-        dropdown.classList.add("open");
-        wrap.classList.add("open");
-        btn.setAttribute("aria-expanded", "true");
-      }
-      btn.onclick = () => {
-        if (dropdown.classList.contains("open")) close();
-        else open();
-      };
-      dropdown.querySelectorAll(".add-tile-option").forEach(opt => {
-        opt.onclick = () => {
-          createTileBlock(opt.dataset.type);
-          close();
-        };
-      });
       document.addEventListener("click", (e) => {
-        if (!e.target.closest(".add-tile-wrap")) close();
+        const btn = e.target.closest(".add-tile-btn-main");
+        if (btn) {
+          e.stopPropagation();
+          const wrap = btn.closest(".add-tile-wrap");
+          const dropdown = wrap?.querySelector(".add-tile-dropdown");
+          if (!wrap || !dropdown) return;
+          const isOpen = dropdown.classList.contains("open");
+          document.querySelectorAll(".add-tile-dropdown.open").forEach(d => d.classList.remove("open"));
+          document.querySelectorAll(".add-tile-wrap.open").forEach(w => w.classList.remove("open"));
+          if (!isOpen) {
+            dropdown.classList.add("open");
+            wrap.classList.add("open");
+            btn.setAttribute("aria-expanded", "true");
+          } else {
+            btn.setAttribute("aria-expanded", "false");
+          }
+          return;
+        }
+        const opt = e.target.closest(".add-tile-option");
+        if (opt) {
+          e.stopPropagation();
+          const wrap = opt.closest(".add-tile-wrap");
+          const pg = wrap?.closest(".page-group");
+          const container = pg?.querySelector(".page-tiles");
+          if (!container) return;
+          createTileBlock(opt.dataset.type, container);
+          wrap?.classList.remove("open");
+          wrap?.querySelector(".add-tile-dropdown")?.classList.remove("open");
+          wrap?.querySelector(".add-tile-btn-main")?.setAttribute("aria-expanded", "false");
+          return;
+        }
+        if (!e.target.closest(".add-tile-wrap")) {
+          document.querySelectorAll(".add-tile-dropdown.open").forEach(d => d.classList.remove("open"));
+          document.querySelectorAll(".add-tile-wrap.open").forEach(w => w.classList.remove("open"));
+          document.querySelectorAll(".add-tile-btn-main[aria-expanded='true']").forEach(b => b.setAttribute("aria-expanded", "false"));
+        }
       });
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && dropdown.classList.contains("open")) close();
+        if (e.key === "Escape") {
+          document.querySelectorAll(".add-tile-dropdown.open").forEach(d => d.classList.remove("open"));
+          document.querySelectorAll(".add-tile-wrap.open").forEach(w => w.classList.remove("open"));
+          document.querySelectorAll(".add-tile-btn-main[aria-expanded='true']").forEach(b => b.setAttribute("aria-expanded", "false"));
+        }
       });
     })();
 
-    createTileBlock("linksbar");
+    function createPageGroup(pageId = "home", title = "Home", icon = "home", isHome = false) {
+      const pagesStack = document.getElementById("pages-stack");
+      const pg = document.createElement("div");
+      pg.className = "page-group" + (isHome ? " page-home" : "");
+      pg.dataset.pageId = pageId;
+      pg.innerHTML = `
+        <div class="page-title-bar">
+          <span class="page-title-label"><i class="ti ti-${(icon || "home").replace(/"/g, "&quot;")}"></i> ${(title || "Home").replace(/"/g, "&quot;")}</span>
+          <a href="${WIKI_BASE}/Pages" target="_blank" rel="noopener noreferrer" class="tile-help-link" title="View docs"><i class="ti ti-help-circle"></i></a>
+          <div class="tile-block-actions page-actions">
+            <button type="button" class="btn btn-secondary page-move-up" title="Move up"><i class="ti ti-chevron-up"></i></button>
+            <button type="button" class="btn btn-secondary page-move-down" title="Move down"><i class="ti ti-chevron-down"></i></button>
+            <button type="button" class="btn btn-secondary page-remove" title="Remove">×</button>
+          </div>
+        </div>
+        <div class="page-header">
+          <div class="page-header-fields">
+            <div class="page-header-field">
+              <button type="button" class="btn btn-secondary icon-picker-trigger page-icon-trigger" title="Pick icon"><i class="ti ti-${(icon || "home").replace(/"/g, "&quot;")}"></i></button>
+              <input type="hidden" class="page-icon-input" value="${(icon || "home").replace(/"/g, "&quot;")}">
+            </div>
+            <div class="page-header-field">
+              <label>ID</label>
+              <input type="text" class="page-id-input" placeholder="home" value="${(pageId || "home").replace(/"/g, "&quot;")}" pattern="[a-z0-9_-]+" title="Lowercase letters, numbers, hyphens, underscores only" maxlength="64">
+            </div>
+            <div class="page-header-field">
+              <label>Title</label>
+              <input type="text" class="page-title-input" placeholder="Home" value="${(title || "Home").replace(/"/g, "&quot;")}" maxlength="80">
+            </div>
+            <div class="page-header-field page-header-field-nav">
+              <label>Navigation</label>
+              <label class="toggle-switch">
+                <input type="checkbox" class="page-show-in-nav" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="page-tiles"></div>
+        <div class="add-tile-wrap">
+          <button type="button" class="btn btn-secondary add-tile-btn-main" aria-haspopup="true" aria-expanded="false">
+            <i class="ti ti-circle-plus"></i>
+            Add tile
+            <i class="ti ti-chevron-down add-tile-chevron"></i>
+          </button>
+          <div class="add-tile-dropdown" role="menu">
+            <button type="button" class="add-tile-option" role="menuitem" data-type="heading"><i class="ti ti-heading"></i> Heading</button>
+            <button type="button" class="add-tile-option" role="menuitem" data-type="text"><i class="ti ti-article"></i> Text</button>
+            <button type="button" class="add-tile-option" role="menuitem" data-type="image"><i class="ti ti-photo"></i> Image</button>
+            <button type="button" class="add-tile-option" role="menuitem" data-type="link"><i class="ti ti-link"></i> Link</button>
+            <button type="button" class="add-tile-option" role="menuitem" data-type="linksbar"><i class="ti ti-apps"></i> Links bar</button>
+            <button type="button" class="add-tile-option" role="menuitem" data-type="pagenav"><i class="ti ti-layout-navbar"></i> Navigation bar</button>
+            <button type="button" class="add-tile-option" role="menuitem" data-type="embed"><i class="ti ti-video"></i> Embed</button>
+            <button type="button" class="add-tile-option" role="menuitem" data-type="calendar"><i class="ti ti-calendar"></i> Calendar</button>
+          </div>
+        </div>
+      `;
+      const tilesContainer = pg.querySelector(".page-tiles");
+      pg.onclick = (e) => {
+        if (e.target.closest(".add-tile-wrap")) return;
+        document.querySelectorAll(".page-group.selected").forEach(p => p.classList.remove("selected"));
+        pg.classList.add("selected");
+      };
+      if (!isHome) {
+      pg.querySelector(".page-move-up").onclick = (e) => { e.stopPropagation();
+        const prev = pg.previousElementSibling;
+        if (prev) {
+          pagesStack.insertBefore(pg, prev);
+          updatePageMoveButtons();
+        }
+      };
+      pg.querySelector(".page-move-down").onclick = (e) => { e.stopPropagation();
+        const next = pg.nextElementSibling;
+        if (next) {
+          pagesStack.insertBefore(next, pg);
+          updatePageMoveButtons();
+        }
+      };
+      pg.querySelector(".page-remove").onclick = (e) => { e.stopPropagation();
+        if (pagesStack.querySelectorAll(".page-group").length <= 1) return;
+        pg.remove();
+        updatePageMoveButtons();
+      };
+      }
+      pagesStack.appendChild(pg);
+      if (isHome) {
+        pg.querySelector(".page-actions")?.remove();
+      }
+      pg.classList.add("selected");
+      const iconTrigger = pg.querySelector(".page-icon-trigger");
+      const iconInput = pg.querySelector(".page-icon-input");
+      if (iconTrigger && iconInput) {
+        updateIconTrigger(iconTrigger);
+        iconTrigger.onclick = (e) => { e.stopPropagation(); openPicker(iconInput); };
+      }
+      const titleInput = pg.querySelector(".page-title-input");
+      if (titleInput) {
+        titleInput.oninput = () => updatePageTitleBar(pg);
+      }
+      const idInput = pg.querySelector(".page-id-input");
+      if (idInput) {
+        idInput.oninput = () => {
+          const v = idInput.value.replace(/[^a-z0-9_-]/g, "").toLowerCase();
+          if (v !== idInput.value) idInput.value = v;
+          pg.dataset.pageId = idInput.value.trim() || "home";
+        };
+      }
+      updatePageMoveButtons();
+      return tilesContainer;
+    }
+    function updatePageTitleBar(pg) {
+      const label = pg.querySelector(".page-title-label");
+      const title = pg.querySelector(".page-title-input")?.value.trim() || "Home";
+      const icon = pg.querySelector(".page-icon-input")?.value.trim() || "home";
+      if (label) {
+        label.innerHTML = `<i class="ti ti-${icon.replace(/"/g, "&quot;")}"></i> ${title.replace(/</g, "&lt;").replace(/>/g, "&gt;")}`;
+      }
+    }
+    function updatePageMoveButtons() {
+      const pages = document.querySelectorAll("#pages-stack > .page-group:not(.page-home)");
+      pages.forEach((pg, i) => {
+        const up = pg.querySelector(".page-move-up");
+        const down = pg.querySelector(".page-move-down");
+        if (up) up.disabled = i === 0;
+        if (down) down.disabled = i === pages.length - 1;
+      });
+    }
+    function initConfigurator() {
+      try {
+        const raw = sessionStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const state = JSON.parse(raw);
+          loadConfigState(state);
+          return;
+        }
+      } catch (_) {}
+      createPageGroup("home", "Home", "home", true);
+    }
+    initConfigurator();
+
+    document.querySelector(".configurator").addEventListener("input", (e) => {
+      const el = e.target;
+      if (el.tagName === "INPUT" && el.type === "text" && /[\r\n]/.test(el.value)) {
+        el.value = el.value.replace(/[\r\n]+/g, " ");
+      }
+      debouncedSave();
+    });
+    document.querySelector(".configurator").addEventListener("change", () => debouncedSave());
+    document.querySelector(".configurator").addEventListener("click", (e) => {
+      if (e.target.closest(".add-link, .add-tile-option, #addPageBtn, .page-remove, .tile-remove, .link-remove, .page-move-up, .page-move-down, .tile-move-up, .tile-move-down, .link-move-up, .link-move-down")) {
+        debouncedSave();
+      }
+    });
+
+    document.getElementById("addPageBtn").onclick = () => {
+      const pages = document.querySelectorAll("#pages-stack > .page-group");
+      const n = pages.length + 1;
+      const newPage = createPageGroup(`page${n}`, `Page ${n}`, "link");
+      createTileBlock("pagenav", newPage);
+    };
 
     document.getElementById("form").onsubmit = async (e) => {
       e.preventDefault();

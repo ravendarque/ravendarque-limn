@@ -5,7 +5,7 @@
 ```yaml
 profile:     # Who you are
 theme:      # How it looks
-tiles:      # What you're sharing
+pages:      # Your pages and their tiles
 ```
 
 ---
@@ -21,4 +21,4 @@ You'll pick it up from the examples. Promise.
 
 ---
 
-**Next:** [Profile](Profile) · [Themes](Themes) · [Tiles](Tiles)
+**Next:** [Profile](Profile) · [Themes](Themes) · [Pages](Pages) · [Tiles](Tiles)

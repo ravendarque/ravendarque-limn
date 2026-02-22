@@ -55,6 +55,13 @@
     import { applyTheme, renderProfile, showError } from "./limn-engine.js";
     import { renderTile, validateTiles } from "./tiles/index.js";
 
+    function normalizeConfig(config) {
+      if (config.pages) return config;
+      if (!config.tiles) throw new Error("Config must have either 'pages' or 'tiles'");
+      config.pages = [{ id: "home", title: "Home", icon: "home", tiles: config.tiles }];
+      return config;
+    }
+
     function validate(config) {
       if (!config || typeof config !== "object") throw new Error("Config must be a YAML mapping");
       if (!config.profile)       throw new Error("Missing required field: profile");
@@ -63,7 +70,40 @@
       for (const k of ["background", "surface", "text", "accent"]) {
         if (!config.theme[k]) throw new Error(`Missing required theme field: theme.${k}`);
       }
-      validateTiles(config);
+      if (!Array.isArray(config.pages) || config.pages.length === 0)
+        throw new Error("pages must be a non-empty list");
+      config.pages.forEach((page, i) => {
+        const at = `pages[${i}]`;
+        if (!page.id) throw new Error(`${at} missing required field: id`);
+        if (!Array.isArray(page.tiles)) throw new Error(`${at}.tiles must be a list`);
+        validateTiles({ tiles: page.tiles }, at);
+      });
+    }
+
+    function getActivePageId(config) {
+      const hash = (location.hash || "#").slice(1);
+      const valid = config.pages.some(p => p.id === hash);
+      return valid ? hash : config.pages[0].id;
+    }
+
+    function render(config) {
+      const pageId = getActivePageId(config);
+      const page = config.pages.find(p => p.id === pageId);
+      if (!page) return;
+
+      document.title = `${page.title} — Limn`;
+
+      const app = document.getElementById("app");
+      app.innerHTML = "";
+      applyTheme(config.theme);
+      app.appendChild(renderProfile(config.profile));
+
+      const tilesEl = document.createElement("div");
+      tilesEl.id = "tiles";
+      tilesEl.style.display = "contents";
+      app.appendChild(tilesEl);
+
+      page.tiles.forEach((tile) => renderTile(tile, config));
     }
 
     // ---- Bootstrap ----
@@ -81,22 +121,13 @@
     try {
       const r = await fetch("./config.yaml");
       if (!r.ok) throw new Error(`Could not load config.yaml (HTTP ${r.status})`);
-      const config = load(await r.text());
+      let config = load(await r.text());
+      config = normalizeConfig(config);
       config.theme = await loadTheme(config.theme);
       validate(config);
 
-      const app = document.getElementById("app");
-      app.innerHTML = "";
-
-      applyTheme(config.theme);
-      app.appendChild(renderProfile(config.profile));
-
-      const tilesEl = document.createElement("div");
-      tilesEl.id = "tiles";
-      tilesEl.style.display = "contents";
-      app.appendChild(tilesEl);
-
-      config.tiles.forEach(renderTile);
+      render(config);
+      window.addEventListener("hashchange", () => render(config));
     } catch (err) {
       showError(err, "Config error");
     }

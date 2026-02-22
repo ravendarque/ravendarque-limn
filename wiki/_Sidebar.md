@@ -3,6 +3,7 @@
 - [Config Basics](Config-Basics)
 - [Profile](Profile)
 - [Themes](Themes)
+- [Pages](Pages)
 - [Tiles](Tiles)
 - [Embeds](Embeds)
 - [Calendar](Calendar)

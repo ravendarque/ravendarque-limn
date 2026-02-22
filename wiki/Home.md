@@ -26,6 +26,7 @@ Everything lives in `config.yaml`. No build step. No database. No monthly fees. 
 | [Config Basics](Config-Basics) | YAML in 60 seconds |
 | [Profile](Profile) | Name, bio, photo |
 | [Themes](Themes) | Colours and vibes |
+| [Pages](Pages) | Multiple pages, navigation |
 | [Tiles](Tiles) | Links, text, images, embeds, calendar |
 | [Embeds](Embeds) | How to get embed code from popular platforms |
 | [Calendar](Calendar) | ICS files, Gist, static events |

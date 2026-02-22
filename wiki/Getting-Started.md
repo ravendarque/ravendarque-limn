@@ -23,7 +23,7 @@ No YAML. No git. Just a form and a download.
 You want to edit YAML yourself. Fair enough.
 
 1. Grab the [latest release zip](https://github.com/ravendarque/ravendarque-limn/releases)
-2. Edit `config.yaml` — profile, theme, tiles
+2. Edit `config.yaml` — profile, theme, pages
 3. Steal from `examples/` for each tile type
 4. Deploy wherever
 

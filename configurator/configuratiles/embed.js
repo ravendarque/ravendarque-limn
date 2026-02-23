@@ -19,7 +19,7 @@ export default {
     return s;
   },
   renderBody(body) {
-    body.innerHTML = '<div class="tile-field"><label>Title (optional)</label><input type="text" class="embed-title" placeholder="e.g. Video" maxlength="80"></div><div class="tile-field"><label>Embed HTML</label><textarea class="embed-html" placeholder="Paste iframe from Share → Embed..." rows="4" style="font-family:monospace;font-size:0.8rem" maxlength="8000"></textarea></div>';
+    body.innerHTML = '<div class="tile-field"><label>Title (optional)</label><input type="text" class="embed-title" placeholder="e.g. Video" maxlength="80"></div><div class="tile-field"><label>Embed HTML</label><textarea class="embed-html" placeholder="Paste iframe from Share → Embed, or an Instagram URL (e.g. instagram.com/reel/ABC123)" rows="4" style="font-family:monospace;font-size:0.8rem" maxlength="8000"></textarea></div>';
   },
   populate(block, tile) {
     if (tile.html !== undefined) block.querySelector(".embed-html").value = tile.html;

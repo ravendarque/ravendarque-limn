@@ -60,7 +60,7 @@
 }
 
 .tile-linksbar--with-labels a {
-  width: auto;
+  flex: 1;
   min-width: 44px;
 }
 

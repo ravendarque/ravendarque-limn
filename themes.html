@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Theme preview when viewing from repo root (e.g. GitHub Pages /ravendarque-limn/). Uses site/ paths. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -74,8 +75,7 @@
   </div>
 
   <script type="module">
-    import { load } from "https://esm.sh/js-yaml@4";
-    import { applyTheme, renderProfile, showError } from "./site/limn-engine.js";
+    import { applyTheme, loadTheme, renderProfile, showError } from "./site/limn-engine.js";
     import { renderTile } from "./site/tiles/index.js";
 
     const THEMES = [
@@ -110,12 +110,6 @@
       ]
     };
 
-    async function loadTheme(name) {
-      const res = await fetch(`site/themes/${name}.yaml`);
-      if (!res.ok) throw new Error(`Could not load theme "${name}"`);
-      return load(await res.text());
-    }
-
     function getInitialTheme() {
       const params = new URLSearchParams(location.search);
       const t = params.get("theme");
@@ -137,7 +131,7 @@
       let currentTheme = getInitialTheme();
       select.value = currentTheme;
 
-      let themeData = await loadTheme(currentTheme);
+      let themeData = await loadTheme(currentTheme, "site/");
       applyTheme(themeData);
 
       const app = document.getElementById("app");
@@ -154,7 +148,7 @@
       select.addEventListener("change", async () => {
         currentTheme = select.value;
         setUrlTheme(currentTheme);
-        themeData = await loadTheme(currentTheme);
+        themeData = await loadTheme(currentTheme, "site/");
         applyTheme(themeData);
       });
     } catch (err) {

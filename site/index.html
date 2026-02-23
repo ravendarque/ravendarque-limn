@@ -52,8 +52,8 @@
 
   <script type="module">
     import { load } from "https://esm.sh/js-yaml@4";
-    import { applyTheme, renderProfile, showError } from "./limn-engine.js";
-    import { renderTile, validateTiles } from "./tiles/index.js?v=3";
+    import { applyTheme, loadTheme, renderProfile, showError } from "./limn-engine.js";
+    import { renderTile, validateTiles } from "./tiles/index.js";
 
     function normalizeConfig(config) {
       if (config.pages) return config;
@@ -107,16 +107,6 @@
     }
 
     // ---- Bootstrap ----
-
-    async function loadTheme(themeValue) {
-      if (typeof themeValue === "string") {
-        const path = `themes/${themeValue}.yaml`;
-        const res = await fetch(path);
-        if (!res.ok) throw new Error(`Could not load theme "${themeValue}" (${path} returned HTTP ${res.status})`);
-        return load(await res.text());
-      }
-      return themeValue;
-    }
 
     try {
       const r = await fetch("./config.yaml");

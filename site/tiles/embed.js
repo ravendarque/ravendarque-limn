@@ -55,9 +55,6 @@ export function render(tile) {
       buildInstagramIframe(instagram.type, instagram.shortcode) +
       `<p class="embed-fallback"><a href="${embedUrl}" target="_blank" rel="noopener">View on Instagram</a></p>`;
   } else {
-    if (/instagram\.com\/(p|reels?)\//i.test(String(tile.html || ""))) {
-      console.warn("[Limn embed] Instagram URL detected but parser failed. Value type:", typeof tile.html, "length:", tile.html?.length, "first 60 chars:", JSON.stringify(String(tile.html).slice(0, 60)));
-    }
     wrapper.innerHTML = tile.html;
   }
 

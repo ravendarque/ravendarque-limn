@@ -1,10 +1,11 @@
 /**
  * Tabler Icons — maps config icon names to Tabler webfont classes.
  * Config can use Lucide-style (github) or Tabler-style (brand-github).
+ * Single source of truth for icon aliases (used by site + configurator).
  * @see https://tabler.io/icons
  */
 
-const LUCIDE_TO_TABLER = {
+export const ICON_ALIASES = {
   github: "brand-github",
   mail: "mail",
   instagram: "brand-instagram",
@@ -29,8 +30,14 @@ export function getTablerClass(iconName) {
   if (!iconName || typeof iconName !== "string") return null;
   const name = iconName.trim().toLowerCase();
   if (!name) return null;
-  const tablerName = LUCIDE_TO_TABLER[name] ?? name;
+  const tablerName = ICON_ALIASES[name] ?? name;
   return `ti ti-${tablerName}`;
+}
+
+export function getTablerIconName(name) {
+  if (!name) return "link";
+  const n = name.trim().toLowerCase();
+  return ICON_ALIASES[n] ?? n;
 }
 
 export function createIconEl(iconName) {

@@ -18,11 +18,7 @@ export const PICKER_ICONS = [
   "brand-amazon", "brand-medium"
 ];
 
-export const ICON_ALIASES = {
-  github: "brand-github", instagram: "brand-instagram", twitter: "brand-x", x: "brand-x",
-  linkedin: "brand-linkedin", youtube: "brand-youtube", facebook: "brand-facebook",
-  globe: "world", mail: "mail", link: "link"
-};
+export { getTablerIconName } from "../site/tiles/icons.js";
 
 export const FILES = [
   "index.html", "limn-engine.css", "limn-engine.js", "themes.html",
@@ -47,12 +43,6 @@ export const STORAGE_KEY = "limn-configurator-state";
 
 export function getBaseUrl() {
   return new URL("../site/", location.href).href;
-}
-
-export function getTablerIconName(name) {
-  if (!name) return "link";
-  const n = name.trim().toLowerCase();
-  return ICON_ALIASES[n] ?? n;
 }
 
 export function getTileWikiUrl(type) {

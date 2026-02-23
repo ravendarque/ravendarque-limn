@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Theme preview when site/ is the deployed root. Mirrors root themes.html with relative paths. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -74,8 +75,7 @@
   </div>
 
   <script type="module">
-    import { load } from "https://esm.sh/js-yaml@4";
-    import { applyTheme, renderProfile, showError } from "./limn-engine.js";
+    import { applyTheme, loadTheme, renderProfile, showError } from "./limn-engine.js";
     import { renderTile } from "./tiles/index.js";
 
     const THEMES = [
@@ -109,12 +109,6 @@
       ]}
       ]
     };
-
-    async function loadTheme(name) {
-      const res = await fetch(`themes/${name}.yaml`);
-      if (!res.ok) throw new Error(`Could not load theme "${name}"`);
-      return load(await res.text());
-    }
 
     function getInitialTheme() {
       const params = new URLSearchParams(location.search);

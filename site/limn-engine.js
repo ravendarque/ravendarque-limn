@@ -2,6 +2,18 @@
  * Shared engine functions — used by index.html and themes.html
  */
 
+import { load } from "https://esm.sh/js-yaml@4";
+
+export async function loadTheme(themeValue, basePrefix = "") {
+  if (typeof themeValue === "string") {
+    const path = `${basePrefix}themes/${themeValue}.yaml`;
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(`Could not load theme "${themeValue}" (${path} returned HTTP ${res.status})`);
+    return load(await res.text());
+  }
+  return themeValue;
+}
+
 export function applyTheme(theme) {
   const s = document.documentElement.style;
   s.setProperty("--color-bg",          theme.background);

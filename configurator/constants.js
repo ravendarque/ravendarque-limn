@@ -27,14 +27,14 @@ export const FILES = [
   "tiles/embed.css", "tiles/embed.js", "tiles/heading.css", "tiles/heading.js",
   "tiles/image.css", "tiles/image.js", "tiles/index.js", "tiles/icons.js", "tiles/link.css",
   "tiles/link.js", "tiles/linksbar.css", "tiles/linksbar.js", "tiles/pagenav.js",
-  "tiles/text.css", "tiles/text.js", "tiles/tiles.css", "tiles/utils.js",
+  "tiles/quote.css", "tiles/quote.js", "tiles/text.css", "tiles/text.js", "tiles/tiles.css", "tiles/utils.js",
   "themes/catppuccin.yaml", "themes/dark.yaml", "themes/dracula.yaml",
   "themes/gruvbox.yaml", "themes/light.yaml", "themes/mocha.yaml",
   "themes/monokai.yaml", "themes/nord.yaml", "themes/pink-pony-club.yaml",
   "themes/retro.yaml", "themes/scarlet.yaml", "themes/solarized.yaml",
   "examples/calendar.yaml", "examples/embed.yaml", "examples/heading.yaml",
   "examples/image.yaml", "examples/link.yaml", "examples/linksbar.yaml",
-  "examples/text.yaml"
+  "examples/quote.yaml", "examples/text.yaml"
 ];
 
 export const WIKI_BASE = "https://github.com/ravendarque/ravendarque-limn/wiki";

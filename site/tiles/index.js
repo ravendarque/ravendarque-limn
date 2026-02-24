@@ -6,6 +6,7 @@ import * as embed from "./embed.js";
 import * as linksbar from "./linksbar.js";
 import * as pagenav from "./pagenav.js";
 import * as calendar from "./calendar.js";
+import * as quote from "./quote.js";
 
 const tileRenderers = {
   heading,
@@ -16,6 +17,7 @@ const tileRenderers = {
   linksbar,
   pagenav,
   calendar,
+  quote,
 };
 
 export function validateTiles(config, prefix = "") {

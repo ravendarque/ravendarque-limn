@@ -3,6 +3,8 @@
  * Local files are included in the zip as avatar.jpg.
  */
 
+import { getInitials } from "../site/limn-engine.js";
+
 const PROFILE_IMAGE_FILENAME = "avatar.jpg";
 
 let profileImageFile = null;
@@ -27,17 +29,27 @@ export function initProfileImagePicker() {
   function updatePreview() {
     preview.innerHTML = "";
     const mode = document.querySelector('input[name="profileImageMode"]:checked')?.value || "default";
-    let src = null;
-    if (mode === "upload" && profileImageFile) {
-      src = URL.createObjectURL(profileImageFile);
-    } else if (mode === "url" && urlInput.value.trim()) {
-      src = urlInput.value.trim();
-    }
-    if (src) {
+    if (mode === "default") {
+      const nameInput = document.getElementById("name");
+      const initials = getInitials(nameInput?.value ?? "");
+      const div = document.createElement("div");
+      div.className = "profile-image-preview-initials";
+      div.setAttribute("aria-hidden", "true");
+      div.textContent = initials;
+      preview.appendChild(div);
+    } else if (mode === "upload" && profileImageFile) {
       const img = document.createElement("img");
-      img.src = src;
+      img.src = URL.createObjectURL(profileImageFile);
       img.alt = "Profile preview";
       preview.appendChild(img);
+    } else if (mode === "url") {
+      const val = urlInput.value.trim();
+      if (val.startsWith("http://") || val.startsWith("https://")) {
+        const img = document.createElement("img");
+        img.src = val;
+        img.alt = "Profile preview";
+        preview.appendChild(img);
+      }
     }
   }
 
@@ -65,6 +77,14 @@ export function initProfileImagePicker() {
     updatePreview();
   });
 
+  const nameInput = document.getElementById("name");
+  if (nameInput) {
+    nameInput.addEventListener("input", function() {
+      const mode = document.querySelector('input[name="profileImageMode"]:checked')?.value || "default";
+      if (mode === "default") updatePreview();
+    });
+  }
+
   showHide();
 }
 
@@ -87,18 +107,28 @@ export function getProfileImageConfig() {
 }
 
 /**
- * Restore profile image from saved state (URL only; local file can't be persisted).
+ * Restore profile image from saved state. Shows the config value in the URL field
+ * so the user can see and edit it (works for avatar.jpg, URLs, or any path).
  */
 export function setProfileImageFromState(state) {
   const img = state?.profile?.image;
-  if (!img) return;
-  if (img.startsWith("http://") || img.startsWith("https://")) {
-    const urlRadio = document.querySelector('input[name="profileImageMode"][value="url"]');
-    if (urlRadio) {
-      urlRadio.checked = true;
-      document.getElementById("profileImageUrlInput").value = img;
-      urlRadio.dispatchEvent(new Event("change"));
+  const urlInput = document.getElementById("profileImageUrlInput");
+  const urlRadio = document.querySelector('input[name="profileImageMode"][value="url"]');
+
+  if (img && urlRadio && urlInput) {
+    urlRadio.checked = true;
+    urlInput.value = img;
+    urlRadio.dispatchEvent(new Event("change"));
+  } else {
+    const defaultRadio = document.querySelector('input[name="profileImageMode"][value="default"]');
+    if (defaultRadio) {
+      defaultRadio.checked = true;
+      defaultRadio.dispatchEvent(new Event("change"));
     }
+    if (urlInput) urlInput.value = "";
+    profileImageFile = null;
+    const filenameSpan = document.getElementById("profileImageFilename");
+    if (filenameSpan) filenameSpan.textContent = "";
   }
 }
 

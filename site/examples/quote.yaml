@@ -1,0 +1,21 @@
+# Example: quote tile — blockquote with optional attribution
+# Copy the tile block into your config.yaml tiles list
+
+profile:
+  name: Avery Storm
+  bio: Ethical celebrity
+  image: avatar.jpg
+
+theme: dark
+
+tiles:
+  - type: heading
+    text: Favourite quote
+
+  - type: quote
+    content: Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.
+    attribution: "— Martin Luther King Jr."
+
+  - type: quote
+    content: This is a quote tile for formatting, without the optional attribution.
+    

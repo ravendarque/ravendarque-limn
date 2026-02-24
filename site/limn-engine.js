@@ -56,11 +56,17 @@ export function renderProfile({ name, bio, image }) {
   return el;
 }
 
+export function getInitials(name) {
+  const n = (name || "").trim();
+  if (!n) return "?";
+  return n.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+}
+
 export function makeInitials(name) {
   const div = document.createElement("div");
   div.className = "profile-initials";
   div.setAttribute("aria-hidden", "true");
-  div.textContent = name.trim().split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+  div.textContent = getInitials(name);
   return div;
 }
 

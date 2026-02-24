@@ -32,6 +32,11 @@ pages:
           Body copy for bios, announcements, or whatever you need. Supports
           multi-line content with YAML block scalars (> or |).
       - type: heading
+        text: Quote
+      - type: quote
+        content: Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.
+        attribution: "— Martin Luther King Jr."
+      - type: heading
         text: Image
       - type: text
         content: >

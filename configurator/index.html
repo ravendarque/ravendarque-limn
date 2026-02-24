@@ -14,6 +14,12 @@
     <h1>Limn configurator</h1>
     <p class="subtitle">Fill in your details, then download a ready-to-deploy zip.</p>
 
+    <div id="loadConfigWrap" class="load-config-wrap">
+      <input type="file" id="loadConfigFile" accept=".yaml,.yml" hidden>
+      <button type="button" class="btn btn-secondary" id="loadConfigBtn"><i class="ti ti-upload"></i> Load config</button>
+      <span id="loadConfigStatus" class="load-config-status"></span>
+    </div>
+
     <form id="form">
       <label for="name">Display Name</label>
       <input type="text" id="name" required placeholder="Your name" maxlength="80">

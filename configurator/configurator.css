@@ -12,6 +12,22 @@
   font-size: 0.9rem;
   margin-bottom: 24px;
 }
+.configurator .load-config-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.configurator .load-config-status {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+.configurator .load-config-status.success {
+  color: var(--color-accent);
+}
+.configurator .load-config-status.error {
+  color: #ff6b6b;
+}
 .configurator label {
   display: block;
   font-size: 0.85rem;
@@ -61,6 +77,10 @@
 .configurator .profile-image-url {
   margin-bottom: 12px;
 }
+.configurator .profile-image-upload[hidden],
+.configurator .profile-image-url[hidden] {
+  display: none !important;
+}
 .configurator .profile-image-upload {
   display: flex;
   align-items: center;
@@ -77,12 +97,25 @@
 .configurator .profile-image-preview {
   margin-top: 12px;
 }
-.configurator .profile-image-preview img {
+.configurator .profile-image-preview img,
+.configurator .profile-image-preview-initials {
   width: 80px;
   height: 80px;
-  object-fit: cover;
   border-radius: 50%;
   border: 2px solid var(--color-border);
+}
+.configurator .profile-image-preview img {
+  object-fit: cover;
+}
+.configurator .profile-image-preview-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .configurator .links-section,

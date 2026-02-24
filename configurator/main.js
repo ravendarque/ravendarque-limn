@@ -4,9 +4,11 @@ import { getConfigState, loadConfigState, saveConfigState, debouncedSave } from 
 import { createPageGroup, updatePageMoveButtons, initPageManager } from "./page-manager.js";
 import { createTileBlock } from "./configuratiles/registry.js";
 import { initProfileImagePicker, getProfileImageConfig, PROFILE_IMAGE_FILENAME } from "./profile-image.js";
+import { initLoadConfig } from "./load-config.js";
 
 initPageManager();
 initProfileImagePicker();
+initLoadConfig();
 
 function initConfigurator() {
   try {

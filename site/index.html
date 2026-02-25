@@ -6,6 +6,7 @@
   <title>Limn</title>
   <link rel="stylesheet" href="limn-engine.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.36.1/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
   <link rel="stylesheet" href="tiles/tiles.css">
 </head>
 <body>
@@ -47,9 +48,12 @@
     }, 8000);
   </script>
   <footer style="text-align:center;padding:24px 16px;font-size:0.8rem;color:var(--color-text-muted)">
-    Created with <a href="https://github.com/ravendarque/ravendarque-limn/wiki" style="color:var(--color-accent);text-decoration:none">Limn</a> by <a href="https://github.com/ravendarque" style="color:var(--color-accent);text-decoration:none">Ravendarque</a>. <a href="https://ravendarque.github.io/ravendarque-limn/configurator/" style="color:var(--color-accent);text-decoration:none">Create your own here</a>.
+    <p style="margin:0 0 8px 0">Created with <a href="https://github.com/ravendarque/ravendarque-limn/wiki" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);text-decoration:none">Limn</a> by <a href="https://github.com/ravendarque" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);text-decoration:none">Ravendarque</a>.</p>
+    <p style="margin:0"><a href="https://ravendarque.github.io/ravendarque-limn/configurator/" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);text-decoration:none"><i class="ti ti-tool" style="font-size:0.9em;vertical-align:middle;margin-right:4px"></i>Create your own here</a></p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="prism-languages.js"></script>
   <script type="module">
     import { load } from "https://esm.sh/js-yaml@4";
     import { applyTheme, loadTheme, renderProfile, showError } from "./limn-engine.js";

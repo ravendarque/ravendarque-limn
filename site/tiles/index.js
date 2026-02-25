@@ -7,6 +7,7 @@ import * as linksbar from "./linksbar.js";
 import * as pagenav from "./pagenav.js";
 import * as calendar from "./calendar.js";
 import * as quote from "./quote.js";
+import * as codeblock from "./codeblock.js";
 
 const tileRenderers = {
   heading,
@@ -18,6 +19,7 @@ const tileRenderers = {
   pagenav,
   calendar,
   quote,
+  codeblock,
 };
 
 export function validateTiles(config, prefix = "") {

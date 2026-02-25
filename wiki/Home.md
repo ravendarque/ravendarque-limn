@@ -12,7 +12,7 @@ One YAML file. Edit it. Push it. Done. That's the whole pitch.
 
 - **Your name and photo** (or initials if you skip the photo)
 - **A short bio**
-- **Tiles** — links, text, images, a calendar, video/audio embeds
+- **Tiles** — links, text, quotes, code snippets, images, a calendar, video/audio embeds
 
 Everything lives in `config.yaml`. No build step. No database. No monthly fees. Just static files.
 
@@ -27,7 +27,7 @@ Everything lives in `config.yaml`. No build step. No database. No monthly fees. 
 | [Profile](Profile) | Name, bio, photo |
 | [Themes](Themes) | Colours and vibes |
 | [Pages](Pages) | Multiple pages, navigation |
-| [Tiles](Tiles) | Links, text, images, embeds, calendar |
+| [Tiles](Tiles) | Links, text, quotes, code blocks, images, embeds, calendar |
 | [Embeds](Embeds) | How to get embed code from popular platforms |
 | [Calendar](Calendar) | ICS files, Gist, static events |
 | [Examples](Examples) | Copy-paste reference |

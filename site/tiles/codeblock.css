@@ -1,0 +1,21 @@
+.tile-codeblock pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  overflow-x: auto;
+}
+
+.tile-codeblock code {
+  display: block;
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre;
+  padding: 0;
+}
+
+/* Fallback when no language / Prism not loaded */
+.tile-codeblock code:not([class*="language-"]) {
+  color: var(--color-text);
+}

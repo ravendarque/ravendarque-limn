@@ -7,6 +7,7 @@
   <title>Theme preview — Limn</title>
   <link rel="stylesheet" href="limn-engine.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.36.1/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
   <link rel="stylesheet" href="tiles/tiles.css">
   <style>
     #app { padding-top: 0; }
@@ -74,6 +75,8 @@
     <div id="loading">Loading…</div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="prism-languages.js"></script>
   <script type="module">
     import { applyTheme, loadTheme, renderProfile, showError } from "./limn-engine.js";
     import { renderTile } from "./tiles/index.js";

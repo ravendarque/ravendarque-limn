@@ -1,0 +1,21 @@
+# Example: codeblock tile — monospace code snippets
+# Copy the tile block into your config.yaml tiles list
+
+profile:
+  name: Avery Storm
+  bio: Ethical celebrity
+  image: avatar.jpg
+
+theme: dark
+
+tiles:
+  - type: heading
+    text: Code block
+
+  - type: codeblock
+    content: |
+      pages:
+        - id: home
+          title: Home
+          tiles: []
+    language: yaml

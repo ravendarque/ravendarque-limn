@@ -21,18 +21,18 @@ export const PICKER_ICONS = [
 export { getTablerIconName } from "../site/tiles/icons.js";
 
 export const FILES = [
-  "index.html", "limn-engine.css", "limn-engine.js", "themes.html",
+  "index.html", "limn-engine.css", "limn-engine.js", "prism-languages.js", "themes.html",
   "avatar.jpg", "example.ics",
   "tiles/base.css", "tiles/calendar.css", "tiles/calendar.js",
   "tiles/embed.css", "tiles/embed.js", "tiles/heading.css", "tiles/heading.js",
   "tiles/image.css", "tiles/image.js", "tiles/index.js", "tiles/icons.js", "tiles/link.css",
   "tiles/link.js", "tiles/linksbar.css", "tiles/linksbar.js", "tiles/pagenav.js",
-  "tiles/quote.css", "tiles/quote.js", "tiles/text.css", "tiles/text.js", "tiles/tiles.css", "tiles/utils.js",
+  "tiles/quote.css", "tiles/quote.js", "tiles/codeblock.css", "tiles/codeblock.js", "tiles/text.css", "tiles/text.js", "tiles/tiles.css", "tiles/utils.js",
   "themes/catppuccin.yaml", "themes/dark.yaml", "themes/dracula.yaml",
   "themes/gruvbox.yaml", "themes/light.yaml", "themes/mocha.yaml",
   "themes/monokai.yaml", "themes/nord.yaml", "themes/pink-pony-club.yaml",
   "themes/retro.yaml", "themes/scarlet.yaml", "themes/solarized.yaml",
-  "examples/calendar.yaml", "examples/embed.yaml", "examples/heading.yaml",
+  "examples/calendar.yaml", "examples/codeblock.yaml", "examples/embed.yaml", "examples/heading.yaml",
   "examples/image.yaml", "examples/link.yaml", "examples/linksbar.yaml",
   "examples/quote.yaml", "examples/text.yaml"
 ];

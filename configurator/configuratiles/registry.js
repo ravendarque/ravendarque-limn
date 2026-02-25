@@ -8,6 +8,7 @@ import pagenav from "./pagenav.js";
 import embed from "./embed.js";
 import calendar from "./calendar.js";
 import quote from "./quote.js";
+import codeblock from "./codeblock.js";
 
 const CONFIGURATILE_TYPES = {
   heading,
@@ -18,7 +19,8 @@ const CONFIGURATILE_TYPES = {
   pagenav,
   embed,
   calendar,
-  quote
+  quote,
+  codeblock
 };
 
 export function createTileBlock(type, container, insertBefore) {

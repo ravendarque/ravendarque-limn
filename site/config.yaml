@@ -81,6 +81,19 @@ pages:
             url: https://yourwebsite.com
             label: Website
       - type: heading
+        text: Code block
+      - type: text
+        content: >
+          Display code snippets with monospace formatting. Use for config examples,
+          commands, or any preformatted text. language is optional.
+      - type: codeblock
+        content: |
+          pages:
+            - id: home
+              title: Home
+              tiles: []
+        language: yaml
+      - type: heading
         text: Embed
       - type: text
         content: >
@@ -105,27 +118,63 @@ pages:
         window: month
         src: example.ics
 
-  - id: links
-    title: Links
-    icon: link
+  - id: pages
+    title: Pages
+    icon: layout
     tiles:
       - type: pagenav
         surface: hide
         showLabels: true
       - type: heading
-        text: Links
-      - type: linksbar
-        surface: hide
-        items:
-          - icon: brand-instagram
-            url: https://instagram.com/yourname
-            label: Instagram
-          - icon: brand-x
-            url: https://twitter.com/yourname
-            label: Twitter
-          - icon: brand-github
-            url: https://github.com/yourname
-            label: GitHub
-          - icon: world
-            url: https://yourwebsite.com
-            label: Website
+        text: Pages
+      - type: heading
+        text: Single page
+      - type: text
+        content: >
+          Root-level tiles list, no pages key. One page, no nav.
+      - type: codeblock
+        content: |
+          profile:
+            name: You
+            image: avatar.jpg
+          theme: dark
+
+          tiles:
+            - type: heading
+              text: Welcome
+            - type: text
+              content: Your bio here.
+        language: yaml
+      - type: heading
+        text: Multiple pages
+      - type: text
+        content: >
+          Use a pages list. Add a pagenav tile for the nav. URLs use hashes (#home, #pages).
+      - type: codeblock
+        content: |
+          profile:
+            name: You
+            image: avatar.jpg
+          theme: dark
+
+          pages:
+            - id: home
+              title: Home
+              icon: home
+              tiles:
+                - type: pagenav
+                  surface: hide
+                  showLabels: true
+                - type: heading
+                  text: Home
+            - id: links
+              title: Links
+              icon: link
+              tiles:
+                - type: pagenav
+                  surface: hide
+                  showLabels: true
+                - type: linksbar
+                  surface: hide
+                  items: []
+        language: yaml

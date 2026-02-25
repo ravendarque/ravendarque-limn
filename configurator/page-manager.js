@@ -42,7 +42,7 @@ export function createPageGroup(pageId, title, icon, isHome) {
   const dropdown = pg.querySelector(".add-tile-dropdown");
 
   const options = getAddTileOptions();
-  const typeIcons = { heading: "heading", text: "article", image: "photo", link: "link", linksbar: "apps", pagenav: "layout-navbar", embed: "video", calendar: "calendar", quote: "quote" };
+  const typeIcons = { heading: "heading", text: "article", image: "photo", link: "link", linksbar: "apps", pagenav: "layout-navbar", embed: "video", calendar: "calendar", quote: "quote", codeblock: "code" };
   for (let i = 0; i < options.length; i++) {
     const opt = options[i];
     const btn = document.createElement("button");

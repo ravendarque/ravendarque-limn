@@ -2,6 +2,8 @@
 
 The building blocks. They show up in the order you list them.
 
+For the **pagenav** tile (page navigation bar), see [Pages](Pages).
+
 ---
 
 ## heading
@@ -32,6 +34,20 @@ Multi-line — use `>` to fold:
     Line one.
     Line two.
 ```
+
+---
+
+## quote
+
+Blockquote with optional attribution.
+
+```yaml
+- type: quote
+  content: Darkness cannot drive out darkness; only light can do that.
+  attribution: "— Martin Luther King Jr."
+```
+
+`attribution` is optional. Use `>` or `|` for multi-line content.
 
 ---
 
@@ -81,6 +97,29 @@ Row of icon buttons. Social links, etc.
 ```
 
 `surface: hide` strips the card background. `label` = tooltip + accessibility.
+
+---
+
+## codeblock
+
+Code snippet with syntax highlighting. Uses [Prism.js](https://prismjs.com/).
+
+```yaml
+- type: codeblock
+  content: |
+    pages:
+      - id: home
+        title: Home
+        tiles: []
+  language: yaml
+```
+
+| Field | Required | Description |
+|-------|----------|--------------|
+| `content` | Yes | The code to display. Use `|` for multi-line YAML. |
+| `language` | No | Language for highlighting. See supported languages below. |
+
+**Supported languages:** yaml, javascript, typescript, json, bash, powershell, sql, docker, toml, markdown, python, go, rust, ruby, php, csharp, java, kotlin, html, css. Use the Prism alias (e.g. `yaml`, `py`, `ts`, `cs`, `kt`).
 
 ---
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Theme preview when site/ is the deployed root. Mirrors root themes.html with relative paths. -->
+<!-- Theme preview when site/ is the deployed root. Loads index.html in iframe. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,11 +7,7 @@
   <title>Theme preview — Limn</title>
   <link rel="stylesheet" href="limn-engine.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.36.1/dist/tabler-icons.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
-  <link rel="stylesheet" href="tiles/tiles.css">
   <style>
-    #app { padding-top: 0; }
-    @media (min-width: 640px) { #app { padding-top: 0; } }
     .theme-selector {
       position: sticky;
       top: 0;
@@ -58,6 +54,12 @@
       color: var(--color-accent);
     }
 
+    #theme-preview {
+      width: 100%;
+      min-height: 80vh;
+      border: none;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -67,51 +69,19 @@
       <select id="theme-select" aria-label="Select theme">
         <option value="">Loading…</option>
       </select>
-      <a href="index.html">← Back</a>
+      <a href="../index.html">← Back</a>
     </label>
   </div>
 
-  <div id="app">
-    <div id="loading">Loading…</div>
-  </div>
+  <iframe id="theme-preview" src="index.html?theme=dark" title="Theme preview"></iframe>
 
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-  <script src="prism-languages.js"></script>
   <script type="module">
-    import { applyTheme, loadTheme, renderProfile, showError } from "./limn-engine.js";
-    import { renderTile } from "./tiles/index.js";
+    import { applyTheme, loadTheme } from "./limn-engine.js";
 
     const THEMES = [
       "dark", "scarlet", "light", "nord", "dracula", "catppuccin",
       "gruvbox", "solarized", "retro", "monokai", "pink-pony-club", "mocha"
     ];
-
-    const SAMPLE_CONFIG = {
-      profile: {
-        name: "Avery Storm",
-        bio: "Ethical celebrity. Trying to do good with what I've got.",
-        image: "avatar.jpg"
-      },
-      pages: [
-        { id: "home", title: "Home", icon: "home", tiles: [
-        { type: "linksbar", surface: "hide", items: [
-          { icon: "instagram", url: "#", label: "Instagram" },
-          { icon: "twitter", url: "#", label: "Twitter" },
-          { icon: "github", url: "#", label: "GitHub" },
-          { icon: "globe", url: "#", label: "Website" }
-        ]},
-        { type: "heading", text: "Welcome" },
-        { type: "text", content: "This is a Limn page. Edit config.yaml to make it yours. See the examples/ folder for each tile type." },
-        { type: "heading", text: "Links" },
-        { type: "link", icon: "github", url: "#", label: "GitHub" },
-        { type: "link", icon: "mail", url: "mailto:hello@example.com", label: "Get in touch" },
-        { type: "heading", text: "Photo" },
-        { type: "image", url: "avatar.jpg", alt: "Profile" },
-        { type: "heading", text: "Schedule" },
-        { type: "calendar", window: "month", src: "example.ics" }
-      ]}
-      ]
-    };
 
     function getInitialTheme() {
       const params = new URLSearchParams(location.search);
@@ -125,38 +95,25 @@
       history.replaceState({}, "", url);
     }
 
-    try {
-      const config = SAMPLE_CONFIG;
+    const select = document.getElementById("theme-select");
+    const iframe = document.getElementById("theme-preview");
 
-      const select = document.getElementById("theme-select");
-      select.innerHTML = THEMES.map(t => `<option value="${t}">${t}</option>`).join("");
+    select.innerHTML = THEMES.map(t => `<option value="${t}">${t}</option>`).join("");
 
-      let currentTheme = getInitialTheme();
-      select.value = currentTheme;
+    let currentTheme = getInitialTheme();
+    select.value = currentTheme;
+    iframe.src = "index.html?theme=" + encodeURIComponent(currentTheme);
 
-      let themeData = await loadTheme(currentTheme);
-      applyTheme(themeData);
+    const themeData = await loadTheme(currentTheme);
+    applyTheme(themeData);
 
-      const app = document.getElementById("app");
-      app.innerHTML = "";
-      app.appendChild(renderProfile(config.profile));
-
-      const tilesEl = document.createElement("div");
-      tilesEl.id = "tiles";
-      tilesEl.style.display = "contents";
-      app.appendChild(tilesEl);
-
-      config.pages[0].tiles.forEach(renderTile);
-
-      select.addEventListener("change", async () => {
-        currentTheme = select.value;
-        setUrlTheme(currentTheme);
-        themeData = await loadTheme(currentTheme);
-        applyTheme(themeData);
-      });
-    } catch (err) {
-      showError(err, "Error");
-    }
+    select.addEventListener("change", async () => {
+      currentTheme = select.value;
+      setUrlTheme(currentTheme);
+      const data = await loadTheme(currentTheme);
+      applyTheme(data);
+      iframe.contentWindow?.postMessage({ type: "limn-theme", theme: currentTheme }, "*");
+    });
   </script>
 </body>
 </html>

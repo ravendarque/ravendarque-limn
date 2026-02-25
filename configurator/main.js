@@ -1,4 +1,5 @@
 import { FILES, getBaseUrl, STORAGE_KEY } from "./constants.js";
+import { getConfigState } from "./state.js";
 import { buildConfig } from "./config-builder.js";
 import { getConfigState, loadConfigState, saveConfigState, debouncedSave } from "./state.js";
 import { createPageGroup, updatePageMoveButtons, initPageManager } from "./page-manager.js";
@@ -117,11 +118,26 @@ document.getElementById("form").onsubmit = async function(e) {
       return true;
     });
 
+    const state = getConfigState();
+    const ogTitle = state.profile.name
+      ? `${state.profile.name} x Limn: ${(state.pages[0]?.title || "Home")}`
+      : "Limn";
+    const ogDesc = (state.profile.bio || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+
     for (let i = 0; i < filesToFetch.length; i++) {
       const file = filesToFetch[i];
       const res = await fetch(baseUrl + file);
       if (!res.ok) throw new Error("Failed to fetch " + file + ": " + res.status);
-      const blob = await res.blob();
+      let blob = await res.blob();
+      if (file === "index.html") {
+        let html = await blob.text();
+        const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+        html = html.replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(ogTitle)}">`);
+        html = html.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(ogDesc)}">`);
+        html = html.replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${esc(ogTitle)}">`);
+        html = html.replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${esc(ogDesc)}">`);
+        blob = new Blob([html], { type: "text/html" });
+      }
       zip.file(file, blob);
     }
 

@@ -21,7 +21,7 @@ export const PICKER_ICONS = [
 export { getTablerIconName } from "../site/tiles/icons.js";
 
 export const FILES = [
-  "index.html", "limn-engine.css", "limn-engine.js", "prism-languages.js", "themes.html",
+  "index.html", "limn-engine.css", "limn-engine.js", "prism-languages.js",
   "avatar.jpg", "example.ics",
   "tiles/base.css", "tiles/calendar.css", "tiles/calendar.js",
   "tiles/embed.css", "tiles/embed.js", "tiles/heading.css", "tiles/heading.js",

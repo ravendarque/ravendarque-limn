@@ -125,11 +125,17 @@ Code snippet with syntax highlighting. Uses [Prism.js](https://prismjs.com/).
 
 ## embed
 
-Vimeo, SoundCloud, or any service that provides an iframe. See [Embeds](Embeds) for step-by-step instructions per platform.
+YouTube, Spotify, Vimeo, Instagram, or any service with an iframe. See [Embeds](Embeds) for details.
 
-1. On the service: **Share** → **Embed**
-2. Copy the `<iframe>...</iframe>` snippet
-3. Paste it:
+**URL (easiest):** Paste a bare URL — Limn builds the iframe.
+
+```yaml
+- type: embed
+  title: My video
+  html: 'https://www.youtube.com/watch?v=VIDEO_ID'
+```
+
+**Or** paste the iframe from **Share** → **Embed**:
 
 ```yaml
 - type: embed

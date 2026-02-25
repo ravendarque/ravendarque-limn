@@ -1,16 +1,22 @@
 # Embedding platforms
 
-How to get the embed code from popular services. Same flow for all: find **Share** or **Embed**, copy the `<iframe>`, paste into your config.
+Two ways to embed: **paste a URL** (easiest) or **paste iframe code** from the service's Share → Embed dialog.
+
+**URL support:** Paste a bare URL (YouTube, Spotify, Vimeo, DailyMotion, Loom, etc.) and Limn builds the iframe for you. No copy-paste of embed code needed. Instagram URLs also work.
 
 ---
 
 ## YouTube
 
-1. Open the video
-2. Click **Share** below the player
-3. Click **Embed**
-4. Copy the full `<iframe>...</iframe>` code
-5. Paste into config:
+**Simplest:** Paste the video URL.
+
+```yaml
+- type: embed
+  title: My video
+  html: 'https://www.youtube.com/watch?v=VIDEO_ID'
+```
+
+Or paste the iframe from **Share** → **Embed**:
 
 ```yaml
 - type: embed
@@ -131,17 +137,15 @@ How to get the embed code from popular services. Same flow for all: find **Share
 
 ## Instagram
 
-1. Open the post in a browser (instagram.com)
-2. Click **⋯** → **Embed**
-3. Copy the embed code
+**Simplest:** Paste the post or reel URL.
 
 ```yaml
 - type: embed
   title: Instagram post
-  html: '<blockquote class="instagram-media" ...></blockquote><script async src="//www.instagram.com/embed.js"></script>'
+  html: 'https://www.instagram.com/reel/ABC123/'
 ```
 
-> **Note:** Like Twitter, Instagram embeds use blockquote + script. May not render in all contexts.
+Limn converts URLs to iframes automatically — no blockquote+script (which can fail in some browsers).
 
 ---
 
@@ -189,15 +193,18 @@ How to get the embed code from popular services. Same flow for all: find **Share
 
 ---
 
-## Generic flow
+## Supported URL formats
 
-Most platforms follow the same pattern:
+| Platform | URL example |
+|----------|-------------|
+| YouTube | `youtube.com/watch?v=ID`, `youtu.be/ID` |
+| Spotify | `open.spotify.com/track/ID`, `spotify:track:ID` |
+| Vimeo | `vimeo.com/ID` |
+| DailyMotion | `dailymotion.com/video/ID` |
+| Loom | `loom.com/share/ID` |
+| Instagram | `instagram.com/p/ID` or `instagram.com/reel/ID` |
 
-1. **Share** or **⋯** (menu) → **Embed**
-2. Copy the full snippet (usually `<iframe>...</iframe>`)
-3. Paste as the `html` value in your config — keep the quotes
-
-If a service uses `<blockquote>` + `<script>` instead of an iframe, it may not work — Limn renders the HTML but some scripts expect a specific environment. When in doubt, use a **link** tile instead.
+Paste any of these as the `html` value. For other platforms, use the iframe from **Share** → **Embed**.
 
 ---
 

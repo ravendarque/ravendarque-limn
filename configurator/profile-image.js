@@ -8,6 +8,7 @@ import { getInitials } from "../site/limn-engine.js";
 const PROFILE_IMAGE_FILENAME = "avatar.jpg";
 
 let profileImageFile = null;
+let lastObjectUrl = null;
 
 export function initProfileImagePicker() {
   const modeRadios = document.querySelectorAll('input[name="profileImageMode"]');
@@ -26,7 +27,31 @@ export function initProfileImagePicker() {
     updatePreview();
   }
 
+  function isAbsoluteUrl(val) {
+    return val.startsWith("http://") || val.startsWith("https://");
+  }
+
+  function appendPlaceholderIcon(container) {
+    const span = document.createElement("span");
+    span.className = "profile-image-preview-placeholder";
+    span.innerHTML = '<i class="ti ti-photo"></i>';
+    span.setAttribute("aria-hidden", "true");
+    container.appendChild(span);
+  }
+
+  function appendBrokenIcon(container) {
+    const span = document.createElement("span");
+    span.className = "profile-image-preview-broken";
+    span.innerHTML = '<i class="ti ti-photo-off"></i>';
+    span.setAttribute("aria-hidden", "true");
+    container.appendChild(span);
+  }
+
   function updatePreview() {
+    if (lastObjectUrl) {
+      URL.revokeObjectURL(lastObjectUrl);
+      lastObjectUrl = null;
+    }
     preview.innerHTML = "";
     const mode = document.querySelector('input[name="profileImageMode"]:checked')?.value || "default";
     if (mode === "default") {
@@ -37,18 +62,42 @@ export function initProfileImagePicker() {
       div.setAttribute("aria-hidden", "true");
       div.textContent = initials;
       preview.appendChild(div);
-    } else if (mode === "upload" && profileImageFile) {
-      const img = document.createElement("img");
-      img.src = URL.createObjectURL(profileImageFile);
-      img.alt = "Profile preview";
-      preview.appendChild(img);
+    } else if (mode === "upload") {
+      if (profileImageFile) {
+        lastObjectUrl = URL.createObjectURL(profileImageFile);
+        const img = document.createElement("img");
+        img.src = lastObjectUrl;
+        img.alt = "Profile preview";
+        img.onerror = function() {
+          if (img.parentNode !== preview) return;
+          if (lastObjectUrl) URL.revokeObjectURL(lastObjectUrl);
+          lastObjectUrl = null;
+          img.remove();
+          appendBrokenIcon(preview);
+        };
+        preview.appendChild(img);
+      } else {
+        appendPlaceholderIcon(preview);
+      }
     } else if (mode === "url") {
       const val = urlInput.value.trim();
-      if (val.startsWith("http://") || val.startsWith("https://")) {
+      if (isAbsoluteUrl(val)) {
         const img = document.createElement("img");
         img.src = val;
         img.alt = "Profile preview";
+        img.onerror = function() {
+          if (img.parentNode !== preview) return;
+          img.remove();
+          appendBrokenIcon(preview);
+        };
         preview.appendChild(img);
+      } else if (val) {
+        const span = document.createElement("span");
+        span.className = "profile-image-preview-selfhosted";
+        span.textContent = "Self hosted";
+        preview.appendChild(span);
+      } else {
+        appendPlaceholderIcon(preview);
       }
     }
   }
@@ -63,13 +112,8 @@ export function initProfileImagePicker() {
 
   fileInput.addEventListener("change", function() {
     const file = fileInput.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      profileImageFile = file;
-      filenameSpan.textContent = file.name;
-    } else {
-      profileImageFile = null;
-      filenameSpan.textContent = "";
-    }
+    profileImageFile = file || null;
+    filenameSpan.textContent = file ? file.name : "";
     updatePreview();
   });
 
@@ -96,7 +140,7 @@ export function initProfileImagePicker() {
  */
 export function getProfileImageConfig() {
   const mode = document.querySelector('input[name="profileImageMode"]:checked')?.value || "default";
-  if (mode === "upload" && profileImageFile) {
+  if (mode === "upload" && profileImageFile && profileImageFile.type.startsWith("image/")) {
     return { image: PROFILE_IMAGE_FILENAME, mode: "upload", file: profileImageFile };
   }
   if (mode === "url") {

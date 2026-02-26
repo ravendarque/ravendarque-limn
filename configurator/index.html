@@ -29,27 +29,29 @@
 
       <label>Profile image</label>
       <div class="profile-image-picker">
-        <div class="profile-image-mode">
-          <label class="profile-image-mode-opt">
-            <input type="radio" name="profileImageMode" value="default" checked>
-            <span>Default</span>
-          </label>
-          <label class="profile-image-mode-opt">
-            <input type="radio" name="profileImageMode" value="upload">
-            <span>Upload</span>
-          </label>
-          <label class="profile-image-mode-opt">
-            <input type="radio" name="profileImageMode" value="url">
-            <span>URL</span>
-          </label>
-        </div>
-        <div class="profile-image-upload" id="profileImageUpload" hidden>
-          <input type="file" id="profileImageFile" accept="image/*" hidden>
-          <button type="button" class="btn btn-secondary" id="profileImageFileBtn"><i class="ti ti-upload"></i> Choose file</button>
-          <span class="profile-image-filename" id="profileImageFilename"></span>
-        </div>
-        <div class="profile-image-url" id="profileImageUrl" hidden>
-          <input type="text" id="profileImageUrlInput" placeholder="https://example.com/photo.jpg" maxlength="1000">
+        <div class="profile-image-controls">
+          <div class="profile-image-mode">
+            <label class="profile-image-mode-opt">
+              <input type="radio" name="profileImageMode" value="default" checked>
+              <span>Default</span>
+            </label>
+            <label class="profile-image-mode-opt">
+              <input type="radio" name="profileImageMode" value="upload">
+              <span>Upload</span>
+            </label>
+            <label class="profile-image-mode-opt">
+              <input type="radio" name="profileImageMode" value="url">
+              <span>URL</span>
+            </label>
+          </div>
+          <div class="profile-image-upload" id="profileImageUpload" hidden>
+            <input type="file" id="profileImageFile" accept="image/*" hidden>
+            <button type="button" class="btn btn-secondary" id="profileImageFileBtn"><i class="ti ti-upload"></i> Choose file</button>
+            <span class="profile-image-filename" id="profileImageFilename"></span>
+          </div>
+          <div class="profile-image-url" id="profileImageUrl" hidden>
+            <input type="text" id="profileImageUrlInput" placeholder="https://example.com/photo.jpg" maxlength="1000">
+          </div>
         </div>
         <div class="profile-image-preview" id="profileImagePreview"></div>
       </div>

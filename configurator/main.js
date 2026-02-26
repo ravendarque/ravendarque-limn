@@ -1,7 +1,6 @@
 import { FILES, getBaseUrl, STORAGE_KEY } from "./constants.js";
-import { getConfigState } from "./state.js";
-import { buildConfig } from "./config-builder.js";
 import { getConfigState, loadConfigState, saveConfigState, debouncedSave } from "./state.js";
+import { buildConfig } from "./config-builder.js";
 import { createPageGroup, updatePageMoveButtons, initPageManager } from "./page-manager.js";
 import { createTileBlock } from "./configuratiles/registry.js";
 import { initProfileImagePicker, getProfileImageConfig, PROFILE_IMAGE_FILENAME } from "./profile-image.js";

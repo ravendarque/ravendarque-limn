@@ -50,12 +50,21 @@
   outline-offset: 2px;
 }
 .configurator .profile-image-picker {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
   margin-bottom: 16px;
+}
+.configurator .profile-image-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
 }
 .configurator .profile-image-mode {
   display: flex;
   gap: 16px;
-  margin-bottom: 12px;
 }
 .configurator .profile-image-mode-opt {
   display: flex;
@@ -75,7 +84,7 @@
 }
 .configurator .profile-image-upload,
 .configurator .profile-image-url {
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 .configurator .profile-image-upload[hidden],
 .configurator .profile-image-url[hidden] {
@@ -93,12 +102,17 @@
 }
 .configurator .profile-image-url input {
   margin-bottom: 0;
+  width: 100%;
+  max-width: 320px;
 }
 .configurator .profile-image-preview {
-  margin-top: 12px;
+  flex-shrink: 0;
 }
 .configurator .profile-image-preview img,
-.configurator .profile-image-preview-initials {
+.configurator .profile-image-preview-initials,
+.configurator .profile-image-preview-selfhosted,
+.configurator .profile-image-preview-placeholder,
+.configurator .profile-image-preview-broken {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -116,6 +130,26 @@
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+}
+.configurator .profile-image-preview-selfhosted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 8px;
+}
+.configurator .profile-image-preview-placeholder,
+.configurator .profile-image-preview-broken {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 2rem;
 }
 
 .configurator .links-section,

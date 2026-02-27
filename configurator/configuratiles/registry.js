@@ -39,29 +39,41 @@ export function createTileBlock(type, container, insertBefore) {
   const body = block.querySelector(".tile-block-body");
   def.renderBody(body);
 
+  function prevTileBlock(el) {
+    let p = el.previousElementSibling;
+    while (p && !p.classList.contains("tile-block")) p = p.previousElementSibling;
+    return p;
+  }
+  function nextTileBlock(el) {
+    let n = el.nextElementSibling;
+    while (n && !n.classList.contains("tile-block")) n = n.nextElementSibling;
+    return n;
+  }
   function updateAllMoveButtons() {
     stack.querySelectorAll(".tile-block").forEach(function(b) {
       const up = b.querySelector(".tile-move-up");
       const down = b.querySelector(".tile-move-down");
-      if (up) up.disabled = !b.previousElementSibling;
-      if (down) down.disabled = !b.nextElementSibling;
+      if (up) up.disabled = !prevTileBlock(b);
+      if (down) down.disabled = !nextTileBlock(b);
     });
   }
   block.querySelector(".tile-move-up").onclick = function() {
-    const prev = block.previousElementSibling;
+    const prev = prevTileBlock(block);
     if (prev) {
       stack.insertBefore(block, prev);
       updateAllMoveButtons();
     }
   };
   block.querySelector(".tile-move-down").onclick = function() {
-    const next = block.nextElementSibling;
+    const next = nextTileBlock(block);
     if (next) {
       stack.insertBefore(next, block);
       updateAllMoveButtons();
     }
   };
   block.querySelector(".tile-remove").onclick = function() {
+    const next = block.nextElementSibling;
+    if (next && next.classList.contains("add-tile-slot")) next.remove();
     block.remove();
     updateAllMoveButtons();
   };
@@ -103,4 +115,16 @@ export function getAddTileOptions() {
   return Object.entries(CONFIGURATILE_TYPES).map(function(entry) {
     return { type: entry[0], label: entry[1].label };
   });
+}
+
+export function createAddTileSlot() {
+  const typeIcons = { heading: "heading", text: "article", image: "photo", link: "link", linksbar: "apps", pagenav: "layout-navbar", embed: "video", calendar: "calendar", quote: "quote", codeblock: "code" };
+  const options = getAddTileOptions().map(function(o) {
+    const icon = typeIcons[o.type] || "link";
+    return '<button type="button" class="add-tile-option add-tile-slot-option" data-type="' + o.type.replace(/"/g, "&quot;") + '" role="menuitem"><i class="ti ti-' + icon + '"></i> ' + o.label.replace(/</g, "&lt;") + '</button>';
+  }).join("");
+  const slot = document.createElement("div");
+  slot.className = "add-tile-slot";
+  slot.innerHTML = '<button type="button" class="add-tile-slot-btn" title="Add tile" aria-haspopup="true" aria-expanded="false"><i class="ti ti-plus"></i></button><div class="add-tile-slot-dropdown" role="menu">' + options + '</div>';
+  return slot;
 }

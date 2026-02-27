@@ -1,7 +1,6 @@
 import { WIKI_BASE } from "./constants.js";
 import { openPicker, updateIconTrigger, initIconPicker } from "./icon-picker.js";
-import { createTileBlock } from "./configuratiles/registry.js";
-import { getAddTileOptions } from "./configuratiles/registry.js";
+import { createTileBlock, createAddTileSlot, getAddTileOptions } from "./configuratiles/registry.js";
 
 export function updatePageTitleBar(pg) {
   const label = pg.querySelector(".page-title-label");
@@ -36,27 +35,13 @@ export function createPageGroup(pageId, title, icon, isHome) {
   const titleEsc = title.replace(/"/g, "&quot;");
   const idEsc = pageId.replace(/"/g, "&quot;");
 
-  pg.innerHTML = '<div class="page-title-bar"><span class="page-title-label"><i class="ti ti-' + iconEsc + '"></i> ' + titleEsc + '</span><a href="' + WIKI_BASE + '/Pages" target="_blank" rel="noopener noreferrer" class="tile-help-link" title="View docs"><i class="ti ti-help-circle"></i></a><div class="tile-block-actions page-actions"><button type="button" class="btn btn-secondary page-move-up" title="Move up"><i class="ti ti-chevron-up"></i></button><button type="button" class="btn btn-secondary page-move-down" title="Move down"><i class="ti ti-chevron-down"></i></button><button type="button" class="btn btn-secondary page-remove" title="Remove">×</button></div></div><div class="page-header"><div class="page-header-fields"><div class="page-header-field"><button type="button" class="btn btn-secondary icon-picker-trigger page-icon-trigger" title="Pick icon"><i class="ti ti-' + iconEsc + '"></i></button><input type="hidden" class="page-icon-input" value="' + iconEsc + '"></div><div class="page-header-field"><label>ID</label><input type="text" class="page-id-input" placeholder="home" value="' + idEsc + '" pattern="[a-z0-9_-]+" title="Lowercase letters, numbers, hyphens, underscores only" maxlength="64"></div><div class="page-header-field"><label>Title</label><input type="text" class="page-title-input" placeholder="Home" value="' + titleEsc + '" maxlength="80"></div><div class="page-header-field page-header-field-nav"><label>Navigation</label><label class="toggle-switch"><input type="checkbox" class="page-show-in-nav" checked><span class="toggle-slider"></span></label></div></div></div><div class="page-tiles"></div><div class="add-tile-wrap"><button type="button" class="btn btn-secondary add-tile-btn-main" aria-haspopup="true" aria-expanded="false"><i class="ti ti-circle-plus"></i> Add tile <i class="ti ti-chevron-down add-tile-chevron"></i></button><div class="add-tile-dropdown" role="menu"></div></div>';
+  pg.innerHTML = '<div class="page-title-bar"><span class="page-title-label"><i class="ti ti-' + iconEsc + '"></i> ' + titleEsc + '</span><a href="' + WIKI_BASE + '/Pages" target="_blank" rel="noopener noreferrer" class="tile-help-link" title="View docs"><i class="ti ti-help-circle"></i></a><div class="tile-block-actions page-actions"><button type="button" class="btn btn-secondary page-move-up" title="Move up"><i class="ti ti-chevron-up"></i></button><button type="button" class="btn btn-secondary page-move-down" title="Move down"><i class="ti ti-chevron-down"></i></button><button type="button" class="btn btn-secondary page-remove" title="Remove">×</button></div></div><div class="page-header"><div class="page-header-fields"><div class="page-header-field"><button type="button" class="btn btn-secondary icon-picker-trigger page-icon-trigger" title="Pick icon"><i class="ti ti-' + iconEsc + '"></i></button><input type="hidden" class="page-icon-input" value="' + iconEsc + '"></div><div class="page-header-field"><label>ID</label><input type="text" class="page-id-input" placeholder="home" value="' + idEsc + '" pattern="[a-z0-9_-]+" title="Lowercase letters, numbers, hyphens, underscores only" maxlength="64"></div><div class="page-header-field"><label>Title</label><input type="text" class="page-title-input" placeholder="Home" value="' + titleEsc + '" maxlength="80"></div><div class="page-header-field page-header-field-nav"><label>Navigation</label><label class="toggle-switch"><input type="checkbox" class="page-show-in-nav" checked><span class="toggle-slider"></span></label></div></div></div><div class="page-tiles"></div>';
 
   const tilesContainer = pg.querySelector(".page-tiles");
-  const dropdown = pg.querySelector(".add-tile-dropdown");
-
-  const options = getAddTileOptions();
-  const typeIcons = { heading: "heading", text: "article", image: "photo", link: "link", linksbar: "apps", pagenav: "layout-navbar", embed: "video", calendar: "calendar", quote: "quote", codeblock: "code" };
-  for (let i = 0; i < options.length; i++) {
-    const opt = options[i];
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "add-tile-option";
-    btn.setAttribute("role", "menuitem");
-    btn.dataset.type = opt.type;
-    const iconName = typeIcons[opt.type] || "link";
-    btn.innerHTML = '<i class="ti ti-' + iconName + '"></i> ' + opt.label;
-    dropdown.appendChild(btn);
-  }
+  tilesContainer.appendChild(createAddTileSlot());
 
   pg.onclick = function(e) {
-    if (e.target.closest(".add-tile-wrap")) return;
+    if (e.target.closest(".add-tile-slot")) return;
     document.querySelectorAll(".page-group.selected").forEach(function(p) { p.classList.remove("selected"); });
     pg.classList.add("selected");
   };

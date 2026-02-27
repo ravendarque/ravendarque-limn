@@ -160,23 +160,7 @@
 .configurator .tiles-section > label {
   margin-bottom: 4px;
 }
-.configurator .add-tile-wrap {
-  position: relative;
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
-}
-.configurator .page-group .add-tile-wrap {
-  margin-top: 0;
-  padding: 12px;
-  padding-top: 0;
-}
-.configurator .page-group .add-tile-dropdown {
-  left: 50%;
-  transform: translateX(-50%);
-}
 .configurator .add-page-btn,
-.configurator .add-tile-btn-main,
 .configurator .add-link {
   padding: 10px 16px;
   font-size: 0.9rem;
@@ -185,19 +169,40 @@
   align-items: center;
   gap: 6px;
 }
-.configurator .add-tile-btn-main .add-tile-chevron {
+.configurator .add-tile-slot {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+.configurator .add-tile-slot:not(:first-child) {
+  margin-top: -12px;
+}
+.configurator .add-tile-slot-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.9rem;
-  opacity: 0.85;
-  margin-left: 2px;
-  transition: transform 0.2s;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
-.configurator .add-tile-wrap.open .add-tile-chevron {
-  transform: rotate(180deg);
+.configurator .add-tile-slot-btn:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
 }
-.configurator .add-tile-dropdown {
+.configurator .add-tile-slot-dropdown {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   margin-top: 6px;
   min-width: 200px;
   background: var(--color-surface);
@@ -208,7 +213,7 @@
   z-index: 100;
   display: none;
 }
-.configurator .add-tile-dropdown.open {
+.configurator .add-tile-slot-dropdown.open {
   display: block;
 }
 .configurator .add-tile-option {
@@ -233,6 +238,9 @@
   font-size: 1.1rem;
   color: var(--color-text-muted);
   flex-shrink: 0;
+}
+.configurator .add-tile-slot .add-tile-option {
+  border-radius: 6px;
 }
 .configurator .tile-block {
   margin-bottom: 12px;
@@ -300,6 +308,11 @@
   font-size: 0.85rem;
   color: var(--color-text-muted);
   margin: -4px 0 8px 0;
+}
+.configurator .embed-hint {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 6px 0 0 0;
 }
 .configurator .page-group {
   margin-bottom: 20px;

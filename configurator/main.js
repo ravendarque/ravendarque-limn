@@ -2,7 +2,7 @@ import { FILES, getBaseUrl, STORAGE_KEY } from "./constants.js";
 import { getConfigState, loadConfigState, saveConfigState, debouncedSave } from "./state.js";
 import { buildConfig } from "./config-builder.js";
 import { createPageGroup, updatePageMoveButtons, initPageManager } from "./page-manager.js";
-import { createTileBlock } from "./configuratiles/registry.js";
+import { createTileBlock, createAddTileSlot } from "./configuratiles/registry.js";
 import { initProfileImagePicker, getProfileImageConfig, PROFILE_IMAGE_FILENAME } from "./profile-image.js";
 import { initLoadConfig } from "./load-config.js";
 
@@ -24,50 +24,61 @@ function initConfigurator() {
 initConfigurator();
 
 document.addEventListener("click", function(e) {
-  const btn = e.target.closest(".add-tile-btn-main");
-  if (btn) {
+  const slotBtn = e.target.closest(".add-tile-slot-btn");
+  if (slotBtn) {
     e.stopPropagation();
-    const wrap = btn.closest(".add-tile-wrap");
-    const dropdown = wrap?.querySelector(".add-tile-dropdown");
-    if (!wrap || !dropdown) return;
+    const slot = slotBtn.closest(".add-tile-slot");
+    const dropdown = slot?.querySelector(".add-tile-slot-dropdown");
+    if (!slot || !dropdown) return;
     const isOpen = dropdown.classList.contains("open");
-    document.querySelectorAll(".add-tile-dropdown.open").forEach(function(d) { d.classList.remove("open"); });
-    document.querySelectorAll(".add-tile-wrap.open").forEach(function(w) { w.classList.remove("open"); });
+    document.querySelectorAll(".add-tile-slot-dropdown.open").forEach(function(d) { d.classList.remove("open"); });
+    document.querySelectorAll(".add-tile-slot.open").forEach(function(s) { s.classList.remove("open"); });
+    document.querySelectorAll(".add-tile-slot-btn[aria-expanded='true']").forEach(function(b) { b.setAttribute("aria-expanded", "false"); });
     if (!isOpen) {
       dropdown.classList.add("open");
-      wrap.classList.add("open");
-      btn.setAttribute("aria-expanded", "true");
+      slot.classList.add("open");
+      slotBtn.setAttribute("aria-expanded", "true");
     } else {
-      btn.setAttribute("aria-expanded", "false");
+      slotBtn.setAttribute("aria-expanded", "false");
     }
     return;
   }
   const opt = e.target.closest(".add-tile-option");
   if (opt) {
     e.stopPropagation();
-    const wrap = opt.closest(".add-tile-wrap");
-    const pg = wrap?.closest(".page-group");
+    const slotOpt = opt.classList.contains("add-tile-slot-option");
+    const slot = opt.closest(".add-tile-slot");
+    const pg = slot?.closest(".page-group");
     const container = pg?.querySelector(".page-tiles");
     if (!container) return;
-    createTileBlock(opt.dataset.type, container);
-    wrap?.classList.remove("open");
-    wrap?.querySelector(".add-tile-dropdown")?.classList.remove("open");
-    const mainBtn = wrap?.querySelector(".add-tile-btn-main");
-    if (mainBtn) mainBtn.setAttribute("aria-expanded", "false");
+    const insertBefore = slot ? slot.nextElementSibling : null;
+    if (slotOpt) {
+      const newSlot = createAddTileSlot();
+      if (insertBefore) {
+        createTileBlock(opt.dataset.type, container, insertBefore);
+        container.insertBefore(newSlot, insertBefore);
+      } else {
+        createTileBlock(opt.dataset.type, container);
+        container.appendChild(newSlot);
+      }
+    }
+    slot?.classList.remove("open");
+    slot?.querySelector(".add-tile-slot-dropdown")?.classList.remove("open");
+    slot?.querySelector(".add-tile-slot-btn")?.setAttribute("aria-expanded", "false");
     return;
   }
-  if (!e.target.closest(".add-tile-wrap")) {
-    document.querySelectorAll(".add-tile-dropdown.open").forEach(function(d) { d.classList.remove("open"); });
-    document.querySelectorAll(".add-tile-wrap.open").forEach(function(w) { w.classList.remove("open"); });
-    document.querySelectorAll(".add-tile-btn-main[aria-expanded='true']").forEach(function(b) { b.setAttribute("aria-expanded", "false"); });
+  if (!e.target.closest(".add-tile-slot")) {
+    document.querySelectorAll(".add-tile-slot-dropdown.open").forEach(function(d) { d.classList.remove("open"); });
+    document.querySelectorAll(".add-tile-slot.open").forEach(function(s) { s.classList.remove("open"); });
+    document.querySelectorAll(".add-tile-slot-btn[aria-expanded='true']").forEach(function(b) { b.setAttribute("aria-expanded", "false"); });
   }
 });
 
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") {
-    document.querySelectorAll(".add-tile-dropdown.open").forEach(function(d) { d.classList.remove("open"); });
-    document.querySelectorAll(".add-tile-wrap.open").forEach(function(w) { w.classList.remove("open"); });
-    document.querySelectorAll(".add-tile-btn-main[aria-expanded='true']").forEach(function(b) { b.setAttribute("aria-expanded", "false"); });
+    document.querySelectorAll(".add-tile-slot-dropdown.open").forEach(function(d) { d.classList.remove("open"); });
+    document.querySelectorAll(".add-tile-slot.open").forEach(function(s) { s.classList.remove("open"); });
+    document.querySelectorAll(".add-tile-slot-btn[aria-expanded='true']").forEach(function(b) { b.setAttribute("aria-expanded", "false"); });
   }
 });
 
@@ -84,7 +95,7 @@ document.querySelector(".configurator").addEventListener("change", function() {
 });
 
 document.querySelector(".configurator").addEventListener("click", function(e) {
-  if (e.target.closest(".add-link, .add-tile-option, #addPageBtn, .page-remove, .tile-remove, .link-remove, .page-move-up, .page-move-down, .tile-move-up, .tile-move-down, .link-move-up, .link-move-down")) {
+  if (e.target.closest(".add-link, .add-tile-option, .add-tile-slot-btn, #addPageBtn, .page-remove, .tile-remove, .link-remove, .page-move-up, .page-move-down, .tile-move-up, .tile-move-down, .link-move-up, .link-move-down")) {
     debouncedSave(getConfigState);
   }
 });

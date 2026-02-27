@@ -1,6 +1,6 @@
 import { STORAGE_KEY } from "./constants.js";
 import { createPageGroup, updatePageMoveButtons } from "./page-manager.js";
-import { createTileBlock, populateTileBlock, extractTileFromBlock, tileToState } from "./configuratiles/registry.js";
+import { createTileBlock, createAddTileSlot, populateTileBlock, extractTileFromBlock, tileToState } from "./configuratiles/registry.js";
 import { getProfileImageConfig, setProfileImageFromState } from "./profile-image.js";
 
 export function getConfigState() {
@@ -42,9 +42,12 @@ export function loadConfigState(state) {
     const tilesContainer = createPageGroup(p.id || "home", p.title || "Home", p.icon || "home", isHome);
     const pg = tilesContainer.closest(".page-group");
     pg.querySelector(".page-show-in-nav").checked = !(p.hideFromNavbar ?? false);
+    const lastSlot = tilesContainer.querySelector(".add-tile-slot");
     for (const tile of p.tiles || []) {
       if (!tile.type) continue;
-      const block = createTileBlock(tile.type, tilesContainer);
+      const newSlot = createAddTileSlot();
+      tilesContainer.insertBefore(newSlot, lastSlot);
+      const block = createTileBlock(tile.type, tilesContainer, lastSlot);
       if (block) populateTileBlock(block, tile);
     }
   }

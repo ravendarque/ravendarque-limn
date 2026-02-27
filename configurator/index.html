@@ -25,7 +25,7 @@
       <input type="text" id="name" required placeholder="Your name" maxlength="80">
 
       <label for="bio">Bio (optional)</label>
-      <input type="text" id="bio" placeholder="A short line about you" maxlength="300">
+      <textarea id="bio" placeholder="A short line about you" rows="3" maxlength="300"></textarea>
 
       <label>Profile image</label>
       <div class="profile-image-picker">
@@ -36,8 +36,8 @@
               <span>Default</span>
             </label>
             <label class="profile-image-mode-opt">
-              <input type="radio" name="profileImageMode" value="upload">
-              <span>Upload</span>
+            <input type="radio" name="profileImageMode" value="upload">
+            <span>File</span>
             </label>
             <label class="profile-image-mode-opt">
               <input type="radio" name="profileImageMode" value="url">

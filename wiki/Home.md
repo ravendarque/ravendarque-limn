@@ -23,6 +23,7 @@ Everything lives in `config.yaml`. No build step. No database. No monthly fees. 
 | Page | What's there |
 |------|--------------|
 | [Getting Started](Getting-Started) | Configurator or release zip — pick your path |
+| [Deploying](Deploying) | Step-by-step: Netlify, Cloudflare, GitHub Pages, Vercel |
 | [Config Basics](Config-Basics) | YAML in 60 seconds |
 | [Profile](Profile) | Name, bio, photo |
 | [Themes](Themes) | Colours and vibes |

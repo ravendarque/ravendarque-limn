@@ -13,15 +13,15 @@ tiles:
   - type: linksbar
     surface: hide
     items:
-      - icon: instagram
+      - icon: brand-instagram
         url: https://instagram.com/yourname
         label: Instagram
-      - icon: twitter
+      - icon: brand-x
         url: https://twitter.com/yourname
         label: Twitter
-      - icon: github
+      - icon: brand-github
         url: https://github.com/yourname
         label: GitHub
-      - icon: globe
+      - icon: world
         url: https://yourwebsite.com
         label: Website

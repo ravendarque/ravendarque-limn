@@ -1,0 +1,27 @@
+---
+description: "Full code review — SOLID, DRY, cohesion/coupling, cleanup. Invoke when user requests a code review."
+alwaysApply: false
+---
+
+# Code review prompt
+
+When the user asks for a code review (or to "run the code review"), perform a full review with these criteria:
+
+## Criteria
+
+- **SOLID** — Single responsibility, Open/closed, Liskov, Interface segregation, Dependency inversion
+- **DRY** — No duplicated logic; single source of truth for shared behavior
+- **High cohesion / low coupling** — Modules focused; minimal cross-dependencies
+- **Clean, simple, elegant** — Gold standard; no unnecessary complexity
+- **Remove clutter** — Remove unnecessary files, debug logs, cache busters, dead code
+
+## Process
+
+1. Explore the codebase (structure, modules, responsibilities)
+2. Identify DRY violations, coupling issues, orphaned files
+3. Apply fixes: unify duplicates, extract shared logic, remove clutter
+4. Summarise changes and remaining notes
+
+## Invocation
+
+User can say: "Do a full code review", "Run the code review", or "Code review" to trigger this.

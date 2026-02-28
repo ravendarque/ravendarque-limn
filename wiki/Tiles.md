@@ -2,6 +2,8 @@
 
 The building blocks. They show up in the order you list them.
 
+For the **pagenav** tile (page navigation bar), see [Pages](Pages).
+
 ---
 
 ## heading
@@ -35,6 +37,20 @@ Multi-line — use `>` to fold:
 
 ---
 
+## quote
+
+Blockquote with optional attribution.
+
+```yaml
+- type: quote
+  content: Darkness cannot drive out darkness; only light can do that.
+  attribution: "— Martin Luther King Jr."
+```
+
+`attribution` is optional. Use `>` or `|` for multi-line content.
+
+---
+
 ## image
 
 A photo. URL or local file.
@@ -55,12 +71,12 @@ Single button. Icon optional.
 
 ```yaml
 - type: link
-  icon: github
+  icon: brand-github
   url: https://github.com/yourname
   label: GitHub
 ```
 
-`icon` = any [Lucide icon](https://lucide.dev/icons). Skip it for a plain link.
+`icon` = any [Tabler icon](https://tabler.io/icons). Skip it for a plain link.
 
 ---
 
@@ -72,10 +88,10 @@ Row of icon buttons. Social links, etc.
 - type: linksbar
   surface: hide
   items:
-    - icon: instagram
+    - icon: brand-instagram
       url: https://instagram.com/you
       label: Instagram
-    - icon: github
+    - icon: brand-github
       url: https://github.com/you
       label: GitHub
 ```
@@ -84,13 +100,42 @@ Row of icon buttons. Social links, etc.
 
 ---
 
+## codeblock
+
+Code snippet with syntax highlighting. Uses [Prism.js](https://prismjs.com/).
+
+```yaml
+- type: codeblock
+  content: |
+    pages:
+      - id: home
+        title: Home
+        tiles: []
+  language: yaml
+```
+
+| Field | Required | Description |
+|-------|----------|--------------|
+| `content` | Yes | The code to display. Use `|` for multi-line YAML. |
+| `language` | No | Language for highlighting. See supported languages below. |
+
+**Supported languages:** yaml, javascript, typescript, json, bash, powershell, sql, docker, toml, markdown, python, go, rust, ruby, php, csharp, java, kotlin, html, css. Use the Prism alias (e.g. `yaml`, `py`, `ts`, `cs`, `kt`).
+
+---
+
 ## embed
 
-Vimeo, SoundCloud, or any service that provides an iframe. See [Embeds](Embeds) for step-by-step instructions per platform.
+YouTube, Spotify, Vimeo, Instagram, or any service with an iframe. See [Embeds](Embeds) for details.
 
-1. On the service: **Share** → **Embed**
-2. Copy the `<iframe>...</iframe>` snippet
-3. Paste it:
+**URL (easiest):** Paste a bare URL — Limn builds the iframe.
+
+```yaml
+- type: embed
+  title: My video
+  html: 'https://www.youtube.com/watch?v=VIDEO_ID'
+```
+
+**Or** paste the iframe from **Share** → **Embed**:
 
 ```yaml
 - type: embed

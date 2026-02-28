@@ -1,6 +1,6 @@
 # Example: link tile — single button with optional icon
 # Copy the tile block into your config.yaml tiles list
-# icon: any Lucide icon name — https://lucide.dev/icons
+# icon: Tabler icon name — https://tabler.io/icons
 
 profile:
   name: Avery Storm
@@ -11,7 +11,7 @@ theme: dark
 
 tiles:
   - type: link
-    icon: github
+    icon: brand-github
     url: https://github.com/yourname
     label: GitHub
 

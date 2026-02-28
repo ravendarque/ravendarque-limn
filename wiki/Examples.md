@@ -6,9 +6,11 @@
 |------|----------------|
 | `heading.yaml` | Section labels |
 | `text.yaml` | Body copy |
+| `quote.yaml` | Blockquote with attribution |
 | `image.yaml` | Photo |
 | `link.yaml` | Single link buttons |
 | `linksbar.yaml` | Icon row |
+| `codeblock.yaml` | Code snippet with syntax highlighting |
 | `embed.yaml` | Video/audio embed |
 | `calendar.yaml` | Events |
 

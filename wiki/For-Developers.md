@@ -9,7 +9,7 @@ Technical notes for extending Limn.
 - **Vanilla JS** (ES modules), no build step
 - **YAML** parsed at runtime (js-yaml)
 - **Themes** → CSS custom properties
-- **CDN:** esm.sh (js-yaml, Lucide, ical.js)
+- **CDN:** esm.sh (js-yaml, ical.js), jsDelivr (Tabler Icons webfont)
 
 ---
 

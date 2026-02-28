@@ -8,7 +8,7 @@ Two paths. Pick one.
 
 No YAML. No git. Just a form and a download.
 
-1. Open the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html)
+1. Open the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator/)
 2. Fill in your name, bio, theme, and links
 3. Click **Download zip**
 4. Deploy the folder — GitHub Pages, Netlify, Cloudflare Pages, whatever you like
@@ -23,7 +23,7 @@ No YAML. No git. Just a form and a download.
 You want to edit YAML yourself. Fair enough.
 
 1. Grab the [latest release zip](https://github.com/ravendarque/ravendarque-limn/releases)
-2. Edit `config.yaml` — profile, theme, tiles
+2. Edit `config.yaml` — profile, theme, pages
 3. Steal from `examples/` for each tile type
 4. Deploy — see [Deploying](Deploying)
 

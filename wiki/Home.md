@@ -4,7 +4,7 @@
 
 One YAML file. Edit it. Push it. Done. That's the whole pitch.
 
-> **First time here?** Jump straight to the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html) — fill in your details, grab a zip, deploy anywhere. No YAML required.
+> **First time here?** Jump straight to the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator/) — fill in your details, grab a zip, deploy anywhere. No YAML required.
 
 ---
 
@@ -12,7 +12,7 @@ One YAML file. Edit it. Push it. Done. That's the whole pitch.
 
 - **Your name and photo** (or initials if you skip the photo)
 - **A short bio**
-- **Tiles** — links, text, images, a calendar, video/audio embeds
+- **Tiles** — links, text, quotes, code snippets, images, a calendar, video/audio embeds
 
 Everything lives in `config.yaml`. No build step. No database. No monthly fees. Just static files.
 
@@ -27,7 +27,8 @@ Everything lives in `config.yaml`. No build step. No database. No monthly fees. 
 | [Config Basics](Config-Basics) | YAML in 60 seconds |
 | [Profile](Profile) | Name, bio, photo |
 | [Themes](Themes) | Colours and vibes |
-| [Tiles](Tiles) | Links, text, images, embeds, calendar |
+| [Pages](Pages) | Multiple pages, navigation |
+| [Tiles](Tiles) | Links, text, quotes, code blocks, images, embeds, calendar |
 | [Embeds](Embeds) | How to get embed code from popular platforms |
 | [Calendar](Calendar) | ICS files, Gist, static events |
 | [Examples](Examples) | Copy-paste reference |

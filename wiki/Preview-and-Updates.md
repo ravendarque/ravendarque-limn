@@ -36,7 +36,7 @@ git merge limn/main
 
 Keep your `config.yaml`. Accept changes to `index.html`, `tiles/`, `themes/`.
 
-**If you used the configurator:** Download a fresh zip from the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator.html), copy your `config.yaml` into it, and redeploy.
+**If you used the configurator:** Download a fresh zip from the [configurator](https://ravendarque.github.io/ravendarque-limn/configurator/), copy your `config.yaml` into it, and redeploy.
 
 ---
 

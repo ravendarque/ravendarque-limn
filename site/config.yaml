@@ -1,0 +1,180 @@
+profile:
+  name: Avery Storm
+  bio: Ethical celebrity. Trying to do good with what I've got.
+  image: avatar.jpg
+
+theme: dark
+
+pages:
+  - id: home
+    title: Tile types
+    icon: home
+    tiles:
+      - type: pagenav
+        surface: hide
+        showLabels: true
+      - type: heading
+        text: Tile types
+      - type: text
+        content: >
+          This page shows every tile type Limn supports. Each section below
+          demonstrates one type with a short explanation.
+      - type: heading
+        text: Heading
+      - type: text
+        content: >
+          Section labels with no background. Use them to divide your page into
+          sections. surface: hide by default.
+      - type: heading
+        text: Text
+      - type: text
+        content: >
+          Body copy for bios, announcements, or whatever you need. Supports
+          multi-line content with YAML block scalars (> or |).
+      - type: heading
+        text: Quote
+      - type: quote
+        content: Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.
+        attribution: "— Martin Luther King Jr."
+      - type: heading
+        text: Image
+      - type: text
+        content: >
+          Display a photo or graphic. url can be a local filename (e.g. avatar.jpg)
+          or a full URL.
+      - type: image
+        url: avatar.jpg
+        alt: Profile photo
+      - type: heading
+        text: Link
+      - type: text
+        content: >
+          A single button with optional icon. Use Tabler icon names (tabler.io/icons).
+          Great for primary CTAs like GitHub, email, or your main site.
+      - type: link
+        icon: brand-github
+        url: https://github.com/yourname
+        label: GitHub
+      - type: link
+        icon: mail
+        url: mailto:hello@example.com
+        label: Get in touch
+      - type: heading
+        text: Links bar
+      - type: text
+        content: >
+          A row of icon buttons — ideal for social links. surface: hide removes
+          the card background. showLabels: true shows icon + label (e.g. for page nav).
+      - type: linksbar
+        surface: hide
+        items:
+          - icon: brand-instagram
+            url: https://instagram.com/yourname
+            label: Instagram
+          - icon: brand-x
+            url: https://twitter.com/yourname
+            label: Twitter
+          - icon: brand-github
+            url: https://github.com/yourname
+            label: GitHub
+          - icon: world
+            url: https://yourwebsite.com
+            label: Website
+      - type: heading
+        text: Code block
+      - type: text
+        content: >
+          Display code snippets with monospace formatting. Use for config examples,
+          commands, or any preformatted text. language is optional.
+      - type: codeblock
+        content: |
+          pages:
+            - id: home
+              title: Home
+              tiles: []
+        language: yaml
+      - type: heading
+        text: Embed
+      - type: text
+        content: >
+          Embed YouTube, Spotify, Vimeo, or any iframe. Copy the embed snippet from
+          the service's Share → Embed dialog and paste as the html value.
+      - type: embed
+        title: Video
+        html: '<iframe width="560" height="315" src="https://www.youtube.com/embed/kgErfA58ZCg?start=12" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+      - type: embed
+        title: Instagram (iframe)
+        html: 'https://www.instagram.com/reel/C3SchyOtAAC/'
+      - type: heading
+        text: Calendar
+      - type: text
+        content: >
+          Show events from an ICS file (local path or URL) or a static list.
+          window: today | week | month | year. GitHub Gist raw URLs work well for
+          hosted ICS files.
+      - type: heading
+        text: Schedule
+      - type: calendar
+        window: month
+        src: example.ics
+
+  - id: pages
+    title: Pages
+    icon: layout
+    tiles:
+      - type: pagenav
+        surface: hide
+        showLabels: true
+      - type: heading
+        text: Pages
+      - type: heading
+        text: Single page
+      - type: text
+        content: >
+          Root-level tiles list, no pages key. One page, no nav.
+      - type: codeblock
+        content: |
+          profile:
+            name: You
+            image: avatar.jpg
+          theme: dark
+
+          tiles:
+            - type: heading
+              text: Welcome
+            - type: text
+              content: Your bio here.
+        language: yaml
+      - type: heading
+        text: Multiple pages
+      - type: text
+        content: >
+          Use a pages list. Add a pagenav tile for the nav. URLs use hashes (#home, #pages).
+      - type: codeblock
+        content: |
+          profile:
+            name: You
+            image: avatar.jpg
+          theme: dark
+
+          pages:
+            - id: home
+              title: Home
+              icon: home
+              tiles:
+                - type: pagenav
+                  surface: hide
+                  showLabels: true
+                - type: heading
+                  text: Home
+            - id: links
+              title: Links
+              icon: link
+              tiles:
+                - type: pagenav
+                  surface: hide
+                  showLabels: true
+                - type: linksbar
+                  surface: hide
+                  items: []
+        language: yaml
